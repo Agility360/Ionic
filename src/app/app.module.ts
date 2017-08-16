@@ -18,6 +18,11 @@ import { NewsPage } from '../pages/news/news';
 import { ForumPage } from '../pages/forum/forum';
 import { NotificationsPage } from '../pages/notifications/notifications';
 
+import { CertificationsPage } from '../pages/certifications/certifications';
+import { EducationPage } from '../pages/education/education';
+import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
+
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -40,7 +45,10 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobsPage,
     NewsPage,
     ForumPage,
-    NotificationsPage
+    NotificationsPage,
+    CertificationsPage,
+    EducationPage,
+    JobhistoryPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +68,10 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobsPage,
     NewsPage,
     ForumPage,
-    NotificationsPage
+    NotificationsPage,
+    CertificationsPage,
+    EducationPage,
+    JobhistoryPage
   ],
   providers: [
     StatusBar,
