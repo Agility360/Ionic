@@ -13,14 +13,20 @@ import { AccountPage } from '../pages/account/account';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TasksPage } from '../pages/tasks/tasks';
 import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
+
+/* Added by McDaniel */
 import { JobsPage } from '../pages/jobs/jobs';
 import { NewsPage } from '../pages/news/news';
 import { ForumPage } from '../pages/forum/forum';
 import { NotificationsPage } from '../pages/notifications/notifications';
-
 import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
 import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
+
+import { HttpModule } from '@angular/http';
+import { baseURL } from '../shared/baseurl';
+import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
+/* Added by McDaniel */
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -52,6 +58,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -80,6 +87,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     Camera,
     User,
     Cognito,
+    ProcessHttpmsgProvider,
+    { provide: 'BaseURL', useValue: baseURL },
     DynamoDB
   ]
 })
