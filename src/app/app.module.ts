@@ -26,6 +26,10 @@ import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { HttpModule } from '@angular/http';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
+import { CandidateProvider } from '../providers/candidate';
+import { CertificationHistoryProvider } from '../providers/certificationhistory';
+import { EducationHistoryProvider } from '../providers/educationhistory';
+import { JobHistoryProvider } from '../providers/jobhistory';
 /* Added by McDaniel */
 
 
@@ -88,6 +92,10 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     User,
     Cognito,
     ProcessHttpmsgProvider,
+    CandidateProvider,
+    CertificationHistoryProvider,
+    EducationHistoryProvider,
+    JobHistoryProvider,
     { provide: 'BaseURL', useValue: baseURL },
     DynamoDB
   ]

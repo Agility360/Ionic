@@ -19,7 +19,7 @@ import 'rxjs/add/observable/throw';
 export class ProcessHttpmsgProvider {
 
   constructor(public http: Http) {
-    console.log('Hello ProcessHttpmsg Provider');
+    console.log('instantiated ProcessHttpmsgProvider');
   }
 
   public extractData(res: Response) {

@@ -21,9 +21,13 @@ export class JobHistoryProvider {
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
     console.log('instantiated JobHistoryProvider');
+    console.log('baseURL: ', baseURL);
   }
 
   getJobHistory(username: string): Observable<Job[]> {
+
+    console.log('ProcessHttpmsgProvider.getJobHistory() with username: ', username);
+
     return this.http.get(baseURL + 'candidates/' + username + '/jobhistory')
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
