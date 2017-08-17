@@ -17,7 +17,7 @@ export class ProcessHttpmsgProvider {
     console.log('Hello ProcessHttpmsg Provider');
   }
 
-  public extactData(res: Response) {
+  public extractData(res: Response) {
     let body = res.json();
     return body || { };
   }
