@@ -1,3 +1,8 @@
+/*====================================================================
+* McDaniel Aug-2017
+*
+* For Job History array from agility REST api
+* ====================================================================*/
 import { Injectable } from '@angular/core';
 import { Job } from '../shared/job';
 import { Observable } from 'rxjs/Observable';

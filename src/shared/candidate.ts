@@ -17,21 +17,3 @@ export interface Candidate {
   update_date: string;
   create_date: string;
 }
-
-
-/*
-import { Comment } from './comment';
-
-export interface Feedback {
-  firstname: string;
-  lastname: string;
-  telnum: string;
-  email: string;
-  agree: boolean;
-  contacttype: string;
-  message: string;
-  comments: Comment[];
-}
-
-export const ContactType = ['None', 'Tel', 'Email'];
-*/

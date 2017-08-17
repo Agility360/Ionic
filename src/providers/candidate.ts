@@ -1,3 +1,8 @@
+/*====================================================================
+* McDaniel Aug-2017
+*
+* For candidate entity from agility REST api
+* ====================================================================*/
 import { Injectable } from '@angular/core';
 import { Candidate } from '../shared/candidate';
 import { Observable } from 'rxjs/Observable';

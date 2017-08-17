@@ -1,3 +1,8 @@
+/*====================================================================
+* McDaniel Aug-2017
+*
+* For Education array from agility REST api
+* ====================================================================*/
 import { Injectable } from '@angular/core';
 import { Education } from '../shared/education';
 import { Observable } from 'rxjs/Observable';

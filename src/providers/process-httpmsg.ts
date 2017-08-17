@@ -1,3 +1,8 @@
+/*====================================================================
+* McDaniel Aug-2017
+*
+* low-level handler for http requests. referenced by most other providers.
+* ====================================================================*/
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
