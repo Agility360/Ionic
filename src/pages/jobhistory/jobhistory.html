@@ -15,43 +15,40 @@
 
 <ion-content padding>
 
-  List of Job History records from MySQL / REST api
   <ion-card>
-  <ion-card-content>
-    <ion-card-title color="primary">Why Provide Your Job History?</ion-card-title>
-    <p>By providing Agility 360 with accurate details of your job history we are able to blah blah blah.</p>
-    <p>Research shows that blah blah blah.</p>
-  </ion-card-content>
-</ion-card>
+    <ion-card-content>
+      <ion-card-title color="primary">Why Provide Your Job History?</ion-card-title>
+      <p>By providing Agility 360 with accurate details of your job history we are able to blah blah blah.</p>
+      <p>Research shows that blah blah blah.</p>
+    </ion-card-content>
+  </ion-card>
 
 
-<!-- --------------------------------- -->
+  <div *ngIf="jobs">
+    <ion-list *ngFor="let job of jobs">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="http://cdn.agility360app.net/" />
+            </ion-avatar>
+            <h2>{{ job.company_name || uppercase }}</h2>
+            <h3>{{ job.department }}</h3>
+            <p>Start Date: {{ job.start_date }}</p>
+            <p>End Date: {{ job.end_date }}</p>
+            <p>Final Salary: {{ job.final_salary }}</p>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
 
-<div *ngIf="leaders">
-  <ion-list *ngFor="let job of jobs">
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="http://cdn.agility360app.net/" />
-          </ion-avatar>
-          <h2>{{ job.company_name || uppercase }}</h2>
-          <h3>{{ job.department }}</h3>
-          <p>Start Date: {{ job.start_date }</p>
-          <p>End Date: {{ job.end_date }</p>
-          <p>Final Salary: {{ job.final_salary }</p>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-
-  </ion-list>
-  <div [hidden]="jobs || jobsErrMess">
-    <ion-spinner></ion-spinner>
-    <h4>Loading ... </h4>
+    </ion-list>
+    <div [hidden]="jobs || jobsErrMess">
+      <ion-spinner></ion-spinner>
+      <h4>Loading ... </h4>
+    </div>
+    <div *ngIf="jobsErrMess">
+      <h2>Error</h2>
+      <h4>{{ jobsErrMess }}</h4>
+    </div>
   </div>
-  <div *ngIf="jobsErrMess">
-    <h2>Error</h2>
-    <h4>{{ jobsErrMess }}</h4>
-  </div>
-</div>
 </ion-content>
