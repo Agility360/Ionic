@@ -36,6 +36,10 @@ export class JobhistoryDetailPage {
 
     }
 
+  processForm() {
+    console.log('JobhistoryDetailPage.processForm(): ', );
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad JobhistoryDetailPage');
   }

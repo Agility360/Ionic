@@ -4,6 +4,11 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<style>
+.editable-field {
+
+}
+</style>
 <ion-header>
 
   <ion-navbar>
@@ -15,8 +20,18 @@
 
 <ion-content padding>
 
+  <form (ngSubmit)="processForm()">
+    <ion-item>
+      <ion-label>Company Name</ion-label>
+      <ion-input type="text" [(ngModel)]="job.company_name" name="company_name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Job Title</ion-label>
+      <ion-textarea [(ngModel)]="job.job_title" name="job_title"></ion-textarea>
+    </ion-item>
+    <button ion-button type="submit" block>Save</button>
+  </form>
 
-  <p>Let the editing begin!!!! :D</p>
 
   <h2>{{ job.company_name || uppercase }}</h2>
   <p>{{ job.job_title}}</p>
