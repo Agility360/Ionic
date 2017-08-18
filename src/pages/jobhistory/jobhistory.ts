@@ -13,7 +13,10 @@ import { JobHistoryProvider } from '../../providers/jobhistory';
 export class JobhistoryPage implements OnInit {
 
   jobs: Job[];
-  jobsErrMess: string;
+  errMess: string;
+
+  username: string;
+  id: number;
 
 
   constructor(public navCtrl: NavController,
@@ -24,9 +27,18 @@ export class JobhistoryPage implements OnInit {
       private loadingCtrl: LoadingController,
       private alertCtrl: AlertController
     ) {
-
         console.log('constructor JobhistoryPage');
+  }
 
+  ngOnInit() {
+    this.jobservice.getJobHistory('mcdaniel')
+      .subscribe(jobs => this.jobs = jobs,
+        errmess => this.errMess = <any>errmess);
+  }
+
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad JobhistoryPage');
   }
 
   addJobHistory() {
@@ -36,20 +48,6 @@ export class JobhistoryPage implements OnInit {
   editJobHistory(job: Job) {
     console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
   }
-
-
-  ngOnInit() {
-    this.jobservice.getJobHistory('mcdaniel')
-      .subscribe(jobs => this.jobs = jobs,
-        errmess => this.jobsErrMess = <any>errmess);
-  }
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad JobhistoryPage');
-  }
-
-
 
 
   deleteJobHistory(job: Job) {
@@ -79,12 +77,10 @@ export class JobhistoryPage implements OnInit {
                 });
 
                 loading.present();
-/*
-                this.favoriteservice.deleteFavorite(id)
-                  .subscribe(favorites => {this.favorites = favorites; loading.dismiss(); toast.present();},
-                    errmess => {this.errMess = errmess; loading.dismiss(); });
-*/
 
+                this.jobservice.deleteJobHistory("mcdaniel", job.id)
+                  .subscribe(jobs => {this.jobs = jobs; loading.dismiss(); toast.present();},
+                    errmess => {this.errMess = errmess; loading.dismiss();});
 
                 }
               }

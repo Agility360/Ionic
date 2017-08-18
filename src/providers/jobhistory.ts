@@ -53,14 +53,15 @@ export class JobHistoryProvider {
       return true;
   }
 
-  deleteJobHistory(username: string, id: number) {
+  deleteJobHistory(username: string, id: number): Observable<Job[]> {
       var url = baseURL + 'candidates/' + username + '/jobhistory/' + id;
       var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
       this.http.delete(url, config)
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
 
-      return true;
+      /* refresh our screen data by returning a fresh query of the Job History data after the delete has executed. */
+      return this.getJobHistory(username);
   }
 
 }
