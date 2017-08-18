@@ -14,10 +14,8 @@ export class JobhistoryPage implements OnInit {
 
   jobs: Job[];
   errMess: string;
-
-  username: string;
-  id: number;
-
+  isEditMode: boolean;
+  isViewMode: boolean;
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -28,12 +26,16 @@ export class JobhistoryPage implements OnInit {
       private alertCtrl: AlertController
     ) {
         console.log('constructor JobhistoryPage');
+        this.isEditMode = false;
+        this.isViewMode = true;
   }
 
   ngOnInit() {
+
     this.jobservice.getJobHistory('mcdaniel')
       .subscribe(jobs => this.jobs = jobs,
         errmess => this.errMess = <any>errmess);
+
   }
 
 
@@ -47,8 +49,15 @@ export class JobhistoryPage implements OnInit {
 
   editJobHistory(job: Job) {
     console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
-  }
+    this.isEditMode = true;
+    this.isViewMode = false;
 
+  } /* editJobHistory() */
+
+  cancelEdit() {
+    this.isEditMode = false;
+    this.isViewMode = true;
+  }
 
   deleteJobHistory(job: Job) {
       console.log('JobhistoryPage.deleteJobHistory() - button clicked for job:', job);

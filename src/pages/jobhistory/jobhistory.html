@@ -20,7 +20,10 @@
 }
 
 .job-dates p {
-  font-weight: bold;
+}
+
+.edit-mode {
+  color: green;
 }
 
 </style>
@@ -55,9 +58,15 @@
           <ion-avatar item-start>
             <img src="http://cdn.agility360app.net/">
           </ion-avatar>
-          <h2>{{ job.company_name || uppercase }}</h2>
-          <p>{{ job.job_title}}</p>
-          <p>{{ job.department.toString().replace("None", "") }}</p>
+
+          <div class="edit-mode" [hidden]="isViewMode">
+            <h2>Hellow world.</h2>
+          </div>
+          <div [hidden]="isEditMode">
+            <h2>{{ job.company_name || uppercase }}</h2>
+            <p>{{ job.job_title}}</p>
+            <p>{{ job.department.toString().replace("None", "") }}</p>
+          </div>
         </ion-item>
 
         <ion-card-content>
@@ -117,7 +126,7 @@
 
     </ion-list>
     <div [hidden]="jobs || errMess">
-      <ion-spinner></ion-spinner>
+      <ion-spinner name="bubbles"></ion-spinner>
       <h4>Loading ... </h4>
     </div>
     <div *ngIf="errMess">
