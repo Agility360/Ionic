@@ -1,5 +1,6 @@
-# Agility 360 Ionic app
-
+![Agility360 Logo](https://raw.githubusercontent.com/Agility360/CEA/master/assets/logo/logo7868398_sm.png "Agility360 Logo")
+## Client Engagement App
+### Ionic for iOS and Android
 
 Build the app:
 ```
@@ -12,6 +13,13 @@ ionic upload
 ```
 
 View the app: http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/
+
+### Application Resources
+ - ![iOS Connect (App ID 1270138260)](https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/1270138260)
+ - Pending: Download the Android app
+ - [Front end repository and documentation](https://github.com/Agility360/Ionic)
+ - [Back end repository and documentation](https://github.com/Agility360/CEA/tree/master/backend)
+ - [REST api](https://api.agility360app.net/beta)
 
 
 ## Instructions for cloning this app in a dev environment
