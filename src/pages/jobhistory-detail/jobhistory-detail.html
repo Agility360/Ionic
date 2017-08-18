@@ -1,0 +1,57 @@
+<!--
+  Generated template for the JobhistoryDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Job</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <p>Let the editing begin!!!! :D</p>
+
+  <h2>{{ job.company_name || uppercase }}</h2>
+  <p>{{ job.job_title}}</p>
+  <p>{{ job.department.toString().replace("None", "") }}</p>
+
+  <ion-row>
+    <ion-col text-left>
+      <p>Start Date</p>
+    </ion-col>
+    <ion-col text-right>
+      <p>{{ job.start_date | date:"MMM dd, yyyy" }}</p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-left>
+      <p>End Date</p>
+    </ion-col>
+    <ion-col text-right>
+      <p>{{ job.end_date | date:"MMM dd, yyyy" }}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <p class="description" text-wrap>Portland tote bag swag quinoa cloud bread. Thundercats yr knausgaard cloud bread cornhole gentrify venmo, craft beer humblebrag XOXO kickstarter banh mi 3 wolf moon man bun lyft. Gentrify lyft coloring book cornhole godard wayfarers paleo meditation 3 wolf moon tofu taiyaki. DIY single-origin coffee polaroid hammock occupy 3 wolf moon swag ramps. Tote bag coloring book jianbing meh. Distillery bushwick single-origin coffee sriracha man bun quinoa offal seitan blog meggings mlkshk. Deep v godard tofu, ethical bitters portland small batch. Four dollar toast tumblr franzen cred vinyl, keytar lo-fi bushwick polaroid palo santo copper mug cronut pabst green juice vegan.</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="salary">
+    <ion-col>
+      <p>Final Salary:</p>
+    </ion-col>
+    <ion-col text-right>
+      <p>{{ job.final_salary | currency :$ :0 }}</p>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

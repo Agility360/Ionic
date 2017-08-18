@@ -12,6 +12,10 @@ Upload the app to Ionic Views:
 ionic upload
 ```
 
+Note: Applicant Stack api creds
+ID:careers@agility
+PW:agility36@
+
 ### Application Resources
  - ![iOS Connect (App ID 1270138260)](https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/1270138260)
  - Pending: Download the Android app

@@ -22,6 +22,7 @@ import { NotificationsPage } from '../pages/notifications/notifications';
 import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
 import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
+import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
 
 import { HttpModule } from '@angular/http';
 import { baseURL } from '../shared/baseurl';
@@ -58,7 +59,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     NotificationsPage,
     CertificationsPage,
     EducationPage,
-    JobhistoryPage
+    JobhistoryPage,
+    JobhistoryDetailPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     NotificationsPage,
     CertificationsPage,
     EducationPage,
-    JobhistoryPage
+    JobhistoryPage,
+    JobhistoryDetailPage
   ],
   providers: [
     StatusBar,

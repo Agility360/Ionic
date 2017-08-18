@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
+import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';
 
 
 @IonicPage()
@@ -14,8 +15,6 @@ export class JobhistoryPage implements OnInit {
 
   jobs: Job[];
   errMess: string;
-  isEditMode: boolean;
-  isViewMode: boolean;
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -26,8 +25,6 @@ export class JobhistoryPage implements OnInit {
       private alertCtrl: AlertController
     ) {
         console.log('constructor JobhistoryPage');
-        this.isEditMode = false;
-        this.isViewMode = true;
   }
 
   ngOnInit() {
@@ -47,17 +44,15 @@ export class JobhistoryPage implements OnInit {
     console.log('JobhistoryPage.addJobHistory() - button clicked.');
   }
 
-  editJobHistory(job: Job) {
+  editJobHistory(event, job: Job) {
     console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
-    this.isEditMode = true;
-    this.isViewMode = false;
+
+    this.navCtrl.push(JobhistoryDetailPage, {
+      job: job
+    });
 
   } /* editJobHistory() */
 
-  cancelEdit() {
-    this.isEditMode = false;
-    this.isViewMode = true;
-  }
 
   deleteJobHistory(job: Job) {
       console.log('JobhistoryPage.deleteJobHistory() - button clicked for job:', job);
