@@ -12,11 +12,10 @@ Upload the app to Ionic Views:
 ionic upload
 ```
 
-View the app: http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/
-
 ### Application Resources
  - ![iOS Connect (App ID 1270138260)](https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/1270138260)
  - Pending: Download the Android app
+ - [View the app on S3](http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/)
  - [Front end repository and documentation](https://github.com/Agility360/Ionic)
  - [Back end repository and documentation](https://github.com/Agility360/CEA/tree/master/backend)
  - [REST api](https://api.agility360app.net/beta)
