@@ -1,10 +1,25 @@
-# Ionic AWS Starter
+# Agility 360 Ionic app
 
+
+Build the app:
+```
+npm run build
+aws s3 cp --recursive ./www s3://clientengagementapp-hosting-mobilehub-1363944817
+```
+Upload the app to Ionic Views:
+```
+ionic upload
+```
+
+View the app: http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/
+
+
+## Instructions for cloning this app in a dev environment
 This Ionic starter comes with a pre-configured [AWS Mobile Hub](https://aws.amazon.com/mobile/) project set up to use Amazon DynamoDB, S3, Pinpoint, and Cognito.
 
-## Using the Starter
+### Using the Starter
 
-### Installing Ionic CLI 3.0
+#### Installing Ionic CLI 3.0
 
 This starter project requires Ionic CLI 3.0, to install, run
 
@@ -14,7 +29,7 @@ npm install -g ionic@latest
 
 Make sure to add `sudo` on Mac and Linux. If you encounter issues installing the Ionic 3 CLI, uninstall the old one using `npm uninstall -g ionic` first.
 
-### Installing AWS CLI
+#### Installing AWS CLI
 
 To install the AWS CLI, first ensure your pip installation is up to date:
 
@@ -30,7 +45,7 @@ pip install awscli
 
 Note: add `sudo` to the above commands on Mac and Linux.
 
-### Creating the Ionic Project
+#### Creating the Ionic Project
 
 To create a new Ionic project using this AWS Mobile Hub starter, run
 
@@ -48,7 +63,7 @@ cd myApp
 
 Proceed to the next steps on importing the auto-generated AWS Mobile Hub project.
 
-### Creating AWS Mobile Hub Project
+#### Creating AWS Mobile Hub Project
 
 Visit the [AWS Mobile Hub](https://aws.amazon.com/mobile/) and enter the Mobile Hub Console.
 
@@ -66,7 +81,7 @@ aws s3 cp s3://clientengagementapp-hosting-mobilehub-1363944817/aws-config.js sr
 
 Replacing `BUCKET_NAME` with the full name of the S3 bucket found above. This will copy the auto-generated `aws-config.js` file into the `src/assets` folder in your Ionic app, which pre-configures all your AWS settings automatically.
 
-### Enabling file uploads
+#### Enabling file uploads
 
 The Account page has an example of taking a photo or uploading a file to the `userfiles` S3 bucket. To enable uploads from the web, make sure to edit the CORS Policy for the S3 bucket by opening the bucket with `userfiles` in it from the Resources tab in the Mobile Hub.
 
@@ -85,7 +100,7 @@ A working, albeit liberal CORS configuration looks like
 </CORSConfiguration>
 ```
 
-### Running the app
+#### Running the app
 
 Now the app is configured and wired up to the AWS Mobile Hub and AWS services. To run the app in the browser, run
 
@@ -106,16 +121,13 @@ Or open the platform-specific project in the relevant IDE:
 open platforms/ios/MyApp.xcodeproj
 ```
 
-### Hosting app on Amazon S3
+#### Hosting app on Amazon S3
 
 Since your Ionic app is just a web app, it can be hosted as a static website in an Amazon S3 bucket. To do this, copy the web assets to the S3 bucket:
 
 ```
 npm run build
 aws s3 cp --recursive ./www s3://WEBSITE_BUCKET
-aws s3 cp --recursive ./www s3://clientengagementapp-hosting-mobilehub-1363944817
 ```
 
 Where `WEBSITE_BUCKET` is an S3 bucket configured with static hosting.
-
-http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/
