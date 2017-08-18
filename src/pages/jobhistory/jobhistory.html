@@ -4,6 +4,26 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<style>
+.salary {
+  padding: 5px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.salary p {
+  font-weight: bold;
+}
+
+.description {
+  text-align: justify;
+}
+
+.job-dates p {
+  font-weight: bold;
+}
+
+</style>
 <ion-header>
 
   <ion-navbar>
@@ -23,73 +43,67 @@
 
 <ion-content padding>
 
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title color="primary">Why Provide Your Job History?</ion-card-title>
-      <p>By providing Agility 360 with accurate details of your job history we are able to blah blah blah.</p>
-      <p>Research shows that blah blah blah.</p>
-    </ion-card-content>
-  </ion-card>
+  <h3 style="color: #2897C2;">Why Provide Your Job History?</h3>
+  <p>By providing Agility 360 with accurate details of your job history we are able to blah blah blah.</p>
+  <p>Research shows that blah blah blah.</p>
 
 
   <div *ngIf="jobs">
     <ion-list *ngFor="let job of jobs">
       <ion-card>
-        <ion-card-content>
-          <ion-item-sliding>
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="http://cdn.agility360app.net/" />
-              </ion-avatar>
-              <h2>{{ job.company_name || uppercase }}</h2>
-              <h3>{{ job.department }}</h3>
-
-              <!--
-              <ion-label>Start Date</ion-label>
-                <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month">
-              </ion-datetime>
-              -->
-
-              <p>Start Date: {{ job.start_date }}</p>
-              <p>End Date: {{ job.end_date }}</p>
-              <p>Final Salary: {{ job.final_salary }}</p>
-            </ion-item>
-            <ion-item-options side="right">
-              <button ion-button color="dark">
-                <ion-icon name="create"></ion-icon>
-                Update
-              </button>
-              <button ion-button color="danger">
-                <ion-icon name="trash"></ion-icon>
-                Delete
-              </button>
-            </ion-item-options>
-          </ion-item-sliding>
-        </ion-card-content>
-      </ion-card>
-
-
-      <ion-card>
-
         <ion-item>
           <ion-avatar item-start>
             <img src="http://cdn.agility360app.net/">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{ job.company_name || uppercase }}</h2>
+          <p>{{ job.job_title}}</p>
+          <p>{{ job.department.toString().replace("None", "") }}</p>
         </ion-item>
 
-        <img src="http://cdn.agility360app.net/">
-
         <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+          <ion-item class="job-dates">
+            <ion-row>
+              <ion-col text-left>
+                <p>Start Date</p>
+              </ion-col>
+              <ion-col text-right>
+                <p>{{ job.start_date | date:"MMM dd, yyyy" }}</p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col text-left>
+                <p>End Date</p>
+              </ion-col>
+              <ion-col text-right>
+                <p>{{ job.end_date | date:"MMM dd, yyyy" }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+
+          <ion-item>
+            <ion-row>
+              <ion-col>
+                <p class="description" text-wrap>Portland tote bag swag quinoa cloud bread. Thundercats yr knausgaard cloud bread cornhole gentrify venmo, craft beer humblebrag XOXO kickstarter banh mi 3 wolf moon man bun lyft. Gentrify lyft coloring book cornhole godard wayfarers paleo meditation 3 wolf moon tofu taiyaki. DIY single-origin coffee polaroid hammock occupy 3 wolf moon swag ramps. Tote bag coloring book jianbing meh. Distillery bushwick single-origin coffee sriracha man bun quinoa offal seitan blog meggings mlkshk. Deep v godard tofu, ethical bitters portland small batch. Four dollar toast tumblr franzen cred vinyl, keytar lo-fi bushwick polaroid palo santo copper mug cronut pabst green juice vegan.</p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <ion-item>
+            <ion-row class="salary">
+              <ion-col>
+                <p>Final Salary:</p>
+              </ion-col>
+              <ion-col text-right>
+                <p>{{ job.final_salary | currency :$ :0 }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
         </ion-card-content>
 
         <ion-row>
           <ion-col>
             <button ion-button icon-left clear small>
               <ion-icon name="create"></ion-icon>
-              <div>Update</div>
+              <div>Edit</div>
             </button>
           </ion-col>
           <ion-col text-right>
@@ -99,7 +113,6 @@
             </button>
           </ion-col>
         </ion-row>
-
       </ion-card>
 
     </ion-list>
