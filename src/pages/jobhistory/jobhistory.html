@@ -30,7 +30,7 @@
     <ion-title>Job History</ion-title>
 
     <ion-buttons start>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="addJobHistory()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -101,13 +101,13 @@
 
         <ion-row>
           <ion-col>
-            <button ion-button icon-left clear small>
+            <button ion-button icon-left clear small (click)="editJobHistory(job)">
               <ion-icon name="create"></ion-icon>
               <div>Edit</div>
             </button>
           </ion-col>
           <ion-col text-right>
-            <button ion-button icon-left clear small color="danger">
+            <button ion-button icon-left clear small color="danger" (click)="deleteJobHistory(job)">
               <ion-icon name="trash"></ion-icon>
               <div>Delete</div>
             </button>
