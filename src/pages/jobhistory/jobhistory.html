@@ -8,7 +8,15 @@
 
   <ion-navbar>
     <ion-title>Job History</ion-title>
+
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
+
 
 </ion-header>
 
@@ -28,17 +36,70 @@
     <ion-list *ngFor="let job of jobs">
       <ion-card>
         <ion-card-content>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="http://cdn.agility360app.net/" />
-            </ion-avatar>
-            <h2>{{ job.company_name || uppercase }}</h2>
-            <h3>{{ job.department }}</h3>
-            <p>Start Date: {{ job.start_date }}</p>
-            <p>End Date: {{ job.end_date }}</p>
-            <p>Final Salary: {{ job.final_salary }}</p>
-          </ion-item>
+          <ion-item-sliding>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="http://cdn.agility360app.net/" />
+              </ion-avatar>
+              <h2>{{ job.company_name || uppercase }}</h2>
+              <h3>{{ job.department }}</h3>
+
+              <!--
+              <ion-label>Start Date</ion-label>
+                <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month">
+              </ion-datetime>
+              -->
+
+              <p>Start Date: {{ job.start_date }}</p>
+              <p>End Date: {{ job.end_date }}</p>
+              <p>Final Salary: {{ job.final_salary }}</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button color="dark">
+                <ion-icon name="create"></ion-icon>
+                Update
+              </button>
+              <button ion-button color="danger">
+                <ion-icon name="trash"></ion-icon>
+                Delete
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-card-content>
+      </ion-card>
+
+
+      <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="http://cdn.agility360app.net/">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+
+        <img src="http://cdn.agility360app.net/">
+
+        <ion-card-content>
+          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="create"></ion-icon>
+              <div>Update</div>
+            </button>
+          </ion-col>
+          <ion-col text-right>
+            <button ion-button icon-left clear small>
+              <ion-icon name="trash"></ion-icon>
+              <div>Delete</div>
+            </button>
+          </ion-col>
+        </ion-row>
+
       </ion-card>
 
     </ion-list>
