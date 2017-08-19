@@ -29,7 +29,7 @@ export class JobhistoryPage implements OnInit {
 
   ngOnInit() {
 
-    this.jobservice.getJobHistory('mcdaniel')
+    this.jobservice.getJobHistory()
       .subscribe(jobs => this.jobs = jobs,
         errmess => this.errMess = <any>errmess);
 
@@ -89,7 +89,7 @@ export class JobhistoryPage implements OnInit {
 
                 loading.present();
 
-                this.jobservice.deleteJobHistory("mcdaniel", job.id)
+                this.jobservice.deleteJobHistory(job.id)
                   .subscribe(jobs => {this.jobs = jobs; loading.dismiss(); toast.present();},
                     errmess => {this.errMess = errmess; loading.dismiss();});
 
