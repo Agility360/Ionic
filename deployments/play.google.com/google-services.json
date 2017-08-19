@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "710763737966",
+    "firebase_url": "https://agility360-cea.firebaseio.com",
+    "project_id": "agility360-cea",
+    "storage_bucket": "agility360-cea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710763737966:android:0575dc95d8de6448",
+        "android_client_info": {
+          "package_name": "net.agility360app.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710763737966-boro4kpc0jacm2lmetlev7hgjm82pr7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeI7jI3RUy3MQBnvX0XBEDiz6O5uSetUM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
