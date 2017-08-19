@@ -92,7 +92,6 @@ export class JobhistoryPage implements OnInit {
                 this.jobservice.deleteJobHistory(job.id)
                   .subscribe(jobs => {this.jobs = jobs; loading.dismiss(); toast.present();},
                     errmess => {this.errMess = errmess; loading.dismiss();});
-
                 }
               }
           ]

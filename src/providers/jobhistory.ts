@@ -80,10 +80,10 @@ export class JobHistoryProvider {
 
   updateJobHistory(job: Job): Observable<Job> {
 
-      return this.http.patch(this.url(), job, this.config)
+      return this.http.patch(this.url() + job.id.toString(), job, this.config)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            console.log('JobHistoryProvider.updateJobHistory() - error while posting', this.url(), this.config, job, error);
+            console.log('JobHistoryProvider.updateJobHistory() - error while posting', this.url() + job.id.toString(), this.config, job, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 
