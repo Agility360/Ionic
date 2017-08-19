@@ -24,6 +24,21 @@ export class JobHistoryProvider {
     console.log('baseURL: ', baseURL);
   }
 
+  newJob() {
+    return  {
+      id: null,
+      candidate_id: null,
+      company_name: '',
+      department: null,
+      job_title: '',
+      start_date: '',
+      end_date: '',
+      description: '',
+      final_salary: null,
+      create_date: ''
+    };
+  }
+
   getJobHistory(username: string): Observable<Job[]> {
 
     console.log('ProcessHttpmsgProvider.getJobHistory() with username: ', username);
@@ -40,17 +55,23 @@ export class JobHistoryProvider {
       this.http.post(url, job, config)
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
 
-      return true;
+      /* Requery the database for fresh data. */
+      return this.http.get(baseURL + 'candidates/' + username + '/jobhistory/inserted')
+        .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+        .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  updateJobHistory(username: string, job: Job) {
+  updateJobHistory(username: string, job: Job): Observable<Job> {
       var url = baseURL + 'candidates/' + username + '/jobhistory';
       var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
       this.http.patch(url, job, config)
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
 
-      return true;
+      /* Requery the database for fresh data. */
+      return this.http.get(baseURL + 'candidates/' + username + '/jobhistory/' + job.id)
+        .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+        .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
   deleteJobHistory(username: string, id: number): Observable<Job[]> {

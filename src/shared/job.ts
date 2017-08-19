@@ -6,6 +6,7 @@ export interface Job {
   job_title: string;
   start_date: string;
   end_date: string;
+  description: string;
   final_salary: number;
   create_date: string;
 }

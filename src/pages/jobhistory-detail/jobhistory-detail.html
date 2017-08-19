@@ -5,14 +5,23 @@
   Ionic pages and navigation.
 -->
 <style>
+.form-label {
+  margin-top: 10px;
+}
 .editable-field {
+  color: green;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
 
+.description {
+  min-height: 100px;
 }
 </style>
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Edit Job</ion-title>
+    <ion-title text-capitalize>{{ action }} Job</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,51 +31,34 @@
 
   <form (ngSubmit)="processForm()">
     <ion-item>
-      <ion-label>Company Name</ion-label>
-      <ion-input type="text" [(ngModel)]="job.company_name" name="company_name"></ion-input>
+      <ion-label stacked class="form-label">Company Name</ion-label>
+      <ion-input class="editable-field" type="text" [(ngModel)]="job.company_name" name="company_name" placeholder="Company Name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Job Title</ion-label>
-      <ion-textarea [(ngModel)]="job.job_title" name="job_title"></ion-textarea>
+      <ion-label stacked class="form-label">Department</ion-label>
+      <ion-input class="editable-field" type="text" [(ngModel)]="job.department" name="department" placeholder="Optional: department/division"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Job Title</ion-label>
+      <ion-input class="editable-field" type="text" [(ngModel)]="job.job_title" name="job_title" placeholder="Final job title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Start Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="job.start_date" name="start_date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">End Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="job.end_date" name="end_date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Final Salary</ion-label>
+      <ion-input class="editable-field" type="number" [(ngModel)]="job.final_salary" name="final_salary" placeholder="Optional: your final salary" min=0></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Description</ion-label>
+      <ion-textarea class="editable-field" class="description" [(ngModel)]="job.description" name="description" placeholder="Optional: provide us with a few sentences about your role and responsibilities for this position."></ion-textarea>
     </ion-item>
     <button ion-button type="submit" block>Save</button>
   </form>
-
-
-  <h2>{{ job.company_name || uppercase }}</h2>
-  <p>{{ job.job_title}}</p>
-  <p>{{ job.department.toString().replace("None", "") }}</p>
-
-  <ion-row>
-    <ion-col text-left>
-      <p>Start Date</p>
-    </ion-col>
-    <ion-col text-right>
-      <p>{{ job.start_date | date:"MMM dd, yyyy" }}</p>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col text-left>
-      <p>End Date</p>
-    </ion-col>
-    <ion-col text-right>
-      <p>{{ job.end_date | date:"MMM dd, yyyy" }}</p>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <p class="description" text-wrap>Portland tote bag swag quinoa cloud bread. Thundercats yr knausgaard cloud bread cornhole gentrify venmo, craft beer humblebrag XOXO kickstarter banh mi 3 wolf moon man bun lyft. Gentrify lyft coloring book cornhole godard wayfarers paleo meditation 3 wolf moon tofu taiyaki. DIY single-origin coffee polaroid hammock occupy 3 wolf moon swag ramps. Tote bag coloring book jianbing meh. Distillery bushwick single-origin coffee sriracha man bun quinoa offal seitan blog meggings mlkshk. Deep v godard tofu, ethical bitters portland small batch. Four dollar toast tumblr franzen cred vinyl, keytar lo-fi bushwick polaroid palo santo copper mug cronut pabst green juice vegan.</p>
-    </ion-col>
-  </ion-row>
-
-  <ion-row class="salary">
-    <ion-col>
-      <p>Final Salary:</p>
-    </ion-col>
-    <ion-col text-right>
-      <p>{{ job.final_salary | currency :$ :0 }}</p>
-    </ion-col>
-  </ion-row>
 
 </ion-content>

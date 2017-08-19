@@ -82,7 +82,7 @@
           <ion-item>
             <ion-row>
               <ion-col>
-                <p class="description" text-wrap>Portland tote bag swag quinoa cloud bread. Thundercats yr knausgaard cloud bread cornhole gentrify venmo, craft beer humblebrag XOXO kickstarter banh mi 3 wolf moon man bun lyft. Gentrify lyft coloring book cornhole godard wayfarers paleo meditation 3 wolf moon tofu taiyaki. DIY single-origin coffee polaroid hammock occupy 3 wolf moon swag ramps. Tote bag coloring book jianbing meh. Distillery bushwick single-origin coffee sriracha man bun quinoa offal seitan blog meggings mlkshk. Deep v godard tofu, ethical bitters portland small batch. Four dollar toast tumblr franzen cred vinyl, keytar lo-fi bushwick polaroid palo santo copper mug cronut pabst green juice vegan.</p>
+                <p class="description" text-wrap>{{ job.description }}</p>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -114,14 +114,15 @@
         </ion-row>
       </ion-card>
 
-    </ion-list>
-    <div [hidden]="jobs || errMess">
-      <ion-spinner name="bubbles"></ion-spinner>
-      <h4>Loading ... </h4>
-    </div>
-    <div *ngIf="errMess">
-      <h2>Error</h2>
-      <h4>{{ errMess }}</h4>
-    </div>
+    </ion-list> <!-- *ngFor="let job of jobs" -->
+  </div> <!-- *ngIf="jobs" -->
+
+  <div [hidden]="jobs || errMess">
+    <ion-spinner name="bubbles"></ion-spinner>
+    <h4>Loading ... </h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{ errMess }}</h4>
   </div>
 </ion-content>

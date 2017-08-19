@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { ActionSheetController } from 'ionic-angular'
 import { Job } from '../../shared/job';
@@ -19,25 +19,66 @@ import { Job } from '../../shared/job';
 export class JobhistoryDetailPage {
 
   job: Job;
+  errMess: string;
+  action: string;
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
         @Inject('BaseURL') private BaseURL,
         private jobservice: JobHistoryProvider,
         private actionSheetCtrl: ActionSheetController,
-        private toastCtrl: ToastController) {
+        private toastCtrl: ToastController,
+        private loadingCtrl: LoadingController) {
 
         console.log("Hello dishdetail controller :D");
 
         this.job = navParams.get('job');
+        this.action = navParams.get('action').toLowerCase();
 
-        console.log('JobhistoryDetailPage.constructor() with job: ', this.job);
+        console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
 
     }
 
   processForm() {
     console.log('JobhistoryDetailPage.processForm(): ', );
+
+    if (this.action === 'insert') {
+      let loading = this.loadingCtrl.create({
+        content: 'Adding job ...'
+      });
+
+      let toast = this.toastCtrl.create({
+        message: 'Success.',
+        duration: 2000
+      });
+
+      loading.present();
+
+      this.jobservice.addJobHistory("mcdaniel", this.job)
+        .subscribe(job => {this.job = job; loading.dismiss(); toast.present();},
+          errmess => {this.errMess = errmess; loading.dismiss();});
+
+    };
+    if (this.action === 'edit') {
+      let loading = this.loadingCtrl.create({
+        content: 'Updating ...'
+      });
+
+      let toast = this.toastCtrl.create({
+        message: 'Saved.',
+        duration: 2000
+      });
+
+      loading.present();
+
+      this.jobservice.updateJobHistory("mcdaniel", this.job)
+        .subscribe(job => {this.job = job; loading.dismiss(); toast.present();},
+          errmess => {this.errMess = errmess; loading.dismiss();});
+
+    };
+
+
   }
 
   ionViewDidLoad() {

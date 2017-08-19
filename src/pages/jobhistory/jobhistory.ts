@@ -42,13 +42,20 @@ export class JobhistoryPage implements OnInit {
 
   addJobHistory() {
     console.log('JobhistoryPage.addJobHistory() - button clicked.');
+
+    this.navCtrl.push(JobhistoryDetailPage, {
+      job: this.jobservice.newJob(),
+      action: 'Edit'
+    });
+
   }
 
   editJobHistory(event, job: Job) {
     console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
 
     this.navCtrl.push(JobhistoryDetailPage, {
-      job: job
+      job: job,
+      action: 'Edit'
     });
 
   } /* editJobHistory() */
