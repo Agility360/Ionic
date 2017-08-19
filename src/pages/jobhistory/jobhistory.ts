@@ -45,7 +45,7 @@ export class JobhistoryPage implements OnInit {
 
     this.navCtrl.push(JobhistoryDetailPage, {
       job: this.jobservice.newJob(),
-      action: 'Edit'
+      action: 'Add'
     });
 
   }

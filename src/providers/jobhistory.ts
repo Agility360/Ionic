@@ -4,6 +4,7 @@
 * For Job History array from agility REST api
 * ====================================================================*/
 import { Injectable } from '@angular/core';
+import { Cognito } from './aws.cognito';
 import { Job } from '../shared/job';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
@@ -17,15 +18,24 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class JobHistoryProvider {
 
+  config: string;
+
   constructor(public http: Http,
+    private cognito: Cognito,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
     console.log('instantiated JobHistoryProvider');
     console.log('baseURL: ', baseURL);
+
+    this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
+
   }
 
   newJob() {
+    var user = this.cognito.getCurrentUser();
+
     return  {
+      account_name: user.username,
       id: null,
       candidate_id: null,
       company_name: '',
@@ -39,50 +49,49 @@ export class JobHistoryProvider {
     };
   }
 
+  url(username: string) {
+    return baseURL + 'candidates/' + username + '/jobhistory/';
+  }
+
   getJobHistory(username: string): Observable<Job[]> {
 
     console.log('ProcessHttpmsgProvider.getJobHistory() with username: ', username);
 
-    return this.http.get(baseURL + 'candidates/' + username + '/jobhistory')
+    return this.http.get(this.url(username))
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  addJobHistory(username: string, job: Job) {
-      var url = baseURL + 'candidates/' + username + '/jobhistory';
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
+  addJobHistory(username: string, job: Job): Observable<Job> {
 
-      this.http.post(url, job, config)
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      console.log('JobHistoryProvider.addJobHistory() - adding', job);
 
-      /* Requery the database for fresh data. */
-      return this.http.get(baseURL + 'candidates/' + username + '/jobhistory/inserted')
-        .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-        .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      return this.http.post(this.url(username), job, this.config)
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {
+              console.log('JobHistoryProvider.addJobHistory() - error while posting', this.url(username), this.config, job, error);
+              return this.ProcessHttpmsgService.handleError(error)
+            });
+
   }
 
   updateJobHistory(username: string, job: Job): Observable<Job> {
-      var url = baseURL + 'candidates/' + username + '/jobhistory';
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
-      this.http.patch(url, job, config)
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      return this.http.patch(this.url(username), job, this.config)
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {
+            console.log('JobHistoryProvider.addJobHistory() - error while posting', this.url(username), this.config, job, error);
+            return this.ProcessHttpmsgService.handleError(error)
+          });
 
-      /* Requery the database for fresh data. */
-      return this.http.get(baseURL + 'candidates/' + username + '/jobhistory/' + job.id)
-        .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-        .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
   deleteJobHistory(username: string, id: number): Observable<Job[]> {
-      var url = baseURL + 'candidates/' + username + '/jobhistory/' + id;
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
-      this.http.delete(url, config)
+      return this.http.delete(this.url(username) + id, this.config)
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
 
-      /* refresh our screen data by returning a fresh query of the Job History data after the delete has executed. */
-      return this.getJobHistory(username);
   }
 
 }

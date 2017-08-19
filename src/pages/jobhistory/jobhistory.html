@@ -66,7 +66,7 @@
                 <p>Start Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ job.start_date | date:"MMM dd, yyyy" }}</p>
+                <p>{{ job.start_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -74,7 +74,7 @@
                 <p>End Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ job.end_date | date:"MMM dd, yyyy" }}</p>
+                <p>{{ job.end_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
           </ion-item>

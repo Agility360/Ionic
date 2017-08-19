@@ -1,4 +1,5 @@
 export interface Job {
+  account_name: string;
   id: number;
   candidate_id: number;
   company_name: string;

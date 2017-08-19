@@ -30,12 +30,11 @@ export class JobhistoryDetailPage {
         private toastCtrl: ToastController,
         private loadingCtrl: LoadingController) {
 
-        console.log("Hello dishdetail controller :D");
+        console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
         this.job = navParams.get('job');
         this.action = navParams.get('action').toLowerCase();
 
-        console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
 
     }
@@ -43,7 +42,8 @@ export class JobhistoryDetailPage {
   processForm() {
     console.log('JobhistoryDetailPage.processForm(): ', );
 
-    if (this.action === 'insert') {
+    if (this.action === 'add') {
+
       let loading = this.loadingCtrl.create({
         content: 'Adding job ...'
       });
@@ -55,8 +55,14 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
+      console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
       this.jobservice.addJobHistory("mcdaniel", this.job)
-        .subscribe(job => {this.job = job; loading.dismiss(); toast.present();},
+        .subscribe(job => {
+                this.job = job;
+                loading.dismiss();
+                toast.present();
+                console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
+              },
           errmess => {this.errMess = errmess; loading.dismiss();});
 
     };
@@ -72,8 +78,14 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
+      console.log('Updating job: ', this.job);
       this.jobservice.updateJobHistory("mcdaniel", this.job)
-        .subscribe(job => {this.job = job; loading.dismiss(); toast.present();},
+        .subscribe(job => {
+                this.job = job;
+                loading.dismiss();
+                toast.present();
+                console.log('Updated job: ', job);
+              },
           errmess => {this.errMess = errmess; loading.dismiss();});
 
     };
