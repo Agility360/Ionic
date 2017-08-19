@@ -92,7 +92,9 @@ export class JobHistoryProvider {
   deleteJobHistory(id: number): Observable<Job[]> {
 
       return this.http.delete(this.url() + id.toString(), this.config)
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .map(res => {
+            console.log('JobHistoryProvider.deleteJobHistory() - success.', res);
+            return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
             console.log('JobHistoryProvider.deleteJobHistory() - error while deleting', this.url() + id.toString(), this.config, error);
             return this.ProcessHttpmsgService.handleError(error)
