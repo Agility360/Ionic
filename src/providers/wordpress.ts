@@ -30,7 +30,7 @@ export class WordpressProvider {
   }
 
   urlJobs() {
-    return cmsURL + 'posts/?categories=3';
+    return cmsURL + 'posts/?categories=5';
   }
 
   getJobs(): Observable<Post[]> {
