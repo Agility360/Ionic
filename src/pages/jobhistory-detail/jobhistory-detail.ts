@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { ActionSheetController } from 'ionic-angular'
 import { Job } from '../../shared/job';
@@ -21,6 +21,7 @@ export class JobhistoryDetailPage {
   job: Job;
   errMess: string;
   action: string;
+  isSaved: boolean;
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -28,21 +29,23 @@ export class JobhistoryDetailPage {
         private jobservice: JobHistoryProvider,
         private actionSheetCtrl: ActionSheetController,
         private toastCtrl: ToastController,
+        private alertCtrl: AlertController,
         private loadingCtrl: LoadingController) {
 
         console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
         this.job = navParams.get('job');
         this.action = navParams.get('action').toLowerCase();
-
-
-
+        this.isSaved = false;
     }
 
   processForm() {
     console.log('JobhistoryDetailPage.processForm(): ', );
 
     if (this.action === 'add') {
+      /*=======================================================
+       * Add a new Job
+       *=======================================================*/
 
       let loading = this.loadingCtrl.create({
         content: 'Adding job ...'
@@ -58,12 +61,17 @@ export class JobhistoryDetailPage {
       console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
       this.jobservice.addJobHistory(this.job)
         .subscribe(job => {
-                this.job = job;
-                loading.dismiss();
-                toast.present();
-                console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
-              },
-          errmess => {this.errMess = errmess; loading.dismiss();});
+                    this.job = job;
+                    loading.dismiss();
+                    toast.present();
+                    this.isSaved = true;
+                    this.navCtrl.getActiveChildNav()
+                    console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
+                  },
+                  errmess => {
+                    this.isSaved = false;
+                    this.errMess = errmess; loading.dismiss();
+                  });
 
     };
     if (this.action === 'edit') {
@@ -80,13 +88,17 @@ export class JobhistoryDetailPage {
 
       console.log('Updating job: ', this.job);
       this.jobservice.updateJobHistory(this.job)
-        .subscribe(job => {
-                this.job = job;
-                loading.dismiss();
-                toast.present();
-                console.log('Updated job: ', job);
-              },
-          errmess => {this.errMess = errmess; loading.dismiss();});
+          .subscribe(job => {
+                      this.job = job;
+                      loading.dismiss();
+                      toast.present();
+                      this.isSaved = true;
+                      console.log('Updated job: ', job);
+                    },
+                    errmess => {
+                      this.isSaved = false;
+                      this.errMess = errmess; loading.dismiss();
+                    });
 
     };
 
@@ -94,7 +106,39 @@ export class JobhistoryDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JobhistoryDetailPage');
+    console.log('JobhistoryDetailPage.ionViewDidLoad()');
   }
+
+
+  ionViewCanLeave(): boolean{
+
+    if (this.isSaved) return true;
+
+    var retVal: boolean;
+    let alert = this.alertCtrl.create({
+      title: 'Discard Changes?',
+      message: 'Changes not saved. Do you want to discard your changes?',
+      buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Close cancelled.');
+              retVal = false;
+            }
+          },
+          {
+            text: 'Ok',
+            handler: () => {
+              console.log('Discarding changes.');
+              retVal = true;
+              }
+            }
+        ]
+    });
+
+    alert.present();
+    return retVal;
+ }
 
 }

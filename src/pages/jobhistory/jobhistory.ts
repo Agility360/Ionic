@@ -28,36 +28,40 @@ export class JobhistoryPage implements OnInit {
   }
 
   ngOnInit() {
-
-    this.jobservice.getJobHistory()
-      .subscribe(jobs => this.jobs = jobs,
-        errmess => this.errMess = <any>errmess);
-
+    console.log('JobhistoryPage.ngOnInit()');
+    this.getJobHistory();
   }
 
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JobhistoryPage');
+    console.log('JobhistoryPage.ionViewDidLoad()');
+  }
+
+  getJobHistory() {
+    console.log('JobhistoryPage.getJobHistory()');
+    this.jobservice.getJobHistory()
+      .subscribe(
+        results => {
+        this.jobs = results
+        },
+        err => {
+          this.errMess = <any>err
+        });
   }
 
   addJobHistory() {
     console.log('JobhistoryPage.addJobHistory() - button clicked.');
-
     this.navCtrl.push(JobhistoryDetailPage, {
       job: this.jobservice.newJob(),
       action: 'Add'
     });
-
   }
 
   editJobHistory(event, job: Job) {
     console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
-
     this.navCtrl.push(JobhistoryDetailPage, {
       job: job,
       action: 'Edit'
     });
-
   } /* editJobHistory() */
 
 
@@ -90,8 +94,16 @@ export class JobhistoryPage implements OnInit {
                 loading.present();
 
                 this.jobservice.deleteJobHistory(job.id)
-                  .subscribe(jobs => {this.jobs = jobs; loading.dismiss(); toast.present();},
-                    errmess => {this.errMess = errmess; loading.dismiss();});
+                  .subscribe(
+                    results => {
+                      this.jobs = results;
+                      loading.dismiss();
+                      toast.present();
+                    },
+                    err => {
+                      this.errMess = err;
+                      loading.dismiss();
+                    });
                 }
               }
           ]
