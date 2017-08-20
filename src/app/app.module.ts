@@ -25,12 +25,13 @@ import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
 
 import { HttpModule } from '@angular/http';
-import { baseURL } from '../shared/baseurl';
+import { baseURL, cmsURL } from '../shared/baseurl';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
 import { CandidateProvider } from '../providers/candidate';
 import { CertificationHistoryProvider } from '../providers/certificationhistory';
 import { EducationHistoryProvider } from '../providers/educationhistory';
 import { JobHistoryProvider } from '../providers/jobhistory';
+import { WordpressProvider } from '../providers/wordpress';
 /* Added by McDaniel */
 
 
@@ -100,7 +101,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     EducationHistoryProvider,
     JobHistoryProvider,
     { provide: 'BaseURL', useValue: baseURL },
-    DynamoDB
+    { provide: 'CMSURL', useValue: cmsURL },
+    DynamoDB,
+    WordpressProvider
   ]
 })
 export class AppModule {}

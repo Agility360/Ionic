@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the JobsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { Post } from '../../shared/wppost';
+import { WordpressProvider } from '../../providers/wordpress';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,41 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class JobsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  jobs: Post[];
+  errMess: string;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private wpservice: WordpressProvider
+              ) {
+        console.log('constructor JobsPage');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad JobsPage');
+  ionViewWillEnter() {
+    console.log('JobsPage.ionViewWillEnter()');
+    this.getJobs();
+  }
+
+  refreshData(refresher) {
+      setTimeout(() => {
+        console.log('JobsPage.refreshData()');
+        this.getJobs();
+        refresher.complete();
+      }, 500);
+  }
+
+  getJobs() {
+    console.log('JobsPage.getJobs()');
+    this.wpservice.getJobs()
+      .subscribe(
+        results => {
+          console.log('JobsPage.getJobs() - success', results);
+          this.jobs = results
+        },
+        err => {
+          console.log('JobsPage.getJobs() - error', err);
+          this.errMess = <any>err
+        });
   }
 
 }
