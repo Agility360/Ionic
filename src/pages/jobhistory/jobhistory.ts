@@ -29,11 +29,15 @@ export class JobhistoryPage implements OnInit {
 
   ngOnInit() {
     console.log('JobhistoryPage.ngOnInit()');
-    this.getJobHistory();
   }
 
   ionViewDidLoad() {
     console.log('JobhistoryPage.ionViewDidLoad()');
+  }
+
+  ionViewWillEnter() {
+    console.log('JobhistoryPage.ionViewWillEnter()');
+    this.getJobHistory();
   }
 
   refreshData(refresher) {

@@ -70,11 +70,18 @@ export class JobHistoryProvider {
       console.log('JobHistoryProvider.addJobHistory() - adding', job);
 
       return this.http.post(this.url(), job, this.config)
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-      .catch(error => {
+      .map(
+        res => {
+          console.log('JobHistoryProvider.addJobHistory() - success', res);
+          return this.ProcessHttpmsgService.extractData(res)
+        }
+      )
+      .catch(
+        error => {
               console.log('JobHistoryProvider.addJobHistory() - error while posting', this.url(), this.config, job, error);
               return this.ProcessHttpmsgService.handleError(error)
-            });
+            }
+      );
 
   }
 
