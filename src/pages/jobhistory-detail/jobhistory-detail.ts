@@ -21,7 +21,7 @@ export class JobhistoryDetailPage {
   job: Job;
   errMess: string;
   action: string;
-  isSaved: boolean;
+  shouldConfirmWindowClose: boolean;
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -36,7 +36,7 @@ export class JobhistoryDetailPage {
 
         this.job = navParams.get('job');
         this.action = navParams.get('action').toLowerCase();
-        this.isSaved = false;
+        this.shouldConfirmWindowClose = true;
     }
 
   processForm() {
@@ -64,12 +64,12 @@ export class JobhistoryDetailPage {
                     this.job = job;
                     loading.dismiss();
                     toast.present();
-                    this.isSaved = true;
+                    this.shouldConfirmWindowClose = false;
                     this.navCtrl.getActiveChildNav()
                     console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
                   },
                   errmess => {
-                    this.isSaved = false;
+                    this.shouldConfirmWindowClose = true;
                     this.errMess = errmess; loading.dismiss();
                   });
 
@@ -92,11 +92,11 @@ export class JobhistoryDetailPage {
                       this.job = job;
                       loading.dismiss();
                       toast.present();
-                      this.isSaved = true;
+                      this.shouldConfirmWindowClose = false;
                       console.log('Updated job: ', job);
                     },
                     errmess => {
-                      this.isSaved = false;
+                      this.shouldConfirmWindowClose = true;
                       this.errMess = errmess; loading.dismiss();
                     });
 
@@ -110,35 +110,37 @@ export class JobhistoryDetailPage {
   }
 
 
-  ionViewCanLeave(): boolean{
+ ionViewCanLeave() {
+     if(this.shouldConfirmWindowClose) {
+         let alert = this.alertCtrl.create({
+             title: 'Exit',
+             message: 'Discard changes?',
+             buttons: [{
+                     text: 'Discard',
+                     handler: () => {
+                       this.exitPage();
+                     }
+                 },
+                 {
+                     text: 'Cancel',
+                     handler: () => {
+                         // need to do something if the user stays?
+                     }
+                 }]
+         });
 
-    if (this.isSaved) return true;
+         // Show the alert
+         alert.present();
 
-    var retVal: boolean;
-    let alert = this.alertCtrl.create({
-      title: 'Discard Changes?',
-      message: 'Changes not saved. Do you want to discard your changes?',
-      buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            handler: () => {
-              console.log('Close cancelled.');
-              retVal = false;
-            }
-          },
-          {
-            text: 'Ok',
-            handler: () => {
-              console.log('Discarding changes.');
-              retVal = true;
-              }
-            }
-        ]
-    });
-
-    alert.present();
-    return retVal;
+         // Return false to avoid the page to be popped up
+         return false;
+     }
  }
+
+ private exitPage() {
+     this.shouldConfirmWindowClose = false;
+     this.navCtrl.pop();
+ }
+
 
 }

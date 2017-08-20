@@ -39,6 +39,7 @@ export class JobhistoryPage implements OnInit {
   refreshData(refresher) {
       setTimeout(() => {
         console.log('JobhistoryPage.refreshData()');
+        this.getJobHistory();
         refresher.complete();
       }, 500);
   }
