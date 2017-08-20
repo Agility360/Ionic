@@ -22,4 +22,8 @@ export class NotificationsPage {
     console.log('ionViewDidLoad NotificationsPage');
   }
 
+  refreshData(refresher) {
+    console.log('NotificationsPage.refreshData()');
+  }
+
 }

@@ -27,20 +27,24 @@
 
   <ion-navbar>
     <ion-title>Job History</ion-title>
-
     <ion-buttons start>
       <button ion-button icon-only (click)="addJobHistory()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
-
-
 </ion-header>
 
-
 <ion-content padding>
+  <ion-refresher (ionRefresh)="refreshData($event)">
+    <ion-refresher-content
+                  pullingIcon="arrow-dropdown"
+                  pullingText="Pull to refresh"
+                  refreshingSpinner="circles"
+                  refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
 
   <h3 style="color: #2897C2;">Why Provide Your Job History?</h3>
   <p>By providing Agility 360 with accurate details of your job history we are able to blah blah blah.</p>

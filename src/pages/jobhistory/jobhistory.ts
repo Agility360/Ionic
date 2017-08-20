@@ -36,6 +36,14 @@ export class JobhistoryPage implements OnInit {
     console.log('JobhistoryPage.ionViewDidLoad()');
   }
 
+  refreshData(refresher) {
+      setTimeout(() => {
+        console.log('JobhistoryPage.refreshData()');
+        refresher.complete();
+      }, 500);
+  }
+
+
   getJobHistory() {
     console.log('JobhistoryPage.getJobHistory()');
     this.jobservice.getJobHistory()
