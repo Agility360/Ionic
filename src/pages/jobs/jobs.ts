@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WPPost } from '../../shared/wppost';
+import { DEBUG_MODE } from '../../shared/baseurl';
 import { WordpressProvider } from '../../providers/wordpress';
 
 @IonicPage()
@@ -17,43 +18,43 @@ export class JobsPage {
               public navParams: NavParams,
               private wpservice: WordpressProvider
               ) {
-        console.log('constructor JobsPage');
+        if (DEBUG_MODE) console.log('constructor JobsPage');
   }
 
   ionViewWillEnter() {
-    console.log('JobsPage.ionViewWillEnter()');
+    if (DEBUG_MODE) console.log('JobsPage.ionViewWillEnter()');
     this.getJobs();
   }
 
   refreshData(refresher) {
       setTimeout(() => {
-        console.log('JobsPage.refreshData()');
+        if (DEBUG_MODE) console.log('JobsPage.refreshData()');
         this.getJobs();
         refresher.complete();
       }, 500);
   }
 
   getJobs() {
-    console.log('JobsPage.getJobs()');
+    if (DEBUG_MODE) console.log('JobsPage.getJobs()');
     this.wpservice.getJobs()
       .subscribe(
         results => {
-          console.log('JobsPage.getJobs() - success', results);
+          if (DEBUG_MODE) console.log('JobsPage.getJobs() - success', results);
           this.jobs = results
           var self = this;
           this.jobs.forEach(function(job, id){
-              console.log(job);
+              if (DEBUG_MODE) console.log(job);
               self.getMedia(job);
           });
         },
         err => {
-          console.log('JobsPage.getJobs() - error', err);
+          if (DEBUG_MODE) console.log('JobsPage.getJobs() - error', err);
           this.errMess = <any>err
         });
   }
 
   test() {
-    console.log('test proc');
+    if (DEBUG_MODE) console.log('test proc');
   }
 
   getMedia(job: WPPost) {
@@ -63,16 +64,16 @@ export class JobsPage {
       return;
     };
 
-    console.log('JobsPage.getMedia()');
+    if (DEBUG_MODE) console.log('JobsPage.getMedia()');
     this.wpservice.getMedia(job.featured_media)
       .subscribe(
         results => {
-          console.log('JobsPage.getMedia() - success', results);
+          if (DEBUG_MODE) console.log('JobsPage.getMedia() - success', results);
           job.featured_media_obj = results;
           job.featured_media_url = results.source_url;
         },
         err => {
-          console.log('JobsPage.getMedia() - error', err);
+          if (DEBUG_MODE) console.log('JobsPage.getMedia() - error', err);
           this.errMess = <any>err;
         });
 

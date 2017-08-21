@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { WPPost, WPMedia } from '../shared/wppost';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
-import { baseURL, cmsURL } from '../shared/baseurl';
+import { baseURL, cmsURL, DEBUG_MODE } from '../shared/baseurl';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -22,8 +22,8 @@ export class WordpressProvider {
   constructor(public http: Http,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    console.log('instantiated JobHistoryProvider');
-    console.log('baseURL: ', baseURL);
+    if (DEBUG_MODE) console.log('instantiated JobHistoryProvider');
+    if (DEBUG_MODE) console.log('baseURL: ', baseURL);
 
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 

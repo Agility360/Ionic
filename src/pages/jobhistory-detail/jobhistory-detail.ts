@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { ActionSheetController } from 'ionic-angular'
 import { Job } from '../../shared/job';
+import { DEBUG_MODE } from '../../shared/baseurl';
 
 /**
  * Generated class for the JobhistoryDetailPage page.
@@ -32,7 +33,7 @@ export class JobhistoryDetailPage {
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController) {
 
-        console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
+        if (DEBUG_MODE) console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
         this.job = navParams.get('job');
         this.action = navParams.get('action').toLowerCase();
@@ -40,7 +41,7 @@ export class JobhistoryDetailPage {
     }
 
   processForm() {
-    console.log('JobhistoryDetailPage.processForm(): ', );
+    if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm(): ', );
 
     if (this.action === 'add') {
       /*=======================================================
@@ -58,7 +59,7 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
-      console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
+      if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
       this.jobservice.addJobHistory(this.job)
         .subscribe(job => {
                     this.job = job;
@@ -66,7 +67,7 @@ export class JobhistoryDetailPage {
                     toast.present();
                     this.shouldConfirmWindowClose = false;
                     this.navCtrl.getActiveChildNav()
-                    console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
+                    if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
                   },
                   errmess => {
                     this.shouldConfirmWindowClose = true;
@@ -86,14 +87,14 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
-      console.log('Updating job: ', this.job);
+      if (DEBUG_MODE) console.log('Updating job: ', this.job);
       this.jobservice.updateJobHistory(this.job)
           .subscribe(job => {
                       this.job = job;
                       loading.dismiss();
                       toast.present();
                       this.shouldConfirmWindowClose = false;
-                      console.log('Updated job: ', job);
+                      if (DEBUG_MODE) console.log('Updated job: ', job);
                     },
                     errmess => {
                       this.shouldConfirmWindowClose = true;
@@ -106,7 +107,7 @@ export class JobhistoryDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('JobhistoryDetailPage.ionViewDidLoad()');
+    if (DEBUG_MODE) console.log('JobhistoryDetailPage.ionViewDidLoad()');
   }
 
 

@@ -6,6 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
+import { DEBUG_MODE } from '../shared/baseurl';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
@@ -19,7 +20,7 @@ import 'rxjs/add/observable/throw';
 export class ProcessHttpmsgProvider {
 
   constructor(public http: Http) {
-    console.log('instantiated ProcessHttpmsgProvider');
+    if (DEBUG_MODE) console.log('instantiated ProcessHttpmsgProvider');
   }
 
   public extractData(res: Response) {
@@ -39,7 +40,7 @@ export class ProcessHttpmsgProvider {
       errMsg = error.message ? error.message : error.toString();
     }
 
-    console.log(errMsg);
+    if (DEBUG_MODE) console.log(errMsg);
     return Observable.throw(errMsg);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { Job } from '../../shared/job';
+import { DEBUG_MODE } from '../../shared/baseurl';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';
 
@@ -24,25 +25,25 @@ export class JobhistoryPage implements OnInit {
       private loadingCtrl: LoadingController,
       private alertCtrl: AlertController
     ) {
-        console.log('constructor JobhistoryPage');
+        if (DEBUG_MODE) console.log('constructor JobhistoryPage');
   }
 
   ngOnInit() {
-    console.log('JobhistoryPage.ngOnInit()');
+    if (DEBUG_MODE) console.log('JobhistoryPage.ngOnInit()');
   }
 
   ionViewDidLoad() {
-    console.log('JobhistoryPage.ionViewDidLoad()');
+    if (DEBUG_MODE) console.log('JobhistoryPage.ionViewDidLoad()');
   }
 
   ionViewWillEnter() {
-    console.log('JobhistoryPage.ionViewWillEnter()');
+    if (DEBUG_MODE) console.log('JobhistoryPage.ionViewWillEnter()');
     this.getJobHistory();
   }
 
   refreshData(refresher) {
       setTimeout(() => {
-        console.log('JobhistoryPage.refreshData()');
+        if (DEBUG_MODE) console.log('JobhistoryPage.refreshData()');
         this.getJobHistory();
         refresher.complete();
       }, 500);
@@ -50,7 +51,7 @@ export class JobhistoryPage implements OnInit {
 
 
   getJobHistory() {
-    console.log('JobhistoryPage.getJobHistory()');
+    if (DEBUG_MODE) console.log('JobhistoryPage.getJobHistory()');
     this.jobservice.getJobHistory()
       .subscribe(
         results => {
@@ -62,7 +63,7 @@ export class JobhistoryPage implements OnInit {
   }
 
   addJobHistory() {
-    console.log('JobhistoryPage.addJobHistory() - button clicked.');
+    if (DEBUG_MODE) console.log('JobhistoryPage.addJobHistory() - button clicked.');
     this.navCtrl.push(JobhistoryDetailPage, {
       job: this.jobservice.newJob(),
       action: 'Add'
@@ -70,7 +71,7 @@ export class JobhistoryPage implements OnInit {
   }
 
   editJobHistory(event, job: Job) {
-    console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
+    if (DEBUG_MODE) console.log('JobhistoryPage.editJobHistory() - button clicked for job:', job);
     this.navCtrl.push(JobhistoryDetailPage, {
       job: job,
       action: 'Edit'
@@ -79,7 +80,7 @@ export class JobhistoryPage implements OnInit {
 
 
   deleteJobHistory(job: Job) {
-      console.log('JobhistoryPage.deleteJobHistory() - button clicked for job:', job);
+      if (DEBUG_MODE) console.log('JobhistoryPage.deleteJobHistory() - button clicked for job:', job);
 
       let alert = this.alertCtrl.create({
         title: 'Delete',
@@ -89,7 +90,7 @@ export class JobhistoryPage implements OnInit {
               text: 'Cancel',
               role: 'cancel',
               handler: () => {
-                console.log('Delete cancelled.');
+                if (DEBUG_MODE) console.log('Delete cancelled.');
               }
             },
             {
