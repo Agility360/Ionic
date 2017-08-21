@@ -59,12 +59,12 @@ export class JobsPage {
 
   getMedia(job: WPPost) {
 
+    if (DEBUG_MODE) console.log('JobsPage.getMedia()', job);
     if (job.featured_media == 0) {
       job.featured_media_obj = this.wpservice.newMedia();
       return;
     };
 
-    if (DEBUG_MODE) console.log('JobsPage.getMedia()');
     this.wpservice.getMedia(job.featured_media)
       .subscribe(
         results => {
