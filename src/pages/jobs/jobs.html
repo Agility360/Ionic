@@ -15,12 +15,13 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  p {
+  .wp p {
     margin-top: 25px;
     margin-bottom: 25px;
+    color: green;
   }
 
-  h3 {
+  .wp h3 {
     font-weight: bolder;
     text-align: center;
   }
@@ -59,7 +60,10 @@
             <ion-row>
               <ion-col>
                 <img src="{{ job.featured_media_url }}">
-                <div class="wordpress" text-wrap [innerHtml]="job.content.rendered"></div>
+                <!--
+                <div class="wordpress" text-wrap ng-bind-html="job.content.rendered"></div>
+              -->
+              <div class="wordpress" text-wrap [innerHtml]="job.content.rendered | safeHtml"></div>
               </ion-col>
             </ion-row>
           </ion-item>

@@ -32,6 +32,7 @@ import { CertificationHistoryProvider } from '../providers/certificationhistory'
 import { EducationHistoryProvider } from '../providers/educationhistory';
 import { JobHistoryProvider } from '../providers/jobhistory';
 import { WordpressProvider } from '../providers/wordpress';
+import { SafeHtmlPipe } from "../shared/pipe.safehtml"
 /* Added by McDaniel */
 
 
@@ -61,7 +62,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     CertificationsPage,
     EducationPage,
     JobhistoryPage,
-    JobhistoryDetailPage
+    JobhistoryDetailPage,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
