@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { Job } from '../../shared/job';
-import { DEBUG_MODE } from '../../shared/baseurl';
+import { DEBUG_MODE } from '../../shared/constants';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';
 
@@ -20,7 +20,7 @@ export class JobhistoryPage implements OnInit {
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
       private jobservice: JobHistoryProvider,
-      @Inject('BaseURL') private BaseURL,
+      @Inject('apiURL') private apiURL,
       private toastCtrl: ToastController,
       private loadingCtrl: LoadingController,
       private alertCtrl: AlertController

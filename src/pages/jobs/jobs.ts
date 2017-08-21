@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WPPost } from '../../shared/wppost';
-import { DEBUG_MODE } from '../../shared/baseurl';
+import { DEBUG_MODE } from '../../shared/constants';
 import { WordpressProvider } from '../../providers/wordpress';
 
 @IonicPage()

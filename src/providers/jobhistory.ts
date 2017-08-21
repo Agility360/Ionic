@@ -8,7 +8,7 @@ import { Cognito } from './aws.cognito';
 import { Job } from '../shared/job';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
-import { baseURL, DEBUG_MODE } from '../shared/baseurl';
+import { apiURL, DEBUG_MODE } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -25,7 +25,7 @@ export class JobHistoryProvider {
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
     if (DEBUG_MODE) console.log('instantiated JobHistoryProvider');
-    if (DEBUG_MODE) console.log('baseURL: ', baseURL);
+    if (DEBUG_MODE) console.log('apiURL: ', apiURL);
 
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
@@ -53,7 +53,7 @@ export class JobHistoryProvider {
     return user.username;
   }
   url() {
-    return baseURL + 'candidates/' + this.username() + '/jobhistory/';
+    return apiURL + 'candidates/' + this.username() + '/jobhistory/';
   }
 
   getJobHistory(): Observable<Job[]> {

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Candidate } from '../shared/candidate';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
-import { baseURL } from '../shared/baseurl';
+import { apiURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -24,13 +24,13 @@ export class CandidateProvider {
   }
 
   getCandidate(username: string): Observable<Candidate[]> {
-    return this.http.get(baseURL + 'candidates/' + username)
+    return this.http.get(apiURL + 'candidates/' + username)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
   addCandidate(candidate: Candidate) {
-      var url = baseURL + 'candidates';
+      var url = apiURL + 'candidates';
       var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
       this.http.post(url, candidate, config)
@@ -40,7 +40,7 @@ export class CandidateProvider {
   }
 
   updateCandidate(candidate: Candidate) {
-      var url = baseURL + 'candidates/' + candidate.account_name + '/jobhistory';
+      var url = apiURL + 'candidates/' + candidate.account_name + '/jobhistory';
       var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
       this.http.patch(url, candidate, config)
@@ -50,7 +50,7 @@ export class CandidateProvider {
   }
 
   deleteCandidate(username: string) {
-      var url = baseURL + 'candidates/' + username;
+      var url = apiURL + 'candidates/' + username;
       var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
       this.http.delete(url, config)

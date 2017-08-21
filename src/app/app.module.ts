@@ -25,7 +25,7 @@ import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
 
 import { HttpModule } from '@angular/http';
-import { baseURL, cmsURL } from '../shared/baseurl';
+import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
 import { CandidateProvider } from '../providers/candidate';
 import { CertificationHistoryProvider } from '../providers/certificationhistory';
@@ -102,7 +102,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     CertificationHistoryProvider,
     EducationHistoryProvider,
     JobHistoryProvider,
-    { provide: 'BaseURL', useValue: baseURL },
+    { provide: 'apiURL', useValue: apiURL },
     { provide: 'CMSURL', useValue: cmsURL },
     DynamoDB,
     WordpressProvider

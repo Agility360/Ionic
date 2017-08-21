@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { ActionSheetController } from 'ionic-angular'
 import { Job } from '../../shared/job';
-import { DEBUG_MODE } from '../../shared/baseurl';
+import { DEBUG_MODE } from '../../shared/constants';
 
 /**
  * Generated class for the JobhistoryDetailPage page.
@@ -26,7 +26,7 @@ export class JobhistoryDetailPage {
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        @Inject('BaseURL') private BaseURL,
+        @Inject('apiURL') private apiURL,
         private jobservice: JobHistoryProvider,
         private actionSheetCtrl: ActionSheetController,
         private toastCtrl: ToastController,
