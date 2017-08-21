@@ -4,7 +4,7 @@
 * For Job History array from agility REST api
 * ====================================================================*/
 import { Injectable } from '@angular/core';
-import { Post } from '../shared/wppost';
+import { WPPost, WPMedia } from '../shared/wppost';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import { baseURL, cmsURL } from '../shared/baseurl';
@@ -29,13 +29,55 @@ export class WordpressProvider {
 
   }
 
+  newMedia() {
+
+    return  {
+      id: null,
+      date: '',
+      date_gmt: '',
+      guid: {},
+      modified: '',
+      modified_gmt: '',
+      slug: '',
+      status: '',
+      type: '',
+      link: '',
+      title: '',
+      author: '',
+      comment_status: '',
+      ping_status: '',
+      template: '',
+      meta: [],
+      description: {},
+      caption: {},
+      alt_text: '',
+      media_type: '',
+      mime_type: '',
+      media_details: {},
+      post: null,
+      source_url: '',
+      _links: {}
+    };
+  }
+
   urlJobs() {
     return cmsURL + 'posts/?categories=5';
   }
 
-  getJobs(): Observable<Post[]> {
+  urlMedia() {
+    return cmsURL + 'media/';
+  }
+
+  getJobs(): Observable<WPPost[]> {
 
     return this.http.get(this.urlJobs())
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+  }
+
+  getMedia(id: number): Observable<WPMedia> {
+
+    return this.http.get(this.urlMedia() + id.toString())
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }

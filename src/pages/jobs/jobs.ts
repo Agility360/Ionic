@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Post } from '../../shared/wppost';
+import { WPPost } from '../../shared/wppost';
 import { WordpressProvider } from '../../providers/wordpress';
 
 @IonicPage()
@@ -10,7 +10,7 @@ import { WordpressProvider } from '../../providers/wordpress';
 })
 export class JobsPage {
 
-  jobs: Post[];
+  jobs: WPPost[];
   errMess: string;
 
   constructor(public navCtrl: NavController,
@@ -40,11 +40,43 @@ export class JobsPage {
         results => {
           console.log('JobsPage.getJobs() - success', results);
           this.jobs = results
+          var self = this;
+          this.jobs.forEach(function(job, id){
+              console.log(job);
+              self.getMedia(job);
+          });
         },
         err => {
           console.log('JobsPage.getJobs() - error', err);
           this.errMess = <any>err
         });
+  }
+
+  test() {
+    console.log('test proc');
+  }
+
+  getMedia(job: WPPost) {
+
+    if (job.featured_media == 0) {
+      job.featured_media_obj = this.wpservice.newMedia();
+      return;
+    };
+
+    console.log('JobsPage.getMedia()');
+    this.wpservice.getMedia(job.featured_media)
+      .subscribe(
+        results => {
+          console.log('JobsPage.getMedia() - success', results);
+          job.featured_media_obj = results;
+          job.featured_media_url = results.source_url;
+        },
+        err => {
+          console.log('JobsPage.getMedia() - error', err);
+          this.errMess = <any>err;
+        });
+
+
   }
 
 }

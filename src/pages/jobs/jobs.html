@@ -5,17 +5,30 @@
   Ionic pages and navigation.
 -->
 <style>
+  .card-title-block {
+    margin-left: 2px;
+    margin-right: 2px;
+    border-bottom: 1px solid #ddd;
+  }
+  .wordpress {
+    text-align: justify;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  p {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
 
+  h3 {
+    font-weight: bolder;
+    text-align: center;
+  }
 </style>
 <ion-header>
 
   <ion-navbar>
     <ion-title>Jobs</ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="addJobHistory()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -32,18 +45,21 @@
   <div *ngIf="jobs">
     <ion-list *ngFor="let job of jobs">
       <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="http://cdn.agility360app.net/">
-          </ion-avatar>
-          <h2>{{ job.title.rendered }}</h2>
-        </ion-item>
+        <div class="card-title-block">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="http://cdn.agility360app.net/">
+            </ion-avatar>
+            <h2>{{ job.title.rendered }}</h2>
+          </ion-item>
+        </div>
 
         <ion-card-content>
           <ion-item>
             <ion-row>
               <ion-col>
-                <p class="description" text-wrap>{{ job.content.rendered }}</p>
+                <img src="{{ job.featured_media_url }}">
+                <div class="wordpress" text-wrap [innerHtml]="job.content.rendered"></div>
               </ion-col>
             </ion-row>
           </ion-item>
