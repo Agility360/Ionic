@@ -36,7 +36,7 @@ export class JobsPage {
 
   getJobs() {
     if (DEBUG_MODE) console.log('JobsPage.getJobs()');
-    this.wpservice.getJobs()
+    this.wpservice.getPosts(this.wpservice.paramsJobs())
       .subscribe(
         results => {
           if (DEBUG_MODE) console.log('JobsPage.getJobs() - success', results);

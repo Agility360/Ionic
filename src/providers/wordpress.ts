@@ -28,6 +28,50 @@ export class WordpressProvider {
 
   }
 
+  urlPosts() {
+    return cmsURL + 'posts/';
+  }
+
+  urlMedia() {
+    return cmsURL + 'media/';
+  }
+
+  paramsJobs() {
+    let params: URLSearchParams = new URLSearchParams();
+     params.set('categories', '5');
+
+     return params;
+  }
+
+  paramsNews() {
+    let params: URLSearchParams = new URLSearchParams();
+     params.set('categories', '3');
+
+     return params;
+  }
+
+  paramsResume() {
+    let params: URLSearchParams = new URLSearchParams();
+     params.set('categories', '4');
+
+     return params;
+  }
+
+
+  getPosts(params: any): Observable<WPPost[]> {
+    return this.http.get(this.urlPosts(), {
+                                         search: params
+                                       })
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+  }
+
+  getMedia(id: number): Observable<WPMedia> {
+    return this.http.get(this.urlMedia() + id.toString())
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+  }
+
   newMedia() {
 
     return  {
@@ -59,27 +103,17 @@ export class WordpressProvider {
     };
   }
 
+  /* ------------- To deprecate ----------------
   urlJobs() {
     return cmsURL + 'posts/?categories=5';
   }
 
-  urlMedia() {
-    return cmsURL + 'media/';
-  }
-
   getJobs(): Observable<WPPost[]> {
-
-    return this.http.get(this.urlJobs())
+    return this.http.get(this.urlPosts(), this.paramsJobs())
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  getMedia(id: number): Observable<WPMedia> {
-
-    return this.http.get(this.urlMedia() + id.toString())
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
-  }
-
+  ----------------------------------------------*/
 
 }
