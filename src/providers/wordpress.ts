@@ -39,30 +39,24 @@ export class WordpressProvider {
   }
 
   paramsJobs() {
-    let params: URLSearchParams = new URLSearchParams();
-     params.set('categories', '5');
-
-     return params;
+     return {categories: '5'};
   }
 
   paramsNews() {
-    let params: URLSearchParams = new URLSearchParams();
-     params.set('categories', '3');
-
-     return params;
+    return {categories: '3'};
   }
 
   paramsResume() {
-    let params: URLSearchParams = new URLSearchParams();
-     params.set('categories', '4');
-
-     return params;
+    return {categories: '4'};
   }
 
 
   getPosts(params: any): Observable<WPPost[]> {
+
+    console.log('params: ', params.toString());
+
     return this.http.get(this.urlPosts(), {
-                                         search: params
+                                         params: params
                                        })
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});

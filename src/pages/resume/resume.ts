@@ -50,7 +50,7 @@ export class ResumePage {
         paramsNews()
         paramsResume()
     */
-    let params = this.wpservice.paramsNews();
+    let params = this.wpservice.paramsResume();
 
     this.wpservice.getPosts(params)
       .subscribe(
