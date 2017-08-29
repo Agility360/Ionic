@@ -23,7 +23,7 @@ import { WordpressProvider } from '../../providers/wordpress';
 
 export class JobsPage {
 
-  jobs: WPPost[];
+  posts: WPPost[];
   errMess: string;
 
   constructor(public navCtrl: NavController,
@@ -48,11 +48,11 @@ export class JobsPage {
       .subscribe(
         results => {
           if (DEBUG_MODE) console.log('JobsPage.getJobs() - success', results);
-          this.jobs = results
+          this.posts = results
           var self = this;
-          this.jobs.forEach(function(job, id){
-              if (DEBUG_MODE) console.log(job);
-              self.getMedia(job);
+          this.posts.forEach(function(post, id){
+              if (DEBUG_MODE) console.log(post);
+              self.getMedia(post);
           });
         },
         err => {
@@ -61,20 +61,20 @@ export class JobsPage {
         });
   }
 
-  getMedia(job: WPPost) {
+  getMedia(post: WPPost) {
 
-    if (DEBUG_MODE) console.log('JobsPage.getMedia()', job);
-    if (job.featured_media == 0) {
-      job.featured_media_obj = this.wpservice.newMedia();
+    if (DEBUG_MODE) console.log('JobsPage.getMedia()', post);
+    if (post.featured_media == 0) {
+      post.featured_media_obj = this.wpservice.newMedia();
       return;
     };
 
-    this.wpservice.getMedia(job.featured_media)
+    this.wpservice.getMedia(post.featured_media)
       .subscribe(
         results => {
           if (DEBUG_MODE) console.log('JobsPage.getMedia() - success', results);
-          job.featured_media_obj = results;
-          job.featured_media_url = results.source_url;
+          post.featured_media_obj = results;
+          post.featured_media_url = results.source_url;
         },
         err => {
           if (DEBUG_MODE) console.log('JobsPage.getMedia() - error', err);

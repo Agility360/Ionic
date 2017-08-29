@@ -1,8 +1,8 @@
 <!--
-  Generated template for the JobhistoryPage page.
+  written by: McDaniel
+  date:       august 2017
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+  templated html for Jobs, News and Resume pages.
 -->
 <style>
   .card-title-block {
@@ -43,15 +43,15 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div *ngIf="jobs">
-    <ion-list *ngFor="let job of jobs">
+  <div *ngIf="posts">
+    <ion-list *ngFor="let post of posts">
       <ion-card>
         <div class="card-title-block">
           <ion-item>
             <ion-avatar item-start>
               <img src="http://cdn.agility360app.net/">
             </ion-avatar>
-            <h2>{{ job.title.rendered }}</h2>
+            <h2>{{ post.title.rendered }}</h2>
           </ion-item>
         </div>
 
@@ -59,11 +59,8 @@
           <ion-item>
             <ion-row>
               <ion-col>
-                <img src="{{ job.featured_media_url }}">
-                <!--
-                <div class="wordpress" text-wrap ng-bind-html="job.content.rendered"></div>
-              -->
-              <div class="wordpress" text-wrap [innerHtml]="job.content.rendered | safeHtml"></div>
+                <img src="{{ post.featured_media_url }}">
+              <div class="wordpress" text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -71,10 +68,10 @@
 
       </ion-card>
 
-    </ion-list> <!-- *ngFor="let job of jobs" -->
-  </div> <!-- *ngIf="jobs" -->
+    </ion-list> <!-- *ngFor="let post of posts" -->
+  </div> <!-- *ngIf="posts" -->
 
-  <div [hidden]="jobs || errMess">
+  <div [hidden]="posts || errMess">
     <ion-spinner name="bubbles"></ion-spinner>
     <h4>Loading ... </h4>
   </div>
