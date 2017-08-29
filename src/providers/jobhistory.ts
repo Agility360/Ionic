@@ -31,27 +31,7 @@ export class JobHistoryProvider {
 
   }
 
-  new() {
 
-    return  {
-      account_name: this.username(),
-      id: null,
-      candidate_id: null,
-      company_name: '',
-      department: null,
-      job_title: '',
-      start_date: '',
-      end_date: '',
-      description: '',
-      final_salary: null,
-      create_date: ''
-    };
-  }
-
-  username() {
-    var user = this.cognito.getCurrentUser();
-    return user.username;
-  }
   url() {
     return apiURL + 'candidates/' + this.username() + '/jobhistory/';
   }
@@ -108,5 +88,27 @@ export class JobHistoryProvider {
           });
 
   }
+
+  new() {
+    return  {
+      account_name: this.username(),
+      id: null,
+      candidate_id: null,
+      company_name: '',
+      department: null,
+      job_title: '',
+      start_date: '',
+      end_date: '',
+      description: '',
+      final_salary: null,
+      create_date: ''
+    };
+  }
+
+  username() {
+    var user = this.cognito.getCurrentUser();
+    return user.username;
+  }
+
 
 }

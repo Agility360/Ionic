@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
-import { DEBUG_MODE } from '../../shared/constants';
+import { apiURL, DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';
@@ -12,7 +12,7 @@ import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';
   templateUrl: 'jobhistory.html',
 })
 
-export class JobhistoryPage implements OnInit {
+export class JobhistoryPage {
 
   cards: Job[];
   errMess: string;
@@ -20,16 +20,11 @@ export class JobhistoryPage implements OnInit {
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
       private jobservice: JobHistoryProvider,
-      @Inject('apiURL') private apiURL,
       private toastCtrl: ToastController,
       private loadingCtrl: LoadingController,
       private alertCtrl: AlertController
     ) {
         if (DEBUG_MODE) console.log('constructor JobhistoryPage');
-  }
-
-  ngOnInit() {
-    if (DEBUG_MODE) console.log('JobhistoryPage.ngOnInit()');
   }
 
   ionViewWillEnter() {
