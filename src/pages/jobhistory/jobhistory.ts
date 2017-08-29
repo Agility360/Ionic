@@ -19,7 +19,7 @@ export class JobhistoryPage {
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
-      private jobservice: JobHistoryProvider,
+      private provider: JobHistoryProvider,
       private toastCtrl: ToastController,
       private loadingCtrl: LoadingController,
       private alertCtrl: AlertController
@@ -43,7 +43,7 @@ export class JobhistoryPage {
 
   get() {
     if (DEBUG_MODE) console.log('JobhistoryPage.get()');
-    this.jobservice.get()
+    this.provider.get()
       .subscribe(
         results => {
         this.cards = results
@@ -56,7 +56,7 @@ export class JobhistoryPage {
   add() {
     if (DEBUG_MODE) console.log('JobhistoryPage.add() - button clicked.');
     this.navCtrl.push(JobhistoryDetailPage, {
-      job: this.jobservice.new(),
+      obj: this.provider.new(),
       action: 'Add'
     });
   }
@@ -64,7 +64,7 @@ export class JobhistoryPage {
   edit(event, job: Job) {
     if (DEBUG_MODE) console.log('JobhistoryPage.edit() - button clicked for job:', job);
     this.navCtrl.push(JobhistoryDetailPage, {
-      job: job,
+      obj: job,
       action: 'Edit'
     });
   } /* edit() */
@@ -92,13 +92,13 @@ export class JobhistoryPage {
                 });
 
                 let toast = this.toastCtrl.create({
-                  message: 'Dish deleted.',
+                  message: job.company_name + ' deleted.',
                   duration: 2000
                 });
 
                 loading.present();
 
-                this.jobservice.delete(job.id)
+                this.provider.delete(job.id)
                   .subscribe(
                     results => {
                       this.cards = results;

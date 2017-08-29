@@ -35,7 +35,7 @@ export class JobhistoryDetailPage {
 
         if (DEBUG_MODE) console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
 
-        this.job = navParams.get('job');
+        this.job = navParams.get('obj');
         this.action = navParams.get('action').toLowerCase();
         this.shouldConfirmWindowClose = true;
     }
