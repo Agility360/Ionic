@@ -55,7 +55,7 @@ export class JobsPage {
     this.wpservice.getPosts(params)
       .subscribe(
         results => {
-          if (DEBUG_MODE) console.log('JobsPage.getJobs() - success', results);
+          if (DEBUG_MODE) console.log('JobsPage.getPosts() - success', results);
           this.posts = results
           var self = this;
           this.posts.forEach(function(post, id){
@@ -64,7 +64,7 @@ export class JobsPage {
           });
         },
         err => {
-          if (DEBUG_MODE) console.log('JobsPage.getJobs() - error', err);
+          if (DEBUG_MODE) console.log('JobsPage.getPosts() - error', err);
           this.errMess = <any>err
         });
   }
