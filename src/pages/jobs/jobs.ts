@@ -44,7 +44,15 @@ export class JobsPage {
 
   getPosts() {
     if (DEBUG_MODE) console.log('JobsPage.getPosts()');
-    this.wpservice.getPosts(this.wpservice.paramsJobs())
+
+    /* Note: set this to appropriate parameter factory fuction:
+        paramsJobs()
+        paramsNews()
+        paramsResume()
+    */
+    let params = this.wpservice.paramsJobs();
+
+    this.wpservice.getPosts(params)
       .subscribe(
         results => {
           if (DEBUG_MODE) console.log('JobsPage.getJobs() - success', results);
@@ -80,7 +88,6 @@ export class JobsPage {
           if (DEBUG_MODE) console.log('JobsPage.getMedia() - error', err);
           this.errMess = <any>err;
         });
-
 
   }
 
