@@ -23,6 +23,8 @@ import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
 import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
+import { EducationDetailPage } from '../pages/education-detail/education-detail';
+import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
 
 import { HttpModule } from '@angular/http';
 import { apiURL, cmsURL } from '../shared/constants';
@@ -63,6 +65,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     EducationPage,
     JobhistoryPage,
     JobhistoryDetailPage,
+    EducationDetailPage,
+    CertificationDetailPage,
     SafeHtmlPipe
   ],
   imports: [
@@ -88,7 +92,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     CertificationsPage,
     EducationPage,
     JobhistoryPage,
-    JobhistoryDetailPage
+    JobhistoryDetailPage,
+    EducationDetailPage,
+    CertificationDetailPage
   ],
   providers: [
     StatusBar,
