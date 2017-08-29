@@ -45,18 +45,18 @@ export class EducationHistoryProvider {
 
   add(obj: Education): Observable<Education> {
 
-      if (DEBUG_MODE) console.log('JobHistoryProvider.add() - adding', obj);
+      if (DEBUG_MODE) console.log('EducationHistoryProvider.add() - adding', obj);
 
       return this.http.post(this.url(), obj, this.config)
       .map(
         res => {
-          if (DEBUG_MODE) console.log('JobHistoryProvider.add() - success', res);
+          if (DEBUG_MODE) console.log('EducationHistoryProvider.add() - success', res);
           return this.ProcessHttpmsgService.extractData(res)
         }
       )
       .catch(
         error => {
-              if (DEBUG_MODE) console.log('JobHistoryProvider.add() - error while posting', this.url(), this.config, obj, error);
+              if (DEBUG_MODE) console.log('EducationHistoryProvider.add() - error while posting', this.url(), this.config, obj, error);
               return this.ProcessHttpmsgService.handleError(error)
             }
       );
@@ -68,7 +68,7 @@ export class EducationHistoryProvider {
       return this.http.patch(this.url() + job.id.toString(), job, this.config)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
+            if (DEBUG_MODE) console.log('EducationHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 
@@ -78,10 +78,10 @@ export class EducationHistoryProvider {
 
       return this.http.delete(this.url() + id.toString(), this.config)
       .map(res => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.delete() - success.', res);
+            if (DEBUG_MODE) console.log('EducationHistoryProvider.delete() - success.', res);
             return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.delete() - error while deleting', this.url() + id.toString(), this.config, error);
+            if (DEBUG_MODE) console.log('EducationHistoryProvider.delete() - error while deleting', this.url() + id.toString(), this.config, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 

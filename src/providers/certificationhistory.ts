@@ -4,10 +4,11 @@
 * For Certification array from agility REST api
 * ====================================================================*/
 import { Injectable } from '@angular/core';
+import { Cognito } from './aws.cognito';
 import { Certification } from '../shared/certification';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
-import { apiURL } from '../shared/constants';
+import { apiURL, DEBUG_MODE } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -17,46 +18,91 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CertificationHistoryProvider {
 
+  config: string;
+
   constructor(public http: Http,
+    private cognito: Cognito,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    console.log('instantiated CertificationHistoryProvider');
+      if (DEBUG_MODE) console.log('constructor - CertificationHistoryProvider');
+      if (DEBUG_MODE) console.log('apiURL: ', apiURL);
+
+      this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
   }
 
-  getEducationHistory(username: string): Observable<Certification[]> {
-    return this.http.get(apiURL + 'candidates/' + username + '/certification')
+  url() {
+    return apiURL + 'candidates/' + this.username() + '/certifications/';
+  }
+
+  get(): Observable<Certification[]> {
+
+    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.get() with username: ', this.username());
+
+    return this.http.get(this.url())
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  addEducationHistory(username: string, certification: Certification) {
-      var url = apiURL + 'candidates/' + username + '/certification';
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
+  add(obj: Certification): Observable<Certification> {
 
-      this.http.post(url, certification, config)
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      if (DEBUG_MODE) console.log('CertificationHistoryProvider.add() - adding', obj);
 
-      return true;
+      return this.http.post(this.url(), obj, this.config)
+      .map(
+        res => {
+          if (DEBUG_MODE) console.log('CertificationHistoryProvider.add() - success', res);
+          return this.ProcessHttpmsgService.extractData(res)
+        }
+      )
+      .catch(
+        error => {
+              if (DEBUG_MODE) console.log('CertificationHistoryProvider.add() - error while posting', this.url(), this.config, obj, error);
+              return this.ProcessHttpmsgService.handleError(error)
+            }
+      );
+
   }
 
-  updateEducationHistory(username: string, certification: Certification) {
-      var url = apiURL + 'candidates/' + username + '/certification';
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
+  update(job: Certification): Observable<Certification> {
 
-      this.http.patch(url, certification, config)
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      return this.http.patch(this.url() + job.id.toString(), job, this.config)
+      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {
+            if (DEBUG_MODE) console.log('CertificationHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
+            return this.ProcessHttpmsgService.handleError(error)
+          });
 
-      return true;
   }
 
-  deleteEducationHistory(username: string, id: number) {
-      var url = apiURL + 'candidates/' + username + '/education/' + id;
-      var config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
+  delete(id: number): Observable<Certification[]> {
 
-      this.http.delete(url, config)
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      return this.http.delete(this.url() + id.toString(), this.config)
+      .map(res => {
+            if (DEBUG_MODE) console.log('CertificationHistoryProvider.delete() - success.', res);
+            return this.ProcessHttpmsgService.extractData(res)})
+      .catch(error => {
+            if (DEBUG_MODE) console.log('CertificationHistoryProvider.delete() - error while deleting', this.url() + id.toString(), this.config, error);
+            return this.ProcessHttpmsgService.handleError(error)
+          });
 
-      return true;
+  }
+
+  new() {
+    return  {
+      account_name: this.username(),
+      id: null,
+      candidate_id: null,
+      institution_name: '',
+      certification_name: '',
+      date_received: '',
+      expire_date: '',
+      create_date: ''
+    };
+  }
+
+  username() {
+    var user = this.cognito.getCurrentUser();
+    return user.username;
   }
 
 }
