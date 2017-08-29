@@ -32,31 +32,31 @@
   <form (ngSubmit)="processForm()">
     <ion-item>
       <ion-label stacked class="form-label">Company Name</ion-label>
-      <ion-input class="editable-field" type="text" [(ngModel)]="job.company_name" name="company_name" placeholder="Company Name"></ion-input>
+      <ion-input class="editable-field" type="text" [(ngModel)]="obj.company_name" name="company_name" placeholder="Company Name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Department</ion-label>
-      <ion-input class="editable-field" type="text" [(ngModel)]="job.department" name="department" placeholder="Optional: department/division"></ion-input>
+      <ion-input class="editable-field" type="text" [(ngModel)]="obj.department" name="department" placeholder="Optional: department/division"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Job Title</ion-label>
-      <ion-input class="editable-field" type="text" [(ngModel)]="job.job_title" name="job_title" placeholder="Final job title"></ion-input>
+      <ion-input class="editable-field" type="text" [(ngModel)]="obj.job_title" name="job_title" placeholder="Final job title"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Start Date</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="job.start_date" name="start_date"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="obj.start_date" name="start_date"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">End Date</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="job.end_date" name="end_date"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="obj.end_date" name="end_date"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Final Salary</ion-label>
-      <ion-input class="editable-field" type="number" [(ngModel)]="job.final_salary" name="final_salary" placeholder="Optional: your final salary" min=0></ion-input>
+      <ion-input class="editable-field" type="number" [(ngModel)]="obj.final_salary" name="final_salary" placeholder="Optional: your final salary" min=0></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Description</ion-label>
-      <ion-textarea class="editable-field" class="description" [(ngModel)]="job.description" name="description" placeholder="Optional: provide us with a few sentences about your role and responsibilities for this position."></ion-textarea>
+      <ion-textarea class="editable-field" class="description" [(ngModel)]="obj.description" name="description" placeholder="Optional: provide us with a few sentences about your role and responsibilities for this position."></ion-textarea>
     </ion-item>
     <button ion-button type="submit" block>Save</button>
   </form>

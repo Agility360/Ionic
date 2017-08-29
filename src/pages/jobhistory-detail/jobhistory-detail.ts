@@ -1,9 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
-import { JobHistoryProvider } from '../../providers/jobhistory';
 import { ActionSheetController } from 'ionic-angular'
+import { apiURL, DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
-import { DEBUG_MODE } from '../../shared/constants';
+import { JobHistoryProvider } from '../../providers/jobhistory';
 
 /**
  * Generated class for the JobhistoryDetailPage page.
@@ -19,23 +19,22 @@ import { DEBUG_MODE } from '../../shared/constants';
 })
 export class JobhistoryDetailPage {
 
-  job: Job;
+  obj: Job;
   errMess: string;
   action: string;
   shouldConfirmWindowClose: boolean;
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        @Inject('apiURL') private apiURL,
-        private jobservice: JobHistoryProvider,
+        private provider: JobHistoryProvider,
         private actionSheetCtrl: ActionSheetController,
         private toastCtrl: ToastController,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController) {
 
-        if (DEBUG_MODE) console.log('JobhistoryDetailPage.constructor() with job: ', this.job, this.action);
+        if (DEBUG_MODE) console.log('JobhistoryDetailPage.constructor() with obj: ', this.obj, this.action);
 
-        this.job = navParams.get('obj');
+        this.obj = navParams.get('obj');
         this.action = navParams.get('action').toLowerCase();
         this.shouldConfirmWindowClose = true;
     }
@@ -49,7 +48,7 @@ export class JobhistoryDetailPage {
        *=======================================================*/
 
       let loading = this.loadingCtrl.create({
-        content: 'Adding job ...'
+        content: 'Adding ...'
       });
 
       let toast = this.toastCtrl.create({
@@ -59,15 +58,15 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
-      if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
-      this.jobservice.add(this.job)
+      if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Adding obj: ', this.obj);
+      this.provider.add(this.obj)
         .subscribe(job => {
-                    this.job = job;
+                    this.obj = job;
                     loading.dismiss();
                     toast.present();
                     this.shouldConfirmWindowClose = false;
                     this.navCtrl.getActiveChildNav()
-                    if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Added job: ', this.job);
+                    if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Added obj: ', this.obj);
                   },
                   errmess => {
                     this.shouldConfirmWindowClose = true;
@@ -87,14 +86,14 @@ export class JobhistoryDetailPage {
 
       loading.present();
 
-      if (DEBUG_MODE) console.log('Updating job: ', this.job);
-      this.jobservice.update(this.job)
-          .subscribe(job => {
-                      this.job = job;
+      if (DEBUG_MODE) console.log('Updating obj: ', this.obj);
+      this.provider.update(this.obj)
+          .subscribe(dataObj => {
+                      this.obj = dataObj;
                       loading.dismiss();
                       toast.present();
                       this.shouldConfirmWindowClose = false;
-                      if (DEBUG_MODE) console.log('Updated job: ', job);
+                      if (DEBUG_MODE) console.log('Updated job: ', dataObj);
                     },
                     errmess => {
                       this.shouldConfirmWindowClose = true;
