@@ -17,7 +17,7 @@ import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
 /* Added by McDaniel */
 import { JobsPage } from '../pages/jobs/jobs';
 import { NewsPage } from '../pages/news/news';
-import { ForumPage } from '../pages/forum/forum';
+import { ResumePage } from '../pages/resume/resume';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
@@ -57,7 +57,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TasksCreatePage,
     JobsPage,
     NewsPage,
-    ForumPage,
+    ResumePage,
     NotificationsPage,
     CertificationsPage,
     EducationPage,
@@ -83,7 +83,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TasksCreatePage,
     JobsPage,
     NewsPage,
-    ForumPage,
+    ResumePage,
     NotificationsPage,
     CertificationsPage,
     EducationPage,

@@ -10,16 +10,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-forum',
-  templateUrl: 'forum.html',
+  selector: 'page-resume',
+  templateUrl: 'resume.html',
 })
-export class ForumPage {
+export class ResumePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ForumPage');
-  }
 
 }
