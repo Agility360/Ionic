@@ -1,3 +1,10 @@
+/*------------------------------------------------------
+ * written by: mcdaniel
+ * date: august 2017
+ *
+ * usage: data structures for Wordpress provider.
+ *        see: https://developer.wordpress.org/rest-api/
+ *------------------------------------------------------*/
 export interface WPPost {
   id: number;
   date: string;

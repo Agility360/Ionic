@@ -1,8 +1,10 @@
-/*====================================================================
-* McDaniel Aug-2017
-*
-* For Job History array from agility REST api
-* ====================================================================*/
+/*------------------------------------------------------
+ * written by: mcdaniel
+ * date: august 2017
+ *
+ * usage: Wordpress provider for Wordpress REST api
+ *        see: https://developer.wordpress.org/rest-api/
+ *------------------------------------------------------*/
 import { Injectable } from '@angular/core';
 import { WPPost, WPMedia } from '../shared/wppost';
 import { Observable } from 'rxjs/Observable';
@@ -103,17 +105,5 @@ export class WordpressProvider {
     };
   }
 
-  /* ------------- To deprecate ----------------
-  urlJobs() {
-    return cmsURL + 'posts/?categories=5';
-  }
-
-  getJobs(): Observable<WPPost[]> {
-    return this.http.get(this.urlPosts(), this.paramsJobs())
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
-  }
-
-  ----------------------------------------------*/
 
 }
