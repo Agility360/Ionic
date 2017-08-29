@@ -1,18 +1,54 @@
-<!--
-  Generated template for the EducationDetailPage page.
+<style>
+.form-label {
+  margin-top: 10px;
+}
+.editable-field {
+  color: green;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+.description {
+  min-height: 100px;
+}
+</style>
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Education Detail</ion-title>
+    <ion-title text-capitalize>{{ action }} Education History</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <form (ngSubmit)="processForm()">
+    <ion-item>
+      <ion-label stacked class="form-label">Instituion Name</ion-label>
+      <ion-input class="editable-field" type="text" [(ngModel)]="obj.institution_name" name="institution_name" placeholder="Institution Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Degree Earned</ion-label>
+      <ion-input class="editable-field" type="text" [(ngModel)]="obj.degree" name="degree" placeholder="Degree"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Graduated</ion-label>
+      <ion-checkbox class="editable-field" [(ngModel)]="obj.graduated" name="graduated"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Start Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="obj.start_date" name="start_date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">End Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="obj.end_date" name="end_date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Description</ion-label>
+<!--      <ion-textarea class="editable-field" class="description" [(ngModel)]="obj.description" name="description" placeholder="Optional: provide us with a few sentences about your role and responsibilities for this position."></ion-textarea>  -->
+    </ion-item>
+    <button ion-button type="submit" block>Save</button>
+  </form>
 
 </ion-content>

@@ -5,13 +5,6 @@ import { apiURL, DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 
-/**
- * Generated class for the JobhistoryDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-jobhistory-detail',
@@ -43,10 +36,6 @@ export class JobhistoryDetailPage {
     if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm(): ', );
 
     if (this.action === 'add') {
-      /*=======================================================
-       * Add a new Job
-       *=======================================================*/
-
       let loading = this.loadingCtrl.create({
         content: 'Adding ...'
       });
