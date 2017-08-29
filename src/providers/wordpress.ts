@@ -52,9 +52,6 @@ export class WordpressProvider {
 
 
   getPosts(params: any): Observable<WPPost[]> {
-
-    console.log('params: ', params.toString());
-
     return this.http.get(this.urlPosts(), {
                                          params: params
                                        })

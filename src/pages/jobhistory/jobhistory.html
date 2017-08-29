@@ -1,8 +1,9 @@
 <!--
-  Generated template for the JobhistoryPage page.
+  written by: mcdaniel
+  date:       august 2017
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+  usage:      template page construction for user profile pages
+              Job History, Education, and Certifications
 -->
 <style>
 .salary {
@@ -28,7 +29,7 @@
   <ion-navbar>
     <ion-title>Job History</ion-title>
     <ion-buttons start>
-      <button ion-button icon-only (click)="addJobHistory()">
+      <button ion-button icon-only (click)="add()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -36,7 +37,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-refresher (ionRefresh)="refreshData($event)">
+  <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content
                   pullingIcon="arrow-dropdown"
                   pullingText="Pull to refresh"
@@ -51,16 +52,16 @@
   <p>Research shows that blah blah blah.</p>
 
 
-  <div *ngIf="jobs">
-    <ion-list *ngFor="let job of jobs">
+  <div *ngIf="cards">
+    <ion-list *ngFor="let card of cards">
       <ion-card>
         <ion-item>
           <ion-avatar item-start>
             <img src="http://cdn.agility360app.net/">
           </ion-avatar>
-          <h2>{{ job.company_name || uppercase }}</h2>
-          <p>{{ job.job_title}}</p>
-          <p>{{ job.department.toString().replace("None", "") }}</p>
+          <h2>{{ card.company_name || uppercase }}</h2>
+          <p>{{ card.job_title}}</p>
+          <p>{{ card.department.toString().replace("None", "") }}</p>
         </ion-item>
 
         <ion-card-content>
@@ -70,7 +71,7 @@
                 <p>Start Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ job.start_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.start_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -78,7 +79,7 @@
                 <p>End Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ job.end_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.end_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -86,7 +87,7 @@
           <ion-item>
             <ion-row>
               <ion-col>
-                <p class="description" text-wrap>{{ job.description }}</p>
+                <p class="description" text-wrap>{{ card.description }}</p>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -96,7 +97,7 @@
                 <p>Final Salary:</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ job.final_salary | currency :$ :0 }}</p>
+                <p>{{ card.final_salary | currency :$ :0 }}</p>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -104,13 +105,13 @@
 
         <ion-row>
           <ion-col>
-            <button ion-button icon-left clear small (click)="editJobHistory($event, job)">
+            <button ion-button icon-left clear small (click)="edit($event, job)">
               <ion-icon name="create"></ion-icon>
               <div>Edit</div>
             </button>
           </ion-col>
           <ion-col text-right>
-            <button ion-button icon-left clear small color="danger" (click)="deleteJobHistory(job)">
+            <button ion-button icon-left clear small color="danger" (click)="delete(job)">
               <ion-icon name="trash"></ion-icon>
               <div>Delete</div>
             </button>
@@ -121,7 +122,7 @@
     </ion-list> <!-- *ngFor="let job of jobs" -->
   </div> <!-- *ngIf="jobs" -->
 
-  <div [hidden]="jobs || errMess">
+  <div [hidden]="cards || errMess">
     <ion-spinner name="bubbles"></ion-spinner>
     <h4>Loading ... </h4>
   </div>

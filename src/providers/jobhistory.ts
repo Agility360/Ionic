@@ -24,14 +24,14 @@ export class JobHistoryProvider {
     private cognito: Cognito,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    if (DEBUG_MODE) console.log('instantiated JobHistoryProvider');
+    if (DEBUG_MODE) console.log('constructor - JobHistoryProvider');
     if (DEBUG_MODE) console.log('apiURL: ', apiURL);
 
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
   }
 
-  newJob() {
+  new() {
 
     return  {
       account_name: this.username(),
@@ -56,54 +56,54 @@ export class JobHistoryProvider {
     return apiURL + 'candidates/' + this.username() + '/jobhistory/';
   }
 
-  getJobHistory(): Observable<Job[]> {
+  get(): Observable<Job[]> {
 
-    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.getJobHistory() with username: ', this.username());
+    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.get() with username: ', this.username());
 
     return this.http.get(this.url())
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  addJobHistory(job: Job): Observable<Job> {
+  add(job: Job): Observable<Job> {
 
-      if (DEBUG_MODE) console.log('JobHistoryProvider.addJobHistory() - adding', job);
+      if (DEBUG_MODE) console.log('JobHistoryProvider.add() - adding', job);
 
       return this.http.post(this.url(), job, this.config)
       .map(
         res => {
-          if (DEBUG_MODE) console.log('JobHistoryProvider.addJobHistory() - success', res);
+          if (DEBUG_MODE) console.log('JobHistoryProvider.add() - success', res);
           return this.ProcessHttpmsgService.extractData(res)
         }
       )
       .catch(
         error => {
-              if (DEBUG_MODE) console.log('JobHistoryProvider.addJobHistory() - error while posting', this.url(), this.config, job, error);
+              if (DEBUG_MODE) console.log('JobHistoryProvider.add() - error while posting', this.url(), this.config, job, error);
               return this.ProcessHttpmsgService.handleError(error)
             }
       );
 
   }
 
-  updateJobHistory(job: Job): Observable<Job> {
+  update(job: Job): Observable<Job> {
 
       return this.http.patch(this.url() + job.id.toString(), job, this.config)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.updateJobHistory() - error while posting', this.url() + job.id.toString(), this.config, job, error);
+            if (DEBUG_MODE) console.log('JobHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 
   }
 
-  deleteJobHistory(id: number): Observable<Job[]> {
+  delete(id: number): Observable<Job[]> {
 
       return this.http.delete(this.url() + id.toString(), this.config)
       .map(res => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.deleteJobHistory() - success.', res);
+            if (DEBUG_MODE) console.log('JobHistoryProvider.delete() - success.', res);
             return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            if (DEBUG_MODE) console.log('JobHistoryProvider.deleteJobHistory() - error while deleting', this.url() + id.toString(), this.config, error);
+            if (DEBUG_MODE) console.log('JobHistoryProvider.delete() - error while deleting', this.url() + id.toString(), this.config, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 

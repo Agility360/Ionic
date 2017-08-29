@@ -60,7 +60,7 @@ export class JobhistoryDetailPage {
       loading.present();
 
       if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Adding job: ', this.job);
-      this.jobservice.addJobHistory(this.job)
+      this.jobservice.add(this.job)
         .subscribe(job => {
                     this.job = job;
                     loading.dismiss();
@@ -88,7 +88,7 @@ export class JobhistoryDetailPage {
       loading.present();
 
       if (DEBUG_MODE) console.log('Updating job: ', this.job);
-      this.jobservice.updateJobHistory(this.job)
+      this.jobservice.update(this.job)
           .subscribe(job => {
                       this.job = job;
                       loading.dismiss();
