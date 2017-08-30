@@ -27,13 +27,13 @@ export class ConfirmPage {
 
   /* added by mcdaniel */
   public candidate: any;
-  public candidateProvider: CandidateProvider;
   /* added by mcdaniel */
 
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public user: User,
+    private candidateProvider: CandidateProvider,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController) {
@@ -46,6 +46,7 @@ export class ConfirmPage {
   }
 
   confirm() {
+    if (DEBUG_MODE) console.log('ConfirmPage.confirm()', this.candidate);
     this.user.confirmRegistration(this.username, this.code).then(() => {
 
       /* mcdaniel: some user experience improvements to the starter app */

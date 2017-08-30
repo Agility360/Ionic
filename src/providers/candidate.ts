@@ -23,20 +23,22 @@ export class CandidateProvider {
   constructor(public http: Http,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    if (DEBUG_MODE) console.log('instantiated CandidateProvider');
+    if (DEBUG_MODE) console.log('CandidateProvider.constructor()');
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
     this.url = apiURL + 'candidates/';
   }
 
-  get(username: string): Observable<Candidate[]> {
+  get(username: string): Observable<Candidate> {
     return this.http.get(this.url + username)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
 
-  add(candidate: Candidate): Observable<Candidate[]> {
+  add(obj: Candidate): Observable<Candidate> {
 
-      return this.http.post(this.url, candidate, this.config)
+      if (DEBUG_MODE) console.log('CandidateProvider.add() - adding', obj);
+
+      return this.http.post(this.url, obj, this.config)
       .map(
         res => {
           if (DEBUG_MODE) console.log('CandidateProvider.add() - success', res);
@@ -45,12 +47,14 @@ export class CandidateProvider {
       )
       .catch(
         error => {
-              if (DEBUG_MODE) console.log('CandidateProvider.add() - error while posting', this.url, this.config, candidate, error);
+              if (DEBUG_MODE) console.log('CandidateProvider.add() - error while posting', this.url, this.config, obj, error);
               return this.ProcessHttpmsgService.handleError(error)
             }
       );
 
   }
+
+
 
   update(candidate: Candidate): Observable<Candidate[]> {
 
