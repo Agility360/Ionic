@@ -50,7 +50,7 @@ export class SignupPage {
     if (DEBUG_MODE) console.log('SignupPage.signup()');
 
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Registering new account ...'
     });
     loading.present();
 
@@ -58,17 +58,18 @@ export class SignupPage {
     this.error = null;
 
     if (DEBUG_MODE) console.log('SignupPage.signup() - beginning registration');
-    this.user.register(details.username, details.password, {'email': details.email}).then((user) => {
-      if (DEBUG_MODE) console.log('SignupPage.signup() - success. registered');
-      loading.dismiss();
-      this.candidate.email = details.email;
-      this.candidate.account_name = details.username;
-      this.navCtrl.push(ConfirmPage, { candidate: this.candidate });
-    }).catch((err) => {
-      if (DEBUG_MODE) console.log('SignupPage.signup() - registration error.');
-      loading.dismiss();
-      this.error = err;
-    });
+    this.user.register(details.username, details.password, {'email': details.email})
+      .then((user) => {
+        if (DEBUG_MODE) console.log('SignupPage.signup() - success. registered');
+        loading.dismiss();
+        this.candidate.email = details.email;
+        this.candidate.account_name = details.username;
+        this.navCtrl.push(ConfirmPage, { candidate: this.candidate });
+      }).catch((err) => {
+        if (DEBUG_MODE) console.log('SignupPage.signup() - registration error.');
+        loading.dismiss();
+        this.error = err;
+      });
   }
 
   login() {

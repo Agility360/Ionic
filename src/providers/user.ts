@@ -5,8 +5,8 @@
  * ====================================================================*/
 import { Injectable } from '@angular/core';
 import { Config } from 'ionic-angular';
-
 import { Cognito } from './providers';
+import { DEBUG_MODE } from '../shared/constants';
 
 declare var AWS: any;
 declare const aws_cognito_region;
@@ -21,18 +21,22 @@ export class User {
   public loggedIn: boolean = false;
 
   constructor(public cognito: Cognito, public config: Config) {
+    if (DEBUG_MODE) console.log('User.constructor()');
     this.user = null;
   }
 
   getUser() {
+    if (DEBUG_MODE) console.log('User.getUser()');
     return this.user;
   }
 
   getUsername() {
+    if (DEBUG_MODE) console.log('User.getUsername()');
     return this.getUser().getUsername();
   }
 
   login(username, password) {
+    if (DEBUG_MODE) console.log('User.login()');
     return new Promise((resolve, reject) => {
       let user = this.cognito.makeUser(username);
       let authDetails = this.cognito.makeAuthDetails(username, password);
@@ -40,6 +44,7 @@ export class User {
       user.authenticateUser(authDetails, {
         'onSuccess': (result:any) => {
 
+          if (DEBUG_MODE) console.log('User.login() -- success.');
           var logins = {};
           var loginKey = 'cognito-idp.' +
                           aws_cognito_region +
@@ -55,14 +60,14 @@ export class User {
           this.isAuthenticated().then(() => {
             resolve();
           }).catch((err) => {
-            console.log('auth session failed');
+            if (DEBUG_MODE) console.log('User.login() -- failed.');
           });
 
         },
 
         'onFailure': (err:any) => {
 
-          console.log('authentication failed');
+          if (DEBUG_MODE) console.log('User.login() -- failed.');
           reject(err);
 
         }
@@ -71,11 +76,13 @@ export class User {
   }
 
   logout() {
+    if (DEBUG_MODE) console.log('User.logout()');
     this.user = null;
     this.cognito.getUserPool().getCurrentUser().signOut();
   }
 
   register(username, password, attr) {
+    if (DEBUG_MODE) console.log('User.register()');
     let attributes = [];
 
     for (var x in attr) {
@@ -85,8 +92,10 @@ export class User {
     return new Promise((resolve, reject) => {
       this.cognito.getUserPool().signUp(username, password, attributes, null, function(err, result) {
         if (err) {
+          if (DEBUG_MODE) console.log('User.register() -- error', err);
           reject(err);
         } else {
+          if (DEBUG_MODE) console.log('User.register() -- success');
           resolve(result.user);
         }
       });
@@ -94,13 +103,15 @@ export class User {
   }
 
   confirmRegistration(username, code) {
+    if (DEBUG_MODE) console.log('User.confirmRegistration()');
     return new Promise((resolve, reject) => {
       let user = this.cognito.makeUser(username);
       user.confirmRegistration(code, true, (err, result) => {
             if (err) {
-              console.log('could not confirm user', err);
+              if (DEBUG_MODE) console.log('User.confirmRegistration() - error', err);
               reject(err);
             } else {
+              if (DEBUG_MODE) console.log('User.confirmRegistration() - success', result);
               resolve(result);
             }
         });
@@ -108,13 +119,15 @@ export class User {
   }
 
   resendRegistrationCode(username) {
+    if (DEBUG_MODE) console.log('User.resendRegistrationCode()', username);
     return new Promise((resolve, reject) => {
       let user = this.cognito.makeUser(username);
       user.resendConfirmationCode((err, result) => {
         if (err) {
-          console.log('could not resend code..', err);
+          if (DEBUG_MODE) console.log('User.resendRegistrationCode() - error', err);
           reject(err);
         } else {
+          if (DEBUG_MODE) console.log('User.resendRegistrationCode() - sucess');
           resolve();
         }
       });
@@ -122,15 +135,16 @@ export class User {
   }
 
   isAuthenticated() {
+    if (DEBUG_MODE) console.log('User.isAuthenticated()');
     return new Promise((resolve, reject) => {
       let user = this.cognito.getCurrentUser();
       if (user != null) {
         user.getSession((err, session) => {
           if (err) {
-            console.log('rejected session');
+            if (DEBUG_MODE) console.log('User.isAuthenticated() - error', err);
             reject()
           } else {
-            console.log('accepted session');
+            if (DEBUG_MODE) console.log('User.isAuthenticated() - success');
             var logins = {};
             var loginKey = 'cognito-idp.' +
               aws_cognito_region +
@@ -148,6 +162,7 @@ export class User {
           }
         });
       } else {
+        if (DEBUG_MODE) console.log('User.isAuthenticated() - failure. Null user');
         reject()
       }
     });

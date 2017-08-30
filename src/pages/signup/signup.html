@@ -1,9 +1,15 @@
+<style>
+ p.error-message {
+  color: red;
+  text-align: center;
+}
+</style>
 <ion-content>
   <div text-center class="logo">
     <img src="assets/agility360-logo-transparent-512x512.png" />
   </div>
   <form (submit)="signup()">
-    <p *ngIf="error" style="text-align: center">{{error.message}}</p>
+    <strong><p class="error-message" *ngIf="error">{{error.message}}</p></strong>
     <ion-list>
 
       <ion-item>
