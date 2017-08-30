@@ -1,9 +1,15 @@
+<style>
+  p.system-message {
+    color: green;
+    text-align: full;
+  }
+</style>
 <ion-content>
   <div text-center class="logo">
-    <img src="assets/agility360-logo-transparent-512x512.png" width="50%" />
+    <img src="assets/agility360-logo-transparent-512x512.png" width="35%" />
   </div>
   <div padding>
-    <p>Please enter the confirmation code sent to your email to verify your account:</p>
+    <strong><p class="system-message">In a few moments you should receive an email from Agility 360 with a 6-digit confirmation code. To confirm that your email address is correct please enter the code below</p></strong>
   </div>
   <form (submit)="confirm()">
     <ion-list>
@@ -19,6 +25,10 @@
 
       <div padding>
         <p>Haven't received the confirmation code email yet? <a (click)="resendCode()">Resend</a></p>
+      </div>
+
+      <div>
+        <p>Problems getting setup? Contact us at mobile@agility360app.net or call us at (469) 208-6300.</p>
       </div>
 
     </ion-list>
