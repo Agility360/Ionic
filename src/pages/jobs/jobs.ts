@@ -59,7 +59,7 @@ export class JobsPage {
           this.posts = results
           var self = this;
           this.posts.forEach(function(post, id){
-              if (DEBUG_MODE) console.log(post);
+              /* if (DEBUG_MODE) console.log(post); */
               self.getMedia(post);
           });
         },

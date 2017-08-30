@@ -63,12 +63,14 @@ export class CertificationHistoryProvider {
 
   }
 
-  update(job: Certification): Observable<Certification> {
+  update(obj: Certification): Observable<Certification> {
 
-      return this.http.patch(this.url() + job.id.toString(), job, this.config)
+      if (DEBUG_MODE) console.log('CertificationHistoryProvider.update() - error while posting', this.url() + obj.id.toString(), this.config, obj);
+
+      return this.http.patch(this.url() + obj.id.toString(), obj, this.config)
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {
-            if (DEBUG_MODE) console.log('CertificationHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
+            if (DEBUG_MODE) console.log('CertificationHistoryProvider.update() - error while posting', this.url() + obj.id.toString(), this.config, obj, error);
             return this.ProcessHttpmsgService.handleError(error)
           });
 
