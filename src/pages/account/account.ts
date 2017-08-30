@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Config, LoadingController, NavController } from 'ionic-angular';
-
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import { DynamoDB, User } from '../../providers/providers';
 
 declare var AWS: any;

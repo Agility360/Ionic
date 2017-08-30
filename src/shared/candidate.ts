@@ -9,7 +9,7 @@ export interface Candidate {
   city: string;
   state: string;
   phone_number: string;
-  job_hunting: number;
+  job_hunting: boolean;
   industry_id: number;
   subindustry_id: number;
   profession_id: number;
