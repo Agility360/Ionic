@@ -16,6 +16,7 @@ export class JobhistoryPage {
 
   cards: Job[];
   errMess: string;
+  showLoading: boolean;
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -25,6 +26,7 @@ export class JobhistoryPage {
       private alertCtrl: AlertController
     ) {
         if (DEBUG_MODE) console.log('constructor JobhistoryPage');
+        this.showLoading = true;
   }
 
   ionViewWillEnter() {
@@ -35,6 +37,7 @@ export class JobhistoryPage {
   refresh(refresher) {
       setTimeout(() => {
         if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
+        this.showLoading = false;
         this.get();
         refresher.complete();
       }, 500);
@@ -43,13 +46,21 @@ export class JobhistoryPage {
 
   get() {
     if (DEBUG_MODE) console.log('JobhistoryPage.get()');
+    let loading = this.loadingCtrl.create({
+      content: 'Loading ...'
+    });
+    if (this.showLoading) loading.present();
     this.provider.get()
       .subscribe(
         results => {
         this.cards = results
+        if (this.showLoading) loading.dismiss();
+        this.showLoading = true;
         },
         err => {
           this.errMess = <any>err
+          if (this.showLoading) loading.dismiss();
+          this.showLoading = true;
         });
   }
 

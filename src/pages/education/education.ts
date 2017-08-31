@@ -22,6 +22,7 @@ export class EducationPage {
 
   cards: Education[];
   errMess: string;
+  showLoading: boolean;
 
   constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -31,6 +32,7 @@ export class EducationPage {
       private alertCtrl: AlertController
     ) {
         if (DEBUG_MODE) console.log('constructor EducationPage');
+        this.showLoading = true;
   }
 
   ionViewWillEnter() {
@@ -41,6 +43,7 @@ export class EducationPage {
   refresh(refresher) {
       setTimeout(() => {
         if (DEBUG_MODE) console.log('EducationPage.refresh()');
+        this.showLoading = false;
         this.get();
         refresher.complete();
       }, 500);
@@ -49,13 +52,21 @@ export class EducationPage {
 
   get() {
     if (DEBUG_MODE) console.log('EducationPage.get()');
+    let loading = this.loadingCtrl.create({
+      content: 'Loading ...'
+    });
+    if (this.showLoading) loading.present();
     this.provider.get()
       .subscribe(
         results => {
         this.cards = results
+        if (this.showLoading) loading.dismiss();
+        this.showLoading = true;
         },
         err => {
           this.errMess = <any>err
+          if (this.showLoading) loading.dismiss();
+          this.showLoading = true;
         });
   }
 

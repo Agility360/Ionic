@@ -102,10 +102,6 @@
     </ion-list> <!-- *ngFor="let job of jobs" -->
   </div> <!-- *ngIf="jobs" -->
 
-  <div [hidden]="cards || errMess">
-    <ion-spinner name="bubbles"></ion-spinner>
-    <h4>Loading ... </h4>
-  </div>
   <div *ngIf="errMess">
     <h2>Error</h2>
     <h4>{{ errMess }}</h4>
