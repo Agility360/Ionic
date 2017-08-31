@@ -19,14 +19,11 @@ export class HttpService extends Http {
         xhrBackend: XHRBackend,
         requestOptions: RequestOptions,
         private app: App,
-        private loadingCtrl: LoadingController) {
+        public loadingCtrl: LoadingController) {
 
     super(xhrBackend, requestOptions);
     if (DEBUG_MODE) console.log('HttpService.constructor()');
 
-    this.loading = loadingCtrl.create({
-      content: 'Loading ...'
-    });
   }
 
   /**
@@ -38,6 +35,9 @@ export class HttpService extends Http {
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     if (DEBUG_MODE) console.log('HttpService.request()');
 
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading ...'
+    });
     this.loading.present();
     return super.request(url, options);
   }
