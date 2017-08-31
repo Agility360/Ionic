@@ -51,7 +51,8 @@
             <ion-avatar item-start>
               <img src="http://cdn.agility360app.net/">
             </ion-avatar>
-            <h2>{{ post.title.rendered }}</h2>
+            <h2 text-wrap>{{ post.title.rendered }}</h2>
+            <p style="margin-top: 10px;">Posted: {{ post.date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
           </ion-item>
         </div>
 

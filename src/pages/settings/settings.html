@@ -7,22 +7,27 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <button ion-item [navPush]="jobhistoryPage">
-        Job History
-      </button>
-      <button ion-item [navPush]="educationPage">
-        Education
-      </button>
-      <button ion-item [navPush]="certificationsPage">
-        Certifications
-      </button>
+  <ion-list>
+    <button ion-item [navPush]="jobhistoryPage">
+    <ion-icon name="briefcase" item-start></ion-icon>
+      Job History
+    </button>
+    <button ion-item [navPush]="educationPage">
+    <ion-icon name="school" item-start></ion-icon>
+      Education
+    </button>
+    <button ion-item [navPush]="certificationsPage">
+    <ion-icon name="ribbon" item-start></ion-icon>
+      Certifications
+    </button>
 
-      <button ion-item [navPush]="accountPage">
-        Account
-      </button>
-      <button ion-item (click)="logout()">
-        <ion-label color="danger">Logout</ion-label>
-      </button>
-    </ion-list>
+    <button ion-item [navPush]="accountPage">
+    <ion-icon name="contact" item-start></ion-icon>
+      Account
+    </button>
+    <button ion-item (click)="logout()">
+      <ion-icon name="" item-start></ion-icon>
+      <ion-label color="danger">Logout</ion-label>
+    </button>
+  </ion-list>
 </ion-content>
