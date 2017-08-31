@@ -20,15 +20,17 @@ import 'rxjs/add/observable/throw';
 export class ProcessHttpmsgProvider {
 
   constructor(public http: Http) {
-    if (DEBUG_MODE) console.log('instantiated ProcessHttpmsgProvider');
+    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.constructor()');
   }
 
   public extractData(res: Response) {
+    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.extractData()', res);
     let body = res.json();
     return body || { };
   }
 
   public handleError(error: Response | any) {
+    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.handleError()', error);
     let errMsg: string;
 
     if (error instanceof Response) {

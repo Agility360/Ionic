@@ -1,6 +1,12 @@
-/*
-  from https://github.com/appwebhouse/ionic2-interceptors-app
-*/
+/*------------------------------------------------------------------------------
+  McDaniel
+  Date:   Aug 2017
+
+  Usage:  HTTP Interceptor to implement app-level behavior for
+          http errors, waiting prompts, timeout, etc.
+
+  Original code base from https://github.com/appwebhouse/ionic2-interceptors-app
+ ------------------------------------------------------------------------------*/
 
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
@@ -9,6 +15,8 @@ import { App, LoadingController} from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import 'rxjs/Rx';
 import { DEBUG_MODE } from '../shared/constants';
+
+export const TIMEOUT = 10000
 
 @Injectable()
 export class HttpService extends Http {
@@ -33,13 +41,15 @@ export class HttpService extends Http {
    * @returns {Observable<Response>}
    */
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    if (DEBUG_MODE) console.log('HttpService.request()');
+    if (DEBUG_MODE) console.log('HttpService.request()', url, options);
 
     this.loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
       content: 'Loading ...'
     });
     this.loading.present();
-    return super.request(url, options);
+    return super.request(url, options)
+      .timeout(TIMEOUT);
   }
 
   /**
@@ -140,7 +150,7 @@ export class HttpService extends Http {
    * @returns {RequestOptionsArgs}
    */
   private requestOptions(options?: RequestOptionsArgs): RequestOptionsArgs {
-    if (DEBUG_MODE) console.log('HttpService.requestOptions()');
+    if (DEBUG_MODE) console.log('HttpService.requestOptions()', options);
     return options;
   }
 
@@ -185,8 +195,7 @@ export class HttpService extends Http {
    */
   private onSubscribeSuccess(res: Response): void {
     this.loading.dismiss();
-    if (DEBUG_MODE) console.log('HttpService.onSubscribeSuccess()');
-    /* this.loading.dismiss(); */
+    if (DEBUG_MODE) console.log('HttpService.onSubscribeSuccess() - res:', res);
   }
 
   /**
@@ -194,10 +203,24 @@ export class HttpService extends Http {
    * @param error
    */
   private onSubscribeError(error: any): void {
-    if (DEBUG_MODE) console.log('HttpService.onSubscribeError()');
-    /* this.loading.dismiss(); */
+    if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error:', error);
 
-    this.loading.dismiss();
+    if (error.name) {
+      if (error.name == "TimeoutError") {
+        this.loading.dismiss();
+        this.loading = this.loadingCtrl.create({
+          spinner: 'hide',
+          content: 'Connection Timed Out.'
+        });
+        this.loading.present();
+
+        setTimeout(() => {
+          this.loading.dismiss();
+        }, 5000);
+      }
+    }
+
+
     switch (error.status) {
     case 401:
       this.moveToLogin();
@@ -225,7 +248,5 @@ export class HttpService extends Http {
     if (view.instance instanceof LoginPage) {}
     else { this.app.getRootNav().setRoot(LoginPage); }
   }
-
-
 
 }
