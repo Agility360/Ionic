@@ -6,6 +6,20 @@
               Job History, Education, and Certifications
 -->
 <style>
+.card-title-block {
+  margin-left: 2px;
+  margin-right: 2px;
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.institution {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
 .description {
   text-align: justify;
 }
@@ -45,15 +59,18 @@
   <div *ngIf="cards">
     <ion-list *ngFor="let card of cards">
       <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="http://cdn.agility360app.net/">
-          </ion-avatar>
-          <h2>{{ card.institution_name || uppercase }}</h2>
-          <p>{{ card.certification_name}}</p>
-        </ion-item>
-
         <ion-card-content>
+          <ion-card-title class="card-title-block">
+            <ion-icon name="ribbon" item-start></ion-icon>
+            {{ card.certification_name || uppercase }}
+          </ion-card-title>
+          <ion-item class="institution">
+            <ion-row>
+              <ion-col>
+                <h2>{{ card.institution_name}}</h2>
+              </ion-col>
+            </ion-row>
+          </ion-item>
           <ion-item class="job-dates">
             <ion-row>
               <ion-col text-left>
