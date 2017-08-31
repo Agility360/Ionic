@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Cognito } from './aws.cognito';
 import { Job } from '../shared/job';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { HttpService } from '../services/httpService';
 import { apiURL, DEBUG_MODE } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
@@ -20,7 +20,7 @@ export class JobHistoryProvider {
 
   config: string;
 
-  constructor(public http: Http,
+  constructor(public http: HttpService,
     private cognito: Cognito,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 

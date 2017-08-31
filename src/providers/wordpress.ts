@@ -8,7 +8,6 @@
 import { Injectable } from '@angular/core';
 import { WPPost, WPMedia } from '../shared/wppost';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
 import { cmsURL, DEBUG_MODE } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
@@ -54,15 +53,6 @@ export class WordpressProvider {
   }
 
 
-/*
-  getPosts(params: any): Observable<WPPost[]> {
-    return this.http.get(this.urlPosts(), {
-                                         params: params
-                                       })
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
-  }
-*/
 getPosts(params: any): Observable<WPPost[]> {
   return this.http.get(this.urlPosts(), {
                                        params: params

@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Candidate } from '../shared/candidate';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { HttpService } from '../services/httpService';
 import { apiURL, DEBUG_MODE } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
@@ -20,7 +20,7 @@ export class CandidateProvider {
   config: string;
   url: string;
 
-  constructor(public http: Http,
+  constructor(public http: HttpService,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
     if (DEBUG_MODE) console.log('CandidateProvider.constructor()');
