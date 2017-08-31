@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { App } from 'ionic-angular';
+import { App, LoadingController} from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import 'rxjs/Rx';
 import { DEBUG_MODE } from '../shared/constants';
@@ -13,12 +13,20 @@ import { DEBUG_MODE } from '../shared/constants';
 @Injectable()
 export class HttpService extends Http {
 
+  loading: any;
+
   constructor(
-    xhrBackend: XHRBackend,
-    requestOptions: RequestOptions,
-    private app: App) {
+        xhrBackend: XHRBackend,
+        requestOptions: RequestOptions,
+        private app: App,
+        private loadingCtrl: LoadingController) {
+
     super(xhrBackend, requestOptions);
     if (DEBUG_MODE) console.log('HttpService.constructor()');
+
+    this.loading = loadingCtrl.create({
+      content: 'Loading ...'
+    });
   }
 
   /**
@@ -29,6 +37,8 @@ export class HttpService extends Http {
    */
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     if (DEBUG_MODE) console.log('HttpService.request()');
+
+    this.loading.present();
     return super.request(url, options);
   }
 
@@ -174,7 +184,9 @@ export class HttpService extends Http {
    * @param res
    */
   private onSubscribeSuccess(res: Response): void {
+    this.loading.dismiss();
     if (DEBUG_MODE) console.log('HttpService.onSubscribeSuccess()');
+    /* this.loading.dismiss(); */
   }
 
   /**
@@ -183,6 +195,9 @@ export class HttpService extends Http {
    */
   private onSubscribeError(error: any): void {
     if (DEBUG_MODE) console.log('HttpService.onSubscribeError()');
+    /* this.loading.dismiss(); */
+
+    this.loading.dismiss();
     switch (error.status) {
     case 401:
       this.moveToLogin();
