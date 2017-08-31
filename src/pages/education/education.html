@@ -51,7 +51,7 @@
           </ion-avatar>
           <h2>{{ card.institution_name || uppercase }}</h2>
           <p>{{ card.degree}}</p>
-          <p>Graduated: {{ card.graduated.toString().replace("1", "Yes").replace("0", "No") }}</p>
+          <p>{{ card.graduated.toString().replace("1", "Graduate").replace("0", "Some coursework completed.") }}</p>
         </ion-item>
 
         <ion-card-content>
