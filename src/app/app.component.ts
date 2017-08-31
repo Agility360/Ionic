@@ -7,6 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
 import { User } from '../providers/user';
+import { DEBUG_MODE } from '../shared/constants';
 
 
 @Component({
@@ -19,17 +20,18 @@ export class MyApp {
     let globalActions = function() {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      if (DEBUG_MODE) console.log('MyApp.constructor()');
       statusBar.styleDefault();
       splashScreen.hide();
     };
 
     platform.ready().then(() => {
       user.isAuthenticated().then(() => {
-        console.log('you are authenticated!');
+        if (DEBUG_MODE) console.log('MyApp.constructor() - authenticated');
         this.rootPage = TabsPage;
         globalActions();
       }).catch(() => {
-        console.log('you are not authenticated..'); 
+        if (DEBUG_MODE) console.log('MyApp.constructor() - not authenticated');
         this.rootPage = LoginPage;
         globalActions();
       });

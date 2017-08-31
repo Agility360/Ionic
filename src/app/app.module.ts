@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, App  } from 'ionic-angular';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -26,7 +26,6 @@ import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-deta
 import { EducationDetailPage } from '../pages/education-detail/education-detail';
 import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
 
-import { HttpModule } from '@angular/http';
 import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
 import { CandidateProvider } from '../providers/candidate';
@@ -34,7 +33,16 @@ import { CertificationHistoryProvider } from '../providers/certificationhistory'
 import { EducationHistoryProvider } from '../providers/educationhistory';
 import { JobHistoryProvider } from '../providers/jobhistory';
 import { WordpressProvider } from '../providers/wordpress';
-import { SafeHtmlPipe } from "../shared/pipe.safehtml"
+import { SafeHtmlPipe } from "../shared/pipe.safehtml";
+import { HttpModule, XHRBackend, RequestOptions  } from '@angular/http';
+import { HttpService } from '../services/httpService';
+
+export function httpFactory(
+  backend: XHRBackend,
+  defaultOptions: RequestOptions,
+  app: App) {
+  return new HttpService(backend, defaultOptions, app);
+}
 /* Added by McDaniel */
 
 
@@ -100,6 +108,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: HttpService, useFactory: httpFactory, deps: [XHRBackend, RequestOptions, App] },
     Camera,
     User,
     Cognito,

@@ -15,13 +15,16 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { HttpService } from '../services/httpService';
+
 
 @Injectable()
 export class WordpressProvider {
 
   config: string;
 
-  constructor(public http: Http,
+  constructor(
+    public http: HttpService,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
     if (DEBUG_MODE) console.log('instantiated JobHistoryProvider');
@@ -51,6 +54,7 @@ export class WordpressProvider {
   }
 
 
+/*
   getPosts(params: any): Observable<WPPost[]> {
     return this.http.get(this.urlPosts(), {
                                          params: params
@@ -58,6 +62,15 @@ export class WordpressProvider {
       .map(res => {return this.ProcessHttpmsgService.extractData(res)})
       .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
   }
+*/
+getPosts(params: any): Observable<WPPost[]> {
+  return this.http.get(this.urlPosts(), {
+                                       params: params
+                                     })
+    .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+    .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+}
+
 
   getMedia(id: number): Observable<WPMedia> {
     return this.http.get(this.urlMedia() + id.toString())
