@@ -10,7 +10,7 @@
  *        - resume
  *------------------------------------------------------*/
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { WPPost } from '../../shared/wppost';
 import { WordpressProvider } from '../../providers/wordpress';
@@ -25,15 +25,12 @@ export class ResumePage {
 
   posts: WPPost[];
   errMess: string;
-  showLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public loadingCtrl: LoadingController,
               private wpservice: WordpressProvider
               ) {
         if (DEBUG_MODE) console.log('constructor ResumePage');
-        this.showLoading = true;
         this.getPosts();
   }
 
@@ -53,11 +50,6 @@ export class ResumePage {
         paramsNews()
         paramsResume()
     */
-    let loading = this.loadingCtrl.create({
-      content: 'Loading ...'
-    });
-    if (this.showLoading) loading.present();
-
     let params = this.wpservice.paramsResume();
 
     this.wpservice.getPosts(params)
@@ -70,16 +62,8 @@ export class ResumePage {
               if (DEBUG_MODE) console.log(post);
               self.getMedia(post);
           });
-          if (this.showLoading) {
-            loading.dismiss();
-            this.showLoading = false;
-          }
         },
         err => {
-          if (this.showLoading) {
-            loading.dismiss();
-            this.showLoading = false;
-          }
           if (DEBUG_MODE) console.log('ResumePage.getPosts() - error', err);
           this.errMess = <any>err
         });

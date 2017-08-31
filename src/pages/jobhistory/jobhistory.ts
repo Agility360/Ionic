@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { apiURL, DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
@@ -22,7 +22,6 @@ export class JobhistoryPage {
       public navParams: NavParams,
       private provider: JobHistoryProvider,
       private toastCtrl: ToastController,
-      private loadingCtrl: LoadingController,
       private alertCtrl: AlertController
     ) {
         if (DEBUG_MODE) console.log('constructor JobhistoryPage');
@@ -46,21 +45,13 @@ export class JobhistoryPage {
 
   get() {
     if (DEBUG_MODE) console.log('JobhistoryPage.get()');
-    let loading = this.loadingCtrl.create({
-      content: 'Loading ...'
-    });
-    if (this.showLoading) loading.present();
     this.provider.get()
       .subscribe(
         results => {
         this.cards = results
-        if (this.showLoading) loading.dismiss();
-        this.showLoading = true;
         },
         err => {
           this.errMess = <any>err
-          if (this.showLoading) loading.dismiss();
-          this.showLoading = true;
         });
   }
 
@@ -98,27 +89,20 @@ export class JobhistoryPage {
             {
               text: 'Delete',
               handler: () => {
-                let loading = this.loadingCtrl.create({
-                  content: 'Deleting ' + job.company_name + ' ...'
-                });
 
                 let toast = this.toastCtrl.create({
                   message: job.company_name + ' deleted.',
                   duration: 2000
                 });
 
-                loading.present();
-
                 this.provider.delete(job.id)
                   .subscribe(
                     results => {
                       this.cards = results;
-                      loading.dismiss();
                       toast.present();
                     },
                     err => {
                       this.errMess = err;
-                      loading.dismiss();
                     });
                 }
               }
