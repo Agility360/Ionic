@@ -66,9 +66,13 @@ export class JobHistoryProvider {
   }
 
   update(job: Job): Observable<Job> {
+      if (DEBUG_MODE) console.log('JobHistoryProvider.update() - updating', this.url() + job.id.toString(), this.config, job);
 
       return this.http.patch(this.url() + job.id.toString(), job, this.config)
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
+      .map(res => {
+        if (DEBUG_MODE) console.log('JobHistoryProvider.update() - updated. result: ', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
       .catch(error => {
             if (DEBUG_MODE) console.log('JobHistoryProvider.update() - error while posting', this.url() + job.id.toString(), this.config, job, error);
             return this.ProcessHttpmsgService.handleError(error)
@@ -77,6 +81,7 @@ export class JobHistoryProvider {
   }
 
   delete(id: number): Observable<Job[]> {
+      if (DEBUG_MODE) console.log('JobHistoryProvider.delete()', this.url() + id.toString(), this.config);
 
       return this.http.delete(this.url() + id.toString(), this.config)
       .map(res => {

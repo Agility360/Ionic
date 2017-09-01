@@ -123,6 +123,29 @@ export class HttpService extends Http {
   }
 
   /**
+   * Performs a request with `put` http method.
+   * @param url
+   * @param body
+   * @param options
+   * @returns {Observable<>}
+   */
+  patch(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+    if (DEBUG_MODE) console.log('HttpService.patch()');
+    this.requestInterceptor();
+    return super.patch(this.getFullUrl(url), body, this.requestOptions(options))
+      .catch(this.onCatch)
+      .do((res: Response) => {
+        this.onSubscribeSuccess(res);
+      }, (error: any) => {
+        this.onSubscribeError(error);
+      })
+      .finally(() => {
+        this.onFinally();
+      });
+  }
+
+
+  /**
    * Performs a request with `delete` http method.
    * @param url
    * @param options
