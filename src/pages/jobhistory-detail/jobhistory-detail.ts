@@ -44,11 +44,11 @@ export class JobhistoryDetailPage {
       if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Adding obj: ', this.obj);
       this.provider.add(this.obj)
         .subscribe(job => {
-                    this.obj = job;
+          if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Added obj: ', this.obj);
                     toast.present();
                     this.shouldConfirmWindowClose = false;
-                    this.navCtrl.getActiveChildNav()
-                    if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm() - Added obj: ', this.obj);
+                    /* this.navCtrl.getActiveChildNav() */
+                    this.exitPage();
                   },
                   errmess => {
                     this.shouldConfirmWindowClose = true;

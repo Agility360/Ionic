@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular'
 import { apiURL, DEBUG_MODE } from '../../shared/constants';
 import { Education } from '../../shared/education';
@@ -23,8 +23,7 @@ export class EducationDetailPage {
         private provider: EducationHistoryProvider,
         private actionSheetCtrl: ActionSheetController,
         private toastCtrl: ToastController,
-        private alertCtrl: AlertController,
-        private loadingCtrl: LoadingController) {
+        private alertCtrl: AlertController) {
 
         if (DEBUG_MODE) console.log('EducationDetailPage.constructor() with obj: ', this.obj, this.action);
 
@@ -37,57 +36,46 @@ export class EducationDetailPage {
     if (DEBUG_MODE) console.log('EducationDetailPage.processForm(): ', );
 
     if (this.action === 'add') {
-      let loading = this.loadingCtrl.create({
-        content: 'Adding ...'
-      });
 
       let toast = this.toastCtrl.create({
         message: 'Success.',
         duration: 2000
       });
 
-      loading.present();
 
       if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Adding obj: ', this.obj);
       this.provider.add(this.obj)
         .subscribe(job => {
-                    this.obj = job;
-                    loading.dismiss();
+                    if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Added obj: ', this.obj);
                     toast.present();
                     this.shouldConfirmWindowClose = false;
-                    this.navCtrl.getActiveChildNav()
-                    if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Added obj: ', this.obj);
+                    /* this.navCtrl.getActiveChildNav() */
+                    this.exitPage();
                   },
                   errmess => {
                     this.shouldConfirmWindowClose = true;
-                    this.errMess = errmess; loading.dismiss();
+                    this.errMess = errmess;
                   });
 
     };
     if (this.action === 'edit') {
-      let loading = this.loadingCtrl.create({
-        content: 'Updating ...'
-      });
 
       let toast = this.toastCtrl.create({
         message: 'Saved.',
         duration: 2000
       });
 
-      loading.present();
-
       if (DEBUG_MODE) console.log('Updating obj: ', this.obj);
       this.provider.update(this.obj)
           .subscribe(dataObj => {
-                      this.obj = dataObj;
-                      loading.dismiss();
+            if (DEBUG_MODE) console.log('Updated job: ', dataObj);
                       toast.present();
                       this.shouldConfirmWindowClose = false;
-                      if (DEBUG_MODE) console.log('Updated job: ', dataObj);
+                      this.exitPage();
                     },
                     errmess => {
                       this.shouldConfirmWindowClose = true;
-                      this.errMess = errmess; loading.dismiss();
+                      this.errMess = errmess;
                     });
 
     };
