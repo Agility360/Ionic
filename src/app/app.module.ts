@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, App, LoadingController  } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, App, LoadingController } from 'ionic-angular';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -25,6 +25,7 @@ import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
 import { EducationDetailPage } from '../pages/education-detail/education-detail';
 import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
+import { HttpErrorPage } from '../pages/http-error/http-error';
 
 import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
@@ -34,7 +35,7 @@ import { EducationHistoryProvider } from '../providers/educationhistory';
 import { JobHistoryProvider } from '../providers/jobhistory';
 import { WordpressProvider } from '../providers/wordpress';
 import { SafeHtmlPipe } from "../shared/pipe.safehtml";
-import { HttpModule, XHRBackend, RequestOptions  } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
 
 export function httpFactory(
@@ -76,6 +77,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobhistoryDetailPage,
     EducationDetailPage,
     CertificationDetailPage,
+    HttpErrorPage,
     SafeHtmlPipe
   ],
   imports: [
@@ -103,12 +105,13 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobhistoryPage,
     JobhistoryDetailPage,
     EducationDetailPage,
-    CertificationDetailPage
+    CertificationDetailPage,
+    HttpErrorPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: HttpService, useFactory: httpFactory, deps: [XHRBackend, RequestOptions, App, LoadingController] },
     Camera,
     User,
@@ -124,7 +127,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WordpressProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
 
 declare var AWS;
 AWS.config.customUserAgent = AWS.config.customUserAgent + ' Ionic';

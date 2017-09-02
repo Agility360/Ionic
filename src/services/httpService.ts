@@ -13,6 +13,7 @@ import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response
 import { Observable } from 'rxjs/Observable';
 import { App, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
+import { HttpErrorPage } from '../pages/http-error/http-error';
 import 'rxjs/Rx';
 import { DEBUG_MODE } from '../shared/constants';
 
@@ -233,15 +234,7 @@ export class HttpService extends Http {
     if (error.name) {
       if (error.name == "TimeoutError") {
         this.loading.dismiss();
-        this.loading = this.loadingCtrl.create({
-          spinner: 'hide',
-          content: 'Connection Timed Out.'
-        });
-        this.loading.present();
-
-        setTimeout(() => {
-          this.loading.dismiss();
-        }, 5000);
+        this.moveToHttpError();
       }
     }
 
@@ -272,6 +265,11 @@ export class HttpService extends Http {
     let view = this.app.getRootNav().getActive();
     if (view.instance instanceof LoginPage) { }
     else { this.app.getRootNav().setRoot(LoginPage); }
+  }
+
+  private moveToHttpError(): void {
+    if (DEBUG_MODE) console.log('HttpService.moveToHttpError()');
+    this.app.getRootNav().push(HttpErrorPage);
   }
 
 }
