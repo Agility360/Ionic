@@ -11,7 +11,7 @@
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { App, LoadingController } from 'ionic-angular';
+import { App, LoadingController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { HttpErrorPage } from '../pages/http-error/http-error';
 import 'rxjs/Rx';
@@ -28,10 +28,12 @@ export class HttpService extends Http {
     xhrBackend: XHRBackend,
     requestOptions: RequestOptions,
     private app: App,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController) {
 
     super(xhrBackend, requestOptions);
     if (DEBUG_MODE) console.log('HttpService.constructor()');
+
 
   }
 
@@ -50,6 +52,7 @@ export class HttpService extends Http {
       showBackdrop: false,
       enableBackdropDismiss: true
     });
+
     this.loading.present();
     return super.request(url, options)
       .timeout(TIMEOUT);
@@ -220,8 +223,8 @@ export class HttpService extends Http {
    * @param res
    */
   private onSubscribeSuccess(res: Response): void {
-    this.loading.dismiss();
     if (DEBUG_MODE) console.log('HttpService.onSubscribeSuccess() - res:', res);
+    this.loading.dismiss();
   }
 
   /**
@@ -230,11 +233,12 @@ export class HttpService extends Http {
    */
   private onSubscribeError(error: any): void {
     if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error:', error);
+    this.loading.dismiss();
 
     if (error.name) {
       if (error.name == "TimeoutError") {
-        this.loading.dismiss();
         this.moveToHttpError();
+        return;
       }
     }
 
@@ -243,7 +247,37 @@ export class HttpService extends Http {
       case 401:
         this.moveToLogin();
         break;
+
+      case 500:
+        let errObj: any;
+        let errMsg: any;
+
+        if (error instanceof Response) {
+          if (DEBUG_MODE) console.log('onSubscribeError() - 500 Response Object');
+          console.log('i am a Response instance', error.text())
+          errObj = JSON.parse(error.text());
+          errMsg = errObj.errorType + ': ' + errObj.errorMessage;
+          if (DEBUG_MODE) console.log('onSubscribeError() - 500 Response Object:', errObj);
+        }
+
+        let alert = this.alertCtrl.create({
+          title: 'Server Error',
+          message: errMsg,
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'ok',
+              handler: () => {
+                if (DEBUG_MODE) console.log('onSubscribeError() - alert - ok clicked.');
+              }
+            }
+          ]
+        });
+
+        alert.present();
+
       default:
+
         break;
 
     }

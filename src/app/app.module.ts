@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, App, LoadingController } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, App, LoadingController, AlertController } from 'ionic-angular';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -42,8 +42,9 @@ export function httpFactory(
   backend: XHRBackend,
   defaultOptions: RequestOptions,
   app: App,
-  loadingCtrl: LoadingController) {
-  return new HttpService(backend, defaultOptions, app, loadingCtrl);
+  loadingCtrl: LoadingController,
+  alertCtrl: AlertController) {
+  return new HttpService(backend, defaultOptions, app, loadingCtrl, alertCtrl);
 }
 /* Added by McDaniel */
 
@@ -112,7 +113,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: HttpService, useFactory: httpFactory, deps: [XHRBackend, RequestOptions, App, LoadingController] },
+    { provide: HttpService, useFactory: httpFactory, deps: [XHRBackend, RequestOptions, App, LoadingController, AlertController] },
     Camera,
     User,
     Cognito,
