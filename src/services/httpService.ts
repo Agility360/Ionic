@@ -11,7 +11,7 @@
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { App, LoadingController} from 'ionic-angular';
+import { App, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import 'rxjs/Rx';
 import { DEBUG_MODE } from '../shared/constants';
@@ -24,10 +24,10 @@ export class HttpService extends Http {
   loading: any;
 
   constructor(
-        xhrBackend: XHRBackend,
-        requestOptions: RequestOptions,
-        private app: App,
-        public loadingCtrl: LoadingController) {
+    xhrBackend: XHRBackend,
+    requestOptions: RequestOptions,
+    private app: App,
+    public loadingCtrl: LoadingController) {
 
     super(xhrBackend, requestOptions);
     if (DEBUG_MODE) console.log('HttpService.constructor()');
@@ -45,7 +45,9 @@ export class HttpService extends Http {
 
     this.loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Loading ...'
+      content: 'Loading ...',
+      showBackdrop: false,
+      enableBackdropDismiss: true
     });
     this.loading.present();
     return super.request(url, options)
@@ -59,7 +61,7 @@ export class HttpService extends Http {
    * @returns {Observable<>}
    */
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.get()');
+    if (DEBUG_MODE) console.log('HttpService.get()', url, options);
     this.requestInterceptor();
     return super.get(this.getFullUrl(url), this.requestOptions(options))
       .catch(this.onCatch)
@@ -74,7 +76,7 @@ export class HttpService extends Http {
   }
 
   getLocal(url: string, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.getLocal()');
+    if (DEBUG_MODE) console.log('HttpService.getLocal()', url, options);
     return super.get(url, options);
   }
 
@@ -86,7 +88,7 @@ export class HttpService extends Http {
    * @returns {Observable<>}
    */
   post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.post()');
+    if (DEBUG_MODE) console.log('HttpService.post()', url, options);
     this.requestInterceptor();
     return super.post(this.getFullUrl(url), body, this.requestOptions(options))
       .catch(this.onCatch)
@@ -108,7 +110,7 @@ export class HttpService extends Http {
    * @returns {Observable<>}
    */
   put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.put()');
+    if (DEBUG_MODE) console.log('HttpService.put()', url, options);
     this.requestInterceptor();
     return super.put(this.getFullUrl(url), body, this.requestOptions(options))
       .catch(this.onCatch)
@@ -130,7 +132,7 @@ export class HttpService extends Http {
    * @returns {Observable<>}
    */
   patch(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.patch()');
+    if (DEBUG_MODE) console.log('HttpService.patch()', url, options);
     this.requestInterceptor();
     return super.patch(this.getFullUrl(url), body, this.requestOptions(options))
       .catch(this.onCatch)
@@ -152,7 +154,7 @@ export class HttpService extends Http {
    * @returns {Observable<>}
    */
   delete(url: string, options?: RequestOptionsArgs): Observable<any> {
-    if (DEBUG_MODE) console.log('HttpService.delete()');
+    if (DEBUG_MODE) console.log('HttpService.delete()', url, options);
     this.requestInterceptor();
     return super.delete(this.getFullUrl(url), options)
       .catch(this.onCatch)
@@ -245,11 +247,11 @@ export class HttpService extends Http {
 
 
     switch (error.status) {
-    case 401:
-      this.moveToLogin();
-      break;
-    default:
-      break;
+      case 401:
+        this.moveToLogin();
+        break;
+      default:
+        break;
 
     }
   }
@@ -268,7 +270,7 @@ export class HttpService extends Http {
   private moveToLogin(): void {
     if (DEBUG_MODE) console.log('HttpService.moveToLogin()');
     let view = this.app.getRootNav().getActive();
-    if (view.instance instanceof LoginPage) {}
+    if (view.instance instanceof LoginPage) { }
     else { this.app.getRootNav().setRoot(LoginPage); }
   }
 
