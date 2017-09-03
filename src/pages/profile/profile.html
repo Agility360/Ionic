@@ -14,5 +14,32 @@
 
 
 <ion-content padding  class="app-background">
+  <ion-list *ngIf="card">
+    <ion-item no-lines>
+      <ion-label>First: </ion-label>
+      <div item-content>
+        {{ this.card.first_name }}
+      </div>
+    </ion-item>
 
+    <ion-item-divider>
+      Item Divider
+    </ion-item-divider>
+  </ion-list>
+
+<!--
+first_name: string;
+middle_name: string;
+last_name: string;
+city: string;
+state: string;
+phone_number: string;
+job_hunting: boolean;
+industry_id: number;
+subindustry_id: number;
+profession_id: number;
+subprofession_id: number;
+update_date: string;
+
+-->
 </ion-content>

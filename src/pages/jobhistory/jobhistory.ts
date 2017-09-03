@@ -16,16 +16,14 @@ export class JobhistoryPage {
 
   cards: Job[];
   errMess: string;
-  showLoading: boolean;
 
   constructor(public navCtrl: NavController,
-      public navParams: NavParams,
-      private provider: JobHistoryProvider,
-      private toastCtrl: ToastController,
-      private alertCtrl: AlertController
-    ) {
-        if (DEBUG_MODE) console.log('constructor JobhistoryPage');
-        this.showLoading = true;
+    public navParams: NavParams,
+    private provider: JobHistoryProvider,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {
+    if (DEBUG_MODE) console.log('constructor JobhistoryPage');
   }
 
   ionViewWillEnter() {
@@ -34,12 +32,11 @@ export class JobhistoryPage {
   }
 
   refresh(refresher) {
-      setTimeout(() => {
-        if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
-        this.showLoading = false;
-        this.get();
-        refresher.complete();
-      }, 500);
+    setTimeout(() => {
+      if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
+      this.get();
+      refresher.complete();
+    }, 500);
   }
 
 
@@ -47,12 +44,12 @@ export class JobhistoryPage {
     if (DEBUG_MODE) console.log('JobhistoryPage.get()');
     this.provider.get()
       .subscribe(
-        results => {
+      results => {
         this.cards = results
-        },
-        err => {
-          this.errMess = <any>err
-        });
+      },
+      err => {
+        this.errMess = <any>err
+      });
   }
 
   add() {
@@ -73,45 +70,45 @@ export class JobhistoryPage {
 
 
   delete(job: Job) {
-      if (DEBUG_MODE) console.log('JobhistoryPage.delete() - button clicked for job:', job);
+    if (DEBUG_MODE) console.log('JobhistoryPage.delete() - button clicked for job:', job);
 
-      let alert = this.alertCtrl.create({
-        title: 'Delete',
-        message: 'Delete ' + job.company_name + '?',
-        buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                if (DEBUG_MODE) console.log('Delete cancelled.');
-              }
-            },
-            {
-              text: 'Delete',
-              handler: () => {
+    let alert = this.alertCtrl.create({
+      title: 'Delete',
+      message: 'Delete ' + job.company_name + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            if (DEBUG_MODE) console.log('Delete cancelled.');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
 
-                let toast = this.toastCtrl.create({
-                  message: job.company_name + ' deleted.',
-                  duration: 2000
-                });
+            let toast = this.toastCtrl.create({
+              message: job.company_name + ' deleted.',
+              duration: 2000
+            });
 
-                this.provider.delete(job.id)
-                  .subscribe(
-                    results => {
-                      this.cards = results;
-                      toast.present();
-                    },
-                    err => {
-                      this.errMess = err;
-                    });
-                }
-              }
-          ]
-      });
+            this.provider.delete(job.id)
+              .subscribe(
+              results => {
+                this.cards = results;
+                toast.present();
+              },
+              err => {
+                this.errMess = err;
+              });
+          }
+        }
+      ]
+    });
 
-      alert.present();
+    alert.present();
 
-    } /* delete */
+  } /* delete */
 
 
 }

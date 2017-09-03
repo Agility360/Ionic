@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { apiURL, DEBUG_MODE } from '../../shared/constants';
+import { Candidate } from '../../shared/candidate';
+import { CandidateProvider } from '../../providers/candidate';
+import { SignupPage } from '../signup/signup';
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,11 +19,55 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  card: Candidate;
+  errMess: string;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private provider: CandidateProvider,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {
+    if (DEBUG_MODE) console.log('ProfilePage.constructor()');
+    this.get();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+  ionViewWillEnter() {
+    if (DEBUG_MODE) console.log('ProfilePage.ionViewWillEnter()');
   }
+
+  refresh(refresher) {
+    setTimeout(() => {
+      if (DEBUG_MODE) console.log('ProfilePage.refresh()');
+      this.get();
+      refresher.complete();
+    }, 500);
+  }
+
+
+  get() {
+    if (DEBUG_MODE) console.log('ProfilePage.get()');
+    this.provider.get()
+      .subscribe(
+      result => {
+        this.card = result
+        if (DEBUG_MODE) console.log('ProfilePage.get() - got: ', this.card);
+        if (DEBUG_MODE) console.log('ProfilePage.get() - got: ', this.card.first_name);
+      },
+      err => {
+        this.errMess = <any>err
+        if (DEBUG_MODE) console.log('ProfilePage.get() - error: ', this.errMess);
+      });
+  }
+
+
+  edit(event, candidate: Candidate) {
+    if (DEBUG_MODE) console.log('ProfilePage.edit() - button clicked for job:', candidate);
+    this.navCtrl.push(SignupPage, {
+      obj: candidate,
+      action: 'Edit'
+    });
+  } /* edit() */
+
 
 }
