@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { SettingsPage } from '../settings/settings';
-import { TasksPage } from '../tasks/tasks';
 import { JobsPage } from '../jobs/jobs';
 import { NewsPage } from '../news/news';
 import { ResumePage } from '../resume/resume';
