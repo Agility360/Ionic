@@ -15,7 +15,7 @@
       </ion-col>
       <ion-col >
         <h3 style="color: gray;">{{ this.username }}</h3>
-        <h4 style="color: gray;">{{ this.email }} <span *ngIf="this.email_verified">(<span style="color: green;">verified</span>)</span></h4>
+        <h4 style="color: gray;">{{ this.email }} <span *ngIf="this.email_verified"> - <span style="color: green;">verified</span></span></h4>
       </ion-col>
     </ion-row>
 
@@ -43,9 +43,9 @@
       Certifications
     </button>
 
-    <button ion-item [navPush]="accountPage">
+    <button ion-item [navPush]="profilePage">
     <ion-icon name="contact" item-start></ion-icon>
-      Account
+      Profile
     </button>
     <button ion-item (click)="logout()">
       <ion-icon name="log-out" item-start></ion-icon>

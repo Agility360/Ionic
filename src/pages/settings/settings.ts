@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { AccountPage } from '../account/account';
+import { ProfilePage } from '../profile/profile';
 import { DEBUG_MODE } from '../../shared/constants';
 
 import { CertificationsPage } from '../certifications/certifications';
@@ -35,7 +35,7 @@ export class SettingsPage {
   public email_verified: boolean;
 
 
-  public accountPage = AccountPage;
+  public profilePage = ProfilePage;
   public certificationsPage = CertificationsPage;
   public educationPage = EducationPage;
   public jobhistoryPage = JobhistoryPage;

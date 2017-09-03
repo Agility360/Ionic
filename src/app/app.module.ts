@@ -9,7 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ConfirmPage } from '../pages/confirm/confirm';
 import { SettingsPage } from '../pages/settings/settings';
-import { AccountPage } from '../pages/account/account';
+import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 
 /* Added by McDaniel */
@@ -62,7 +62,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     SignupPage,
     ConfirmPage,
     SettingsPage,
-    AccountPage,
+    ProfilePage,
     TabsPage,
     JobsPage,
     NewsPage,
@@ -89,7 +89,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     SignupPage,
     ConfirmPage,
     SettingsPage,
-    AccountPage,
+    ProfilePage,
     TabsPage,
     JobsPage,
     NewsPage,
