@@ -1,14 +1,14 @@
-<style>
- p.error-message {
-  color: red;
-  text-align: center;
-}
-</style>
-<ion-content>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create An Account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="app-background">
   <div text-center class="logo">
     <img src="assets/agility360-logo-transparent-512x512.png" />
   </div>
-  <form (submit)="signup()">
+  <form (submit)="signup()" padding>
     <strong><p class="error-message" *ngIf="error">{{error.message}}</p></strong>
     <ion-list>
 
