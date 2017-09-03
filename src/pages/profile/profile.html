@@ -15,31 +15,95 @@
 
 <ion-content padding  class="app-background">
   <ion-list *ngIf="card">
+    <ion-item-divider>
+      Your Full Name
+    </ion-item-divider>
     <ion-item no-lines>
-      <ion-label>First: </ion-label>
+      <ion-label class="agility-label">First: </ion-label>
       <div item-content>
         {{ this.card.first_name }}
       </div>
     </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Middle: </ion-label>
+      <div item-content>
+        {{ this.card.middle_name }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Last: </ion-label>
+      <div item-content>
+        {{ this.card.last_name }}
+      </div>
+    </ion-item>
 
     <ion-item-divider>
-      Item Divider
+      Address Information
     </ion-item-divider>
+    <ion-item no-lines>
+      <ion-label class="agility-label">City: </ion-label>
+      <div item-content>
+        {{ this.card.city }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">State: </ion-label>
+      <div item-content>
+        {{ this.card.phone }}
+      </div>
+    </ion-item>
+
+    <ion-item-divider>
+      Contact Information
+    </ion-item-divider>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Phone: </ion-label>
+      <div item-content>
+        {{ this.card.phone_number }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Email address: </ion-label>
+      <div item-content>
+        {{ this.card.email }}
+      </div>
+    </ion-item>
+
+    <ion-item-divider>
+      Professional Profile
+    </ion-item-divider>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Are your currently job hunting?: </ion-label>
+      <div item-content>
+        {{ this.card.job_hunting }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Your industry: </ion-label>
+      <div item-content>
+        {{ this.card.industry_id }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Your sub-industry: </ion-label>
+      <div item-content>
+        {{ this.card.subindustry_id }}
+      </div>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label class="agility-label">Your profession: </ion-label>
+      <div item-content>
+        {{ this.card.profession_id }}
+      </div>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="agility-label">Your sub-profession: </ion-label>
+      <div item-content>
+        {{ this.card.subprofession_id }}
+      </div>
+    </ion-item>
+
   </ion-list>
 
-<!--
-first_name: string;
-middle_name: string;
-last_name: string;
-city: string;
-state: string;
-phone_number: string;
-job_hunting: boolean;
-industry_id: number;
-subindustry_id: number;
-profession_id: number;
-subprofession_id: number;
-update_date: string;
-
--->
 </ion-content>
