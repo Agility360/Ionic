@@ -17,13 +17,13 @@ ID:careers@agility
 PW:agility36@
 
 ### Application Resources
- - ![iOS Connect (App ID 1270138260)](https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/1270138260)
- - Pending: Download the Android app
- - [View the app on Cloudfront](https://d1s3rwkbgrvc9r.cloudfront.net/)
- - [View the app on S3](http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/)
+ - [Project web site](https://www.agility360app.net/)
+ - [web app](https://app.agility360app.net/)
+ - [REST api](https://api.agility360app.net/beta)
  - [Front end repository and documentation](https://github.com/Agility360/Ionic)
  - [Back end repository and documentation](https://github.com/Agility360/CEA/tree/master/backend)
- - [REST api](https://api.agility360app.net/beta)
+ - ![iOS Connect (App ID 1270138260)](https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/1270138260)
+ - Pending: Download the Android app
 
 
 ## Instructions for cloning this app in a dev environment
@@ -87,7 +87,6 @@ Once the project is imported, you'll be directed to the dashboard for this Mobil
 Next, assuming your terminal is still open inside of the `myApp` folder, run:
 
 ```bash
-aws s3 cp s3://BUCKET_NAME/aws-config.js src/assets
 aws s3 cp s3://clientengagementapp-hosting-mobilehub-1363944817/aws-config.js src/assets
 ```
 
@@ -138,8 +137,16 @@ open platforms/ios/MyApp.xcodeproj
 Since your Ionic app is just a web app, it can be hosted as a static website in an Amazon S3 bucket. To do this, copy the web assets to the S3 bucket:
 
 ```
+echo "Building web app."
 npm run build
-aws s3 cp --recursive ./www s3://WEBSITE_BUCKET
+aws s3 cp --recursive ./www s3://clientengagementapp-hosting-mobilehub-1363944817
+echo "Web app compiled."
+echo "To execute from S3: http://clientengagementapp-hosting-mobilehub-1363944817.s3-website-us-east-1.amazonaws.com/"
+echo "To execute from Cloudfront: https://d1s3rwkbgrvc9r.cloudfront.net/"
+
+echo "Building Ionic View app."
+ionic upload
+echo "Build complete. App id: 73ac5e25"
 ```
 
 Where `WEBSITE_BUCKET` is an S3 bucket configured with static hosting.
