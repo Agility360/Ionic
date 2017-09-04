@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { User } from '../../providers/user';
 
 /*-----------------------------------------------------------------------
  * added by mcdaniel
  *-----------------------------------------------------------------------*/
-import { apiURL, DEBUG_MODE } from '../../shared/constants';
-import { Candidate } from '../../shared/candidate';
+import { DEBUG_MODE } from '../../shared/constants';
 import { CandidateProvider } from '../../providers/candidate';
 /*-----------------------------------------------------------------------
  *
@@ -35,7 +34,6 @@ export class ConfirmPage {
     public user: User,
     private candidateProvider: CandidateProvider,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController,
     private loadingCtrl: LoadingController) {
 
     /* modified by mcdaniel */
@@ -63,17 +61,17 @@ export class ConfirmPage {
 
       /* mcdaniel: hook to create MySQL candidate master record */
       this.candidateProvider.add(this.candidate)
-          .subscribe(obj => {
-                      this.candidate = obj;
-                      loading.dismiss();
-                      toast.present();
-                      this.navCtrl.push(LoginPage);
-                      if (DEBUG_MODE) console.log('ConfirmPage.confirm() - Added obj: ', this.candidate);
-                    },
-                    err => {
-                      if (DEBUG_MODE) console.log('ConfirmPage.confirm() - error: ', err);
-                      this.errMess = err; loading.dismiss();
-                    });
+        .subscribe(obj => {
+          this.candidate = obj;
+          loading.dismiss();
+          toast.present();
+          this.navCtrl.push(LoginPage);
+          if (DEBUG_MODE) console.log('ConfirmPage.confirm() - Added obj: ', this.candidate);
+        },
+        err => {
+          if (DEBUG_MODE) console.log('ConfirmPage.confirm() - error: ', err);
+          this.errMess = err; loading.dismiss();
+        });
 
     });
   }

@@ -7,15 +7,15 @@ import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
 import { User } from '../../providers/user';
 export class UserDetails {
-    username: string;
-    email: string;
-    password: string;
+  username: string;
+  email: string;
+  password: string;
 }
 
 /*-----------------------------------------------------------------------
  * added by mcdaniel
  *-----------------------------------------------------------------------*/
-import { apiURL, DEBUG_MODE } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
 /*-----------------------------------------------------------------------
@@ -35,13 +35,13 @@ export class SignupPage {
   error: any;
 
   constructor(public navCtrl: NavController,
-              public user: User,
-              private candidateProvider: CandidateProvider,
-              public loadingCtrl: LoadingController) {
+    public user: User,
+    private candidateProvider: CandidateProvider,
+    public loadingCtrl: LoadingController) {
 
-   if (DEBUG_MODE) console.log('SignupPage.constructor()');
-   this.userDetails = new UserDetails();
-   this.candidate = this.candidateProvider.new();
+    if (DEBUG_MODE) console.log('SignupPage.constructor()');
+    this.userDetails = new UserDetails();
+    this.candidate = this.candidateProvider.new();
 
   }
 
@@ -58,7 +58,7 @@ export class SignupPage {
     this.error = null;
 
     if (DEBUG_MODE) console.log('SignupPage.signup() - beginning registration');
-    this.user.register(details.username, details.password, {'email': details.email})
+    this.user.register(details.username, details.password, { 'email': details.email })
       .then((user) => {
         if (DEBUG_MODE) console.log('SignupPage.signup() - success. registered');
         loading.dismiss();

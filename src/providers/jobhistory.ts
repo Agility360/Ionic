@@ -13,7 +13,6 @@ import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { RequestOptions, Request, RequestMethod } from '@angular/http';
 
 @Injectable()
 export class JobHistoryProvider {

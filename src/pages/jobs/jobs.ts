@@ -9,9 +9,9 @@
  *        - news
  *        - resume
  *------------------------------------------------------*/
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { cdnURL, DEBUG_MODE } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { WPPost } from '../../shared/wppost';
 import { WordpressProvider } from '../../providers/wordpress';
 

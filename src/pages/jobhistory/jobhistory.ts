@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { apiURL, DEBUG_MODE } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
 import { JobhistoryDetailPage } from '../jobhistory-detail/jobhistory-detail';

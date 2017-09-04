@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { apiURL, DEBUG_MODE } from '../../shared/constants';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
 import { SignupPage } from '../signup/signup';
@@ -24,9 +24,7 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private provider: CandidateProvider,
-    private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private provider: CandidateProvider
   ) {
     if (DEBUG_MODE) console.log('ProfilePage.constructor()');
     this.get();

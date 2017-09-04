@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { apiURL, DEBUG_MODE } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { Certification } from '../../shared/certification';
 import { CertificationHistoryProvider } from '../../providers/certificationhistory';
 import { CertificationDetailPage } from '../certification-detail/certification-detail';
@@ -18,12 +18,12 @@ export class CertificationsPage {
   errMess: string;
 
   constructor(public navCtrl: NavController,
-      public navParams: NavParams,
-      private provider: CertificationHistoryProvider,
-      private toastCtrl: ToastController,
-      private alertCtrl: AlertController
-    ) {
-        if (DEBUG_MODE) console.log('constructor JobhistoryPage');
+    public navParams: NavParams,
+    private provider: CertificationHistoryProvider,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {
+    if (DEBUG_MODE) console.log('constructor JobhistoryPage');
   }
 
   ionViewWillEnter() {
@@ -32,11 +32,11 @@ export class CertificationsPage {
   }
 
   refresh(refresher) {
-      setTimeout(() => {
-        if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
-        this.get();
-        refresher.complete();
-      }, 500);
+    setTimeout(() => {
+      if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
+      this.get();
+      refresher.complete();
+    }, 500);
   }
 
 
@@ -44,12 +44,12 @@ export class CertificationsPage {
     if (DEBUG_MODE) console.log('JobhistoryPage.get()');
     this.provider.get()
       .subscribe(
-        results => {
+      results => {
         this.cards = results
-        },
-        err => {
-          this.errMess = <any>err
-        });
+      },
+      err => {
+        this.errMess = <any>err
+      });
   }
 
   add() {
@@ -70,44 +70,44 @@ export class CertificationsPage {
 
 
   delete(obj: Certification) {
-      if (DEBUG_MODE) console.log('JobhistoryPage.delete() - button clicked for obj:', obj);
+    if (DEBUG_MODE) console.log('JobhistoryPage.delete() - button clicked for obj:', obj);
 
-      let alert = this.alertCtrl.create({
-        title: 'Delete',
-        message: 'Delete ' + obj.institution_name + '?',
-        buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                if (DEBUG_MODE) console.log('Delete cancelled.');
-              }
-            },
-            {
-              text: 'Delete',
-              handler: () => {
-                let toast = this.toastCtrl.create({
-                  message: obj.institution_name + ' deleted.',
-                  duration: 2000
-                });
+    let alert = this.alertCtrl.create({
+      title: 'Delete',
+      message: 'Delete ' + obj.institution_name + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            if (DEBUG_MODE) console.log('Delete cancelled.');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            let toast = this.toastCtrl.create({
+              message: obj.institution_name + ' deleted.',
+              duration: 2000
+            });
 
-                this.provider.delete(obj.id)
-                  .subscribe(
-                    results => {
-                      this.cards = results;
-                      toast.present();
-                    },
-                    err => {
-                      this.errMess = err;
-                    });
-                }
-              }
-          ]
-      });
+            this.provider.delete(obj.id)
+              .subscribe(
+              results => {
+                this.cards = results;
+                toast.present();
+              },
+              err => {
+                this.errMess = err;
+              });
+          }
+        }
+      ]
+    });
 
-      alert.present();
+    alert.present();
 
-    } /* delete */
+  } /* delete */
 
 
 }

@@ -34,7 +34,6 @@ export class SettingsPage {
   public username: string;
   public email: string;
   public email_verified: boolean;
-  private errMess: string;
 
   public profilePage = ProfilePage;
   public certificationsPage = CertificationsPage;

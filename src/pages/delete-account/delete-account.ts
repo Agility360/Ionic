@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
-import { DynamoDB, User } from '../../providers/providers';
+import { User } from '../../providers/providers';
 import { DEBUG_MODE } from '../../shared/constants';
 import { LoginPage } from '../login/login';
 
