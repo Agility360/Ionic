@@ -24,6 +24,7 @@ import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-deta
 import { EducationDetailPage } from '../pages/education-detail/education-detail';
 import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
 import { HttpErrorPage } from '../pages/http-error/http-error';
+import { DeleteAccountPage } from '../pages/delete-account/delete-account';
 
 import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
@@ -75,6 +76,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     EducationDetailPage,
     CertificationDetailPage,
     HttpErrorPage,
+    DeleteAccountPage,
     SafeHtmlPipe
   ],
   imports: [
@@ -101,7 +103,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobhistoryDetailPage,
     EducationDetailPage,
     CertificationDetailPage,
-    HttpErrorPage
+    HttpErrorPage,
+    DeleteAccountPage
   ],
   providers: [
     StatusBar,

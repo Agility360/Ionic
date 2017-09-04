@@ -31,25 +31,32 @@
 
   <ion-list padding>
     <button ion-item [navPush]="jobhistoryPage">
-    <ion-icon name="briefcase" item-start></ion-icon>
-      Job History
+      <ion-icon name="briefcase" item-start></ion-icon>
+      <ion-label>Job History</ion-label>
     </button>
     <button ion-item [navPush]="educationPage">
-    <ion-icon name="school" item-start></ion-icon>
-      Education
+      <ion-icon name="school" item-start></ion-icon>
+      <ion-label>Education</ion-label>
     </button>
     <button ion-item [navPush]="certificationsPage">
-    <ion-icon name="ribbon" item-start></ion-icon>
-      Certifications
+      <ion-icon name="ribbon" item-start></ion-icon>
+      <ion-label>Certifications</ion-label>
     </button>
-
     <button ion-item [navPush]="profilePage">
-    <ion-icon name="contact" item-start></ion-icon>
-      Candidate Profile
+      <ion-icon name="contact" item-start></ion-icon>
+      <ion-label>Candidate Profile</ion-label>
     </button>
-    <button ion-item (click)="logout()">
+    <button ion-item (click)="logout()" no-lines>
       <ion-icon name="log-out" item-start></ion-icon>
       <ion-label color="danger">Logout</ion-label>
     </button>
   </ion-list>
+
+  <ion-list padding>
+    <button ion-item [navPush]="deleteAccountPage">
+      <ion-icon name="trash" item-start></ion-icon>
+      <ion-label color="danger">Delete Account</ion-label>
+    </button>
+  </ion-list>
+
 </ion-content>

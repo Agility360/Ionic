@@ -104,7 +104,8 @@ export class JobhistoryPage {
           }
         }
       ]
-    });
+    }
+    );
 
     alert.present();
 

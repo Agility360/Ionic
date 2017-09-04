@@ -79,14 +79,21 @@ export class CandidateProvider {
       );
   }
 
-  delete() {
+  delete(): Observable<Candidate> {
+    if (DEBUG_MODE) console.log('CandidateProvider.delete()', this.url(), apiHttpOptions);
 
-    if (DEBUG_MODE) console.log('CandidateProvider.delete()');
-    this.http.delete(this.url + this.username(), this.config)
-      .catch(error => { return this.ProcessHttpmsgService.handleError(error) });
-
-    return true;
+    return this.http.delete(this.url(), apiHttpOptions)
+      .map(res => {
+        if (DEBUG_MODE) console.log('CandidateProvider.delete() - success.', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('CandidateProvider.delete() - error while deleting', this.url(), apiHttpOptions, error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
   }
+
+
 
   new() {
     if (DEBUG_MODE) console.log('CandidateProvider.new()');

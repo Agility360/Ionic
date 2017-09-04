@@ -1,16 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { App } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { ProfilePage } from '../profile/profile';
+import { Config, LoadingController, NavController, App, AlertController } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 
+import { LoginPage } from '../login/login';
+import { ProfilePage } from '../profile/profile';
 import { CertificationsPage } from '../certifications/certifications';
 import { EducationPage } from '../education/education';
 import { JobhistoryPage } from '../jobhistory/jobhistory';
+import { DeleteAccountPage } from '../delete-account/delete-account';
+
 import { DynamoDB, User } from '../../providers/providers';
-
-
-import { Config, LoadingController, NavController } from 'ionic-angular';
+import { CandidateProvider } from '../../providers/candidate';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 declare var AWS: any;
@@ -24,6 +24,7 @@ declare const aws_user_files_s3_bucket_region;
 export class SettingsPage {
 
   @ViewChild('avatar') avatarInput;
+  provider: CandidateProvider;
 
   private s3: any;
   public avatarPhoto: string;
@@ -33,12 +34,14 @@ export class SettingsPage {
   public username: string;
   public email: string;
   public email_verified: boolean;
-
+  private errMess: string;
 
   public profilePage = ProfilePage;
   public certificationsPage = CertificationsPage;
   public educationPage = EducationPage;
   public jobhistoryPage = JobhistoryPage;
+  public deleteAccountPage = DeleteAccountPage;
+
 
   constructor(public navCtrl: NavController,
     public user: User,
@@ -46,6 +49,7 @@ export class SettingsPage {
     public db: DynamoDB,
     public config: Config,
     public camera: Camera,
+    private alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
 
     if (DEBUG_MODE) console.log('SettingsPage.constructor() - begin');
@@ -82,6 +86,35 @@ export class SettingsPage {
     if (DEBUG_MODE) console.log('SettingsPage.logout()');
     this.user.logout();
     this.app.getRootNav().setRoot(LoginPage);
+  }
+
+
+  deleteAccount() {
+    if (DEBUG_MODE) console.log('SettingsPage.deleteAccount()');
+    let alert = this.alertCtrl.create({
+      title: 'Delete Account',
+      message: 'Are you sure you want to delete your account? This cannot be undone.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            if (DEBUG_MODE) console.log('Delete cancelled.');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.user.logout();
+            this.app.getRootNav().setRoot(LoginPage);
+          }
+        }
+      ]
+    }
+    );
+
+    alert.present();
+
   }
 
   refreshAvatar() {
