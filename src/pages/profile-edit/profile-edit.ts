@@ -31,10 +31,6 @@ export class ProfileEditPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileEditPage');
-  }
-
   save() {
     if (DEBUG_MODE) console.log('ProfileEditPage.save(): ', );
 
@@ -65,5 +61,37 @@ export class ProfileEditPage {
     this.shouldConfirmWindowClose = false;
     this.navCtrl.pop();
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProfileEditPage');
+  }
+
+  ionViewCanLeave() {
+    if (this.shouldConfirmWindowClose) {
+      let alert = this.alertCtrl.create({
+        title: 'Exit',
+        message: 'Discard changes?',
+        buttons: [{
+          text: 'Discard',
+          handler: () => {
+            this.exitPage();
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => {
+            // need to do something if the user stays?
+          }
+        }]
+      });
+
+      // Show the alert
+      alert.present();
+
+      // Return false to avoid the page to be popped up
+      return false;
+    }
+  }
+
 
 }
