@@ -28,6 +28,24 @@ export class EducationDetailPage {
     this.obj = navParams.get('obj');
     this.action = navParams.get('action').toLowerCase();
     this.shouldConfirmWindowClose = true;
+
+    /*----------------------------------------------
+     * some explanation is merited for the following.
+     * the Ionic Date Picker control uses a 2-way to a string representation of a date
+     * formatted in ISO 8601 format. meanwhile, the underlying MySQL database that stores
+     * any persisted data use IOS [some other format] which will result in the Date Picker
+     * object not being initialized to a value.
+     *
+     * to resolve this cunundrum the following code converts the string representation to a date object
+     * and then back to a string; albeit in ISO 8601 format.
+     */
+    if (this.obj.start_date.replace("None", "") != "") {
+      this.obj.start_date = new Date(this.obj.start_date.replace("None", "")).toISOString();
+    }
+    if (this.obj.end_date.replace("None", "") != "") {
+      this.obj.end_date = new Date(this.obj.end_date.replace("None", "")).toISOString();
+    }
+
   }
 
   processForm() {
