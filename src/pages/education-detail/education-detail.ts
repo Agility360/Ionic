@@ -16,6 +16,7 @@ export class EducationDetailPage {
   errMess: string;
   action: string;
   shouldConfirmWindowClose: boolean;
+  graduated: boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,10 +47,17 @@ export class EducationDetailPage {
       this.obj.end_date = new Date(this.obj.end_date.replace("None", "")).toISOString();
     }
 
+    /* Ditto regarding boolean values for the Ionic Checkbox control. */
+    if (this.obj.graduated == 1) this.graduated = true
+    else this.graduated = false;
+
   }
 
   processForm() {
     if (DEBUG_MODE) console.log('EducationDetailPage.processForm(): ', );
+
+    /* rebind our local boolean "graduated" object to the real graduated object. */
+    this.obj.graduated = this.graduated ? 1 : 0;
 
     if (this.action === 'add') {
 
@@ -57,7 +65,6 @@ export class EducationDetailPage {
         message: 'Success.',
         duration: 2000
       });
-
 
       if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Adding obj: ', this.obj);
       this.provider.add(this.obj)

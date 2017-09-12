@@ -19,8 +19,8 @@
       <ion-input class="editable-field" type="text" [(ngModel)]="obj.degree" name="degree" placeholder="Degree"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked class="form-label">Graduated</ion-label>
-      <ion-checkbox class="editable-field" [(ngModel)]="obj.graduated" name="graduated"></ion-checkbox>
+      <ion-label stacked class="form-label">Graduated - {{ graduated }}</ion-label>
+      <ion-checkbox class="editable-field" [(ngModel)]="graduated" name="graduated"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label stacked class="form-label">Start Date</ion-label>
