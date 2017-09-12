@@ -13,5 +13,25 @@ page-signup {
     text-align: center;
   }
 
+   p {
+       font-size: 0.8em;
+       color: #d2d2d2;
+   }
+
+   ion-label, .select-text {
+       margin-left: 10px;
+   }
+
+   ion-input, ion-select, ion-textarea {
+       padding: 5px 10px;
+
+       color: green;
+       font-weight: bolder;
+       margin-bottom: 5px;
+   }
+
+   .invalid {
+       border: 1px solid #ea6153;
+   }
 
 }

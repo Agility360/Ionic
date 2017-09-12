@@ -18,6 +18,10 @@ export class UserDetails {
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PasswordValidator } from  '../../validators/password';
+import { UsernameValidator } from  '../../validators/username';
+import { EmailValidator } from  '../../validators/email';
 /*-----------------------------------------------------------------------
  *
  *-----------------------------------------------------------------------*/
@@ -31,23 +35,47 @@ export class SignupPage {
 
   public userDetails: UserDetails;
   public candidate: Candidate;
-
+  public repeatPassword: string;
   error: any;
+
+  public formGroup: FormGroup;
 
   constructor(public navCtrl: NavController,
     public user: User,
     private candidateProvider: CandidateProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public formBuilder: FormBuilder) {
 
     if (DEBUG_MODE) console.log('SignupPage.constructor()');
     this.userDetails = new UserDetails();
     this.candidate = this.candidateProvider.new();
+
+    this.formGroup = formBuilder.group({
+        username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), UsernameValidator.checkUsername],
+        email: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), EmailValidator.isValid]), EmailValidator.checkEmailaddress],
+        password: ['', PasswordValidator.isValid],
+        repeatPassword: ['']
+    });
+
+
+
+
+  }
+
+  validPassword(val: string) {
+    if (DEBUG_MODE) console.log('SignupPage.validPassword()');
+
+  }
+
+  validPasswordAsync(val: string) {
+    if (DEBUG_MODE) console.log('SignupPage.validPasswordAsync()');
 
   }
 
   signup() {
 
     if (DEBUG_MODE) console.log('SignupPage.signup()');
+    if (!this.formGroup.valid) return;
 
     let loading = this.loadingCtrl.create({
       content: 'Registering new account ...'
@@ -76,5 +104,7 @@ export class SignupPage {
     if (DEBUG_MODE) console.log('SignupPage.login()');
     this.navCtrl.push(LoginPage);
   }
+
+
 
 }

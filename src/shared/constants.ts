@@ -24,4 +24,4 @@ export const cmsURL = 'https://agility360app.net/wp-json/wp/v2/'
 /*
 App constants
 */
-export const DEBUG_MODE = false
+export const DEBUG_MODE = true

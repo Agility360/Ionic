@@ -8,70 +8,71 @@
   <div text-center class="logo">
     <img src="assets/agility360-logo-transparent-512x512.png" />
   </div>
-  <form (submit)="signup()" padding>
+  <form (submit)="signup()" padding [formGroup]="formGroup">
     <strong><p class="error-message" *ngIf="error">{{error.message}}</p></strong>
     <ion-list>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="person"></ion-icon>
+        </ion-label>
+        <ion-input type="text"
+              [(ngModel)]="userDetails.username"
+              formControlName="username"
+              autocorrect="off"
+              autocapitalize="none"
+              name="username"
+              placeholder="Username"
+              [class.invalid]="!formGroup.controls.username.valid && formGroup.controls.username.dirty">
+        </ion-input>
+      </ion-item>
+      <ion-item *ngIf="formGroup.controls.username.pending">
+           <p>Checking username...</p>
+       </ion-item>
+       <ion-item *ngIf="!formGroup.controls.username.valid && !formGroup.controls.username.pending && formGroup.controls.username.dirty">
+           <p>Sorry, that username can not be used!</p>
+       </ion-item>
 
       <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="userDetails.username" autocorrect="off" autocapitalize="none" name="username"></ion-input>
+        <ion-label>
+          <ion-icon name="mail"></ion-icon>
+        </ion-label>
+        <ion-input type="email"
+              [(ngModel)]="userDetails.email"
+              formControlName="email"
+              name="email"
+              placeholder="address@mailserver.com"
+              [class.invalid]="!formGroup.controls.email.valid && formGroup.controls.email.dirty">
+        </ion-input>
+      </ion-item>
+      <ion-item *ngIf="formGroup.controls.email.pending">
+           <p>Checking email address...</p>
+       </ion-item>
+       <ion-item *ngIf="!formGroup.controls.email.valid && !formGroup.controls.email.pending && formGroup.controls.email.dirty">
+           <p>Sorry, that email address can not be used!</p>
+       </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input type="password"
+              [(ngModel)]="userDetails.password"
+              formControlName="password"
+              name="password"
+              placeholder="Password"
+              [class.invalid]="!formGroup.controls.password.valid && formGroup.controls.password.dirty">
+      </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="userDetails.email" name="email"></ion-input>
+        <ion-label>
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input type="password" [(ngModel)]="repeatPassword" formControlName="repeatPassword" name="repeat-password" placeholder="Repeat password"></ion-input>
       </ion-item>
-
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="userDetails.password" name="password"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>First Name</ion-label>
-        <ion-input type="text" [(ngModel)]="candidate.first_name" autocorrect="off" autocapitalize="none" name="first_name"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Middle Name</ion-label>
-        <ion-input type="text" [(ngModel)]="candidate.middle_name" autocorrect="off" autocapitalize="none" name="middle_name"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="candidate.last_name" autocorrect="off" autocapitalize="none" name="last_name"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Your Current City of Residence</ion-label>
-        <ion-input type="text" [(ngModel)]="candidate.city" autocorrect="off" autocapitalize="none" name="city"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Your Current State of Residence</ion-label>
-        <ion-input type="text" [(ngModel)]="candidate.state" autocorrect="off" autocapitalize="none" name="state"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>Your Daytime Phone Number</ion-label>
-        <ion-input type="tel" [(ngModel)]="candidate.phone_number" autocorrect="off" autocapitalize="none" name="phone_number"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Are You Currently Job Hunting?</ion-label>
-        <ion-checkbox class="editable-field" [(ngModel)]="candidate.job_hunting" name="job_hunting"></ion-checkbox>
-      </ion-item>
-
-<!--
-industry_id: number;
-subindustry_id: number;
-profession_id: number;
-subprofession_id: number;
-
--->
 
       <div padding>
-        <button ion-button color="primary" block>Register</button>
+        <button ion-button color="primary" block>Sign Up</button>
       </div>
 
       <div padding text-center>
