@@ -5,13 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left clear small (click)="edit($event, card)">
+        <ion-icon name="create"></ion-icon>
+        <div>Edit</div>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding  class="app-background">
   <ion-list *ngIf="card">

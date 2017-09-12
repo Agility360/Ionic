@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
-import { SignupPage } from '../signup/signup';
+import { ProfileEditPage } from '../profile-edit/profile-edit';
 
 /**
  * Generated class for the ProfilePage page.
@@ -60,8 +60,8 @@ export class ProfilePage {
 
 
   edit(event, candidate: Candidate) {
-    if (DEBUG_MODE) console.log('ProfilePage.edit() - button clicked for job:', candidate);
-    this.navCtrl.push(SignupPage, {
+    if (DEBUG_MODE) console.log('ProfilePage.edit() - button clicked:', candidate);
+    this.navCtrl.push(ProfileEditPage, {
       obj: candidate,
       action: 'Edit'
     });
