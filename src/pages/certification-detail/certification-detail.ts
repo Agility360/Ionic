@@ -16,6 +16,7 @@ export class CertificationDetailPage {
   errMess: string;
   action: string;
   shouldConfirmWindowClose: boolean;
+  today: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,6 +29,24 @@ export class CertificationDetailPage {
     this.obj = navParams.get('obj');
     this.action = navParams.get('action').toLowerCase();
     this.shouldConfirmWindowClose = true;
+
+    /*----------------------------------------------
+     * some explanation is merited for the following.
+     * the Ionic Date Picker control uses a 2-way to a string representation of a date
+     * formatted in ISO 8601 format. meanwhile, the underlying MySQL database that stores
+     * any persisted data use IOS [some other format] which will result in the Date Picker
+     * object not being initialized to a value.
+     *
+     * to resolve this cunundrum the following code converts the string representation to a date object
+     * and then back to a string; albeit in ISO 8601 format.
+     */
+    if (this.obj.date_received.replace("None", "") != "") {
+      this.obj.date_received = new Date(this.obj.date_received.replace("None", "")).toISOString();
+    }
+    if (this.obj.expire_date.replace("None", "") != "") {
+      this.obj.expire_date = new Date(this.obj.expire_date.replace("None", "")).toISOString();
+    }
+
   }
 
   processForm() {
@@ -41,7 +60,7 @@ export class CertificationDetailPage {
 
       if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Adding obj: ', this.obj);
       this.provider.add(this.obj)
-        .subscribe(job => {
+        .subscribe(obj => {
           if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Added obj: ', this.obj);
           toast.present();
           this.shouldConfirmWindowClose = false;
@@ -63,7 +82,7 @@ export class CertificationDetailPage {
       if (DEBUG_MODE) console.log('Updating obj: ', this.obj);
       this.provider.update(this.obj)
         .subscribe(dataObj => {
-          if (DEBUG_MODE) console.log('Updated job: ', dataObj);
+          if (DEBUG_MODE) console.log('Updated obj: ', dataObj);
           toast.present();
           this.shouldConfirmWindowClose = false;
           this.exitPage();
