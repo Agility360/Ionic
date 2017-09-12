@@ -96,7 +96,8 @@ export class EducationHistoryProvider {
       graduated: false,
       start_date: '',
       end_date: '',
-      create_date: ''
+      create_date: '',
+      description: ''
     };
   }
 

@@ -8,4 +8,5 @@ export interface Education {
   start_date: string;
   end_date: string;
   create_date: string;
+  description: string;
 }

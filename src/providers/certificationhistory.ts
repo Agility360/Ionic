@@ -97,7 +97,8 @@ export class CertificationHistoryProvider {
       certification_name: '',
       date_received: '',
       expire_date: '',
-      create_date: ''
+      create_date: '',
+      description: ''
     };
   }
 

@@ -7,4 +7,5 @@ export interface Certification {
   date_received: string;
   expire_date: string;
   create_date: string;
+  description: string;
 }
