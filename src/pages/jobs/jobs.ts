@@ -31,7 +31,7 @@ export class JobsPage {
     public navParams: NavParams,
     private wpservice: WordpressProvider
   ) {
-    if (DEBUG_MODE) console.log('constructor JobsPage');
+    if (DEBUG_MODE) console.log('JobsPage.constructor()');
     this.showLoading = true;
     this.getPosts();
   }
