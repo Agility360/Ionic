@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
@@ -13,18 +13,19 @@ import { CandidateProvider } from '../../providers/candidate';
 })
 export class ProfileEditPage {
 
-  public candidate: Candidate;
+  public obj: Candidate;
   error: any;
   private shouldConfirmWindowClose: boolean;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private candidateProvider: CandidateProvider,
-    public loadingCtrl: LoadingController) {
+    private provider: CandidateProvider,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController) {
 
       if (DEBUG_MODE) console.log('ProfileEditPage.constructor()');
-      this.candidate = navParams.get('obj');
+      this.obj = navParams.get('obj');
       this.shouldConfirmWindowClose = true;
 
 
@@ -35,6 +36,34 @@ export class ProfileEditPage {
   }
 
   save() {
+    if (DEBUG_MODE) console.log('ProfileEditPage.save(): ', );
+
+    let toast = this.toastCtrl.create({
+      message: 'Success.',
+      duration: 2000
+    });
+
+
+    this.provider.update(this.obj)
+      .subscribe(obj => {
+        if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Added obj: ', this.obj);
+        toast.present();
+        this.shouldConfirmWindowClose = false;
+        /* this.navCtrl.getActiveChildNav() */
+        this.exitPage();
+      },
+      error => {
+        this.shouldConfirmWindowClose = true;
+        this.error = error;
+      });
+
+
 
   }
+
+  private exitPage() {
+    this.shouldConfirmWindowClose = false;
+    this.navCtrl.pop();
+  }
+
 }
