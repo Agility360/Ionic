@@ -1,4 +1,10 @@
 page-signup {
+  /*
+  $text-input-highlight-color-valid: black;
+  $text-input-highlight-color-invalid: black;
+  $text-input-placeholder-color: black;
+  */
+
   .logo {
     padding: 20px 0px 0px 0px;
     text-align: center;
@@ -10,6 +16,8 @@ page-signup {
 
   .error-message {
     color: red;
+    font-style: italic;
+    font-size: 1em;
     text-align: center;
   }
 
@@ -18,13 +26,16 @@ page-signup {
        color: #d2d2d2;
    }
 
+   ion-item {
+    background-color: green;
+   }
+
    ion-label, .select-text {
        margin-left: 10px;
    }
 
    ion-input, ion-select, ion-textarea {
-       padding: 5px 10px;
-       font-weight: bolder;
+       padding: 0px 0px;
        margin-bottom: 5px;
    }
 
@@ -34,7 +45,8 @@ page-signup {
 
    .invalid {
      color: red;
-     border: 1px solid #ea6153;
+     background-color: yellow;
+     border: 3px solid #ea6153;
    }
 
 }
