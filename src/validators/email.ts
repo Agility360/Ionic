@@ -32,7 +32,7 @@ export class EmailValidator {
           } else {
             resolve(null);
           }
-        }, 2000);
+        }, 500);
 
       });
     }

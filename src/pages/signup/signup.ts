@@ -51,9 +51,9 @@ export class SignupPage {
     this.candidate = this.candidateProvider.new();
 
     this.formGroup = formBuilder.group({
-        username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), UsernameValidator.checkUsername],
-        email: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), EmailValidator.isValid]), EmailValidator.checkEmailaddress],
-        password: ['', PasswordValidator.isValid],
+        username: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z0-9_-]*')]), UsernameValidator.checkUsername],
+        email: ['', Validators.compose([Validators.required, Validators.pattern('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')]), EmailValidator.checkEmailaddress],
+        password: ['', Validators.compose([Validators.required, Validators.minLength(8), PasswordValidator.isValid])],
         repeatPassword: ['']
     });
 

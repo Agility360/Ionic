@@ -11,9 +11,11 @@
   <form (submit)="signup()" padding [formGroup]="formGroup">
     <strong><p class="error-message" *ngIf="error">{{error.message}}</p></strong>
     <ion-list>
+      <!-- --------------------- Username ----------------------------------- -->
       <ion-item>
         <ion-label>
-          <ion-icon name="person"></ion-icon>
+          <ion-icon name="person" *ngIf="!formGroup.controls.username.valid"></ion-icon>
+          <ion-icon name="checkbox-outline" *ngIf="formGroup.controls.username.valid" class="valid"></ion-icon>
         </ion-label>
         <ion-input type="text"
               [(ngModel)]="userDetails.username"
@@ -21,58 +23,84 @@
               autocorrect="off"
               autocapitalize="none"
               name="username"
-              placeholder="Username"
-              [class.invalid]="!formGroup.controls.username.valid && formGroup.controls.username.dirty">
+              placeholder="Username (alaphnumeric, no spaces)"
+              [class.invalid]="!formGroup.controls.username.valid && formGroup.controls.username.dirty"
+              [class.valid]="formGroup.controls.username.valid">
         </ion-input>
       </ion-item>
+      <ion-item *ngIf="formGroup.controls.username.invalid && (formGroup.controls.username.dirty || formGroup.controls.username.touched)"
+           class="error-message">
+
+        <div *ngIf="formGroup.controls.username.errors.required">
+          <p>Username is required.</p>
+        </div>
+        <div *ngIf="formGroup.controls.username.errors.minlength">
+          <p>Username must be at least 8 characters long.</p>
+        </div>
+        <div *ngIf="formGroup.controls.username.errors.pattern">
+          <p>Username should consist of only alphanumeric characters and no spaces.</p>
+        </div>
+
+      </ion-item>
+
       <ion-item *ngIf="formGroup.controls.username.pending">
-           <p>Checking username...</p>
-       </ion-item>
-       <ion-item *ngIf="!formGroup.controls.username.valid && !formGroup.controls.username.pending && formGroup.controls.username.dirty">
-           <p>Sorry, that username can not be used!</p>
-       </ion-item>
+        <p>Checking username...</p>
+      </ion-item>
+      <!-- --------------------- Username ----------------------------------- -->
 
       <ion-item>
         <ion-label>
-          <ion-icon name="mail"></ion-icon>
+          <ion-icon name="mail" *ngIf="!formGroup.controls.email.valid"></ion-icon>
+          <ion-icon name="checkbox-outline" *ngIf="formGroup.controls.email.valid" class="valid"></ion-icon>
         </ion-label>
         <ion-input type="email"
               [(ngModel)]="userDetails.email"
               formControlName="email"
               name="email"
-              placeholder="address@mailserver.com"
-              [class.invalid]="!formGroup.controls.email.valid && formGroup.controls.email.dirty">
+              placeholder="email-address@mailserver.com"
+              [class.invalid]="!formGroup.controls.email.valid && formGroup.controls.email.dirty"
+              [class.valid]="formGroup.controls.email.valid">
         </ion-input>
       </ion-item>
       <ion-item *ngIf="formGroup.controls.email.pending">
            <p>Checking email address...</p>
        </ion-item>
-       <ion-item *ngIf="!formGroup.controls.email.valid && !formGroup.controls.email.pending && formGroup.controls.email.dirty">
-           <p>Sorry, that email address can not be used!</p>
-       </ion-item>
 
       <ion-item>
         <ion-label>
-          <ion-icon name="lock"></ion-icon>
+          <ion-icon name="lock" *ngIf="!formGroup.controls.password.valid"></ion-icon>
+          <ion-icon name="checkbox-outline" *ngIf="formGroup.controls.password.valid" class="valid"></ion-icon>
         </ion-label>
+
         <ion-input type="password"
               [(ngModel)]="userDetails.password"
               formControlName="password"
               name="password"
               placeholder="Password"
-              [class.invalid]="!formGroup.controls.password.valid && formGroup.controls.password.dirty">
+              [class.invalid]="!formGroup.controls.password.valid && formGroup.controls.password.dirty"
+              [class.valid]="formGroup.controls.password.valid">
       </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>
-          <ion-icon name="lock"></ion-icon>
+          <ion-icon name="lock" *ngIf="userDetails.password != repeatPassword"></ion-icon>
+          <ion-icon name="checkbox-outline" *ngIf="formGroup.controls.password.valid && userDetails.password === repeatPassword" class="valid"></ion-icon>
         </ion-label>
-        <ion-input type="password" [(ngModel)]="repeatPassword" formControlName="repeatPassword" name="repeat-password" placeholder="Repeat password"></ion-input>
+        <ion-input type="password"
+                [(ngModel)]="repeatPassword"
+                formControlName="repeatPassword"
+                name="repeat-password"
+                placeholder="Repeat password"
+                [class.invalid]="userDetails.password != repeatPassword"
+                [class.valid]="formGroup.controls.password.valid && userDetails.password === repeatPassword">
+        </ion-input>
       </ion-item>
-
       <div padding>
-        <button ion-button color="primary" block>Sign Up</button>
+        <button ion-button
+                color="primary"
+                block
+                [disabled]="!formGroup.valid">Sign Up</button>
       </div>
 
       <div padding text-center>

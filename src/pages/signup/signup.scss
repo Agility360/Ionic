@@ -8,7 +8,7 @@ page-signup {
     }
   }
 
-   p.error-message {
+  .error-message {
     color: red;
     text-align: center;
   }
@@ -24,14 +24,17 @@ page-signup {
 
    ion-input, ion-select, ion-textarea {
        padding: 5px 10px;
-
-       color: green;
        font-weight: bolder;
        margin-bottom: 5px;
    }
 
+   .valid {
+    color: green;
+   }
+
    .invalid {
-       border: 1px solid #ea6153;
+     color: red;
+     border: 1px solid #ea6153;
    }
 
 }
