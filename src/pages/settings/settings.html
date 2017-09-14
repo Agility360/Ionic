@@ -30,6 +30,10 @@
   </div>
 
   <ion-list padding>
+    <button ion-item [navPush]="profilePage">
+      <ion-icon name="contact" item-start></ion-icon>
+      <ion-label>Candidate Profile</ion-label>
+    </button>
     <button ion-item [navPush]="jobhistoryPage">
       <ion-icon name="briefcase" item-start></ion-icon>
       <ion-label>Job History</ion-label>
@@ -42,10 +46,18 @@
       <ion-icon name="ribbon" item-start></ion-icon>
       <ion-label>Certifications</ion-label>
     </button>
-    <button ion-item [navPush]="profilePage">
-      <ion-icon name="contact" item-start></ion-icon>
-      <ion-label>Candidate Profile</ion-label>
+
+    <button ion-item [navPush]="privacyPolicyPage">
+      <ion-icon name="ribbon" item-start></ion-icon>
+      <ion-label>Agility 360 Privacy Policy</ion-label>
     </button>
+    <button ion-item [navPush]="termsOfUse">
+      <ion-icon name="ribbon" item-start></ion-icon>
+      <ion-label>Agility 360 Terms of Use</ion-label>
+    </button>
+  </ion-list>
+
+  <ion-list padding>
     <button ion-item (click)="logout()" no-lines>
       <ion-icon name="log-out" item-start></ion-icon>
       <ion-label color="danger">Logout</ion-label>

@@ -9,14 +9,14 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ConfirmPage } from '../pages/confirm/confirm';
+import { TabsPage } from '../pages/tabs/tabs';
+
+/* Added by McDaniel */
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
 import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
-import { TabsPage } from '../pages/tabs/tabs';
-
-/* Added by McDaniel */
 import { JobsPage } from '../pages/jobs/jobs';
 import { NewsPage } from '../pages/news/news';
 import { ResumePage } from '../pages/resume/resume';
@@ -29,6 +29,8 @@ import { EducationDetailPage } from '../pages/education-detail/education-detail'
 import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
 import { HttpErrorPage } from '../pages/http-error/http-error';
 import { DeleteAccountPage } from '../pages/delete-account/delete-account';
+import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
+import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
 
 import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
@@ -85,6 +87,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     CertificationDetailPage,
     HttpErrorPage,
     DeleteAccountPage,
+    PrivacyPolicyPage,
+    TermsOfUsePage,
     SafeHtmlPipe
   ],
   imports: [
@@ -116,7 +120,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     EducationDetailPage,
     CertificationDetailPage,
     HttpErrorPage,
-    DeleteAccountPage
+    DeleteAccountPage,
+    PrivacyPolicyPage,
+    TermsOfUsePage
   ],
   providers: [
     StatusBar,

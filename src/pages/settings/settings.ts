@@ -8,6 +8,8 @@ import { CertificationsPage } from '../certifications/certifications';
 import { EducationPage } from '../education/education';
 import { JobhistoryPage } from '../jobhistory/jobhistory';
 import { DeleteAccountPage } from '../delete-account/delete-account';
+import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy';
+import { TermsOfUsePage } from '../terms-of-use/terms-of-use';
 
 import { DynamoDB, User } from '../../providers/providers';
 import { CandidateProvider } from '../../providers/candidate';
@@ -40,6 +42,8 @@ export class SettingsPage {
   public educationPage = EducationPage;
   public jobhistoryPage = JobhistoryPage;
   public deleteAccountPage = DeleteAccountPage;
+  public privacyPolicyPage = PrivacyPolicyPage;
+  public termsOfUse = TermsOfUsePage;
 
 
   constructor(public navCtrl: NavController,
