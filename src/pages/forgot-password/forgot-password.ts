@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../providers/providers';
-import { Cognito } from '../../providers/aws.cognito';
 import { LoginPage } from '../login/login';
 import { PasswordResetPage } from '../password-reset/password-reset';
 import { DEBUG_MODE } from '../../shared/constants';
@@ -22,12 +21,10 @@ export class ForgotPasswordPage {
 
   public errMsg: any;
   public username: string;
-  private cognitoUser: any;
 
   constructor(
     public navCtrl: NavController,
     public user: User,
-    public cognito: Cognito,
     public navParams: NavParams) {
 
       if (DEBUG_MODE) console.log('ForgotPasswordPage.constructor()');
