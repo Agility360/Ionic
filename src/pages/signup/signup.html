@@ -12,9 +12,14 @@
     <div class="error-message" *ngIf="error">
       <p>{{error.message}}</p>
     </div>
-    <ion-item *ngIf="formGroup.controls.email.pending">
-         <p>Checking email address...</p>
-    </ion-item>
+    <div class="info-message">
+      <ion-item *ngIf="formGroup.controls.email.pending">
+        <p class="info-message">Checking email address...</p>
+      </ion-item>
+      <div *ngIf="formGroup.controls.username.pending">
+        <p class="info-message">Checking username...</p>
+      </div>
+    </div>
 
     <ion-list>
       <!-- --------------------- Username ----------------------------------- -->
@@ -35,9 +40,6 @@
         </ion-input>
       </ion-item>
       <ion-item-divider no-lines>
-        <div *ngIf="formGroup.controls.username.pending">
-          <p>Checking username...</p>
-        </div>
         <div *ngIf="formGroup.controls.username.invalid">
           <div *ngIf="(formGroup.controls.username.dirty || formGroup.controls.username.touched)">
             <div *ngIf="formGroup.controls.username.errors.required" class="error-message">
@@ -68,7 +70,21 @@
               name="email">
         </ion-input>
       </ion-item>
-      <ion-item-divider no-lines></ion-item-divider>
+      <ion-item-divider no-lines>
+        <div *ngIf="formGroup.controls.email.invalid">
+          <div *ngIf="(formGroup.controls.email.dirty || formGroup.controls.email.touched)">
+            <div *ngIf="formGroup.controls.email.errors.required" class="error-message">
+              <p class="error-message">Email address is required.</p>
+            </div>
+            <div *ngIf="formGroup.controls.email.errors.checkEmailaddress">
+              <p class="error-message">Email address is already registered with another user.</p>
+            </div>
+            <div *ngIf="formGroup.controls.email.errors.email" class="error-message">
+              <p class="error-message">Please enter a valid email address. Example: youraddress@gmail.com</p>
+            </div>
+          </div>
+        </div>
+      </ion-item-divider>
 
 
        <!-- --------------------- password ----------------------------------- -->

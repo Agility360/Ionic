@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ConfirmPage } from '../confirm/confirm';
@@ -30,9 +30,10 @@ export class LoginPage {
   public errMsg: string;
 
   constructor(public navCtrl: NavController,
-              public user: User,
-              private candidateProvider: CandidateProvider,
-              public loadingCtrl: LoadingController) {
+    public user: User,
+    private candidateProvider: CandidateProvider,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController) {
 
     if (DEBUG_MODE) console.log('LoginPage.constructor()');
     this.loginDetails = new LoginDetails();
@@ -69,6 +70,17 @@ export class LoginPage {
   signup() {
     if (DEBUG_MODE) console.log('LoginPage.signup()');
     this.navCtrl.push(SignupPage);
+  }
+
+  forgotPassword() {
+    if (DEBUG_MODE) console.log('LoginPage.forgotPassword()');
+
+    let alert = this.alertCtrl.create({
+      title: 'Forgot Password',
+      subTitle: 'An email has been sent to ----@---.com with further instructions.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

@@ -1,4 +1,5 @@
 import { FormControl } from '@angular/forms';
+import { User } from '../providers/user';
 import { DEBUG_MODE } from '../shared/constants';
 
 export class UsernameValidator {
@@ -11,7 +12,7 @@ export class UsernameValidator {
       //Fake a slow response from server
 
       setTimeout(() => {
-        if(control.value.toLowerCase() === "mcdaniel"){
+        if (control.value.toLowerCase() === "mcdaniel_") {
 
           resolve({
             "username taken": true

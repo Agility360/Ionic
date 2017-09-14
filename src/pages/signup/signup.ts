@@ -19,9 +19,9 @@ import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PasswordValidator } from  '../../validators/password';
-import { UsernameValidator } from  '../../validators/username';
-import { EmailValidator } from  '../../validators/email';
+import { PasswordValidator } from '../../validators/password';
+import { UsernameValidator } from '../../validators/username';
+import { EmailValidator } from '../../validators/email';
 /*-----------------------------------------------------------------------
  *
  *-----------------------------------------------------------------------*/
@@ -51,15 +51,13 @@ export class SignupPage {
     this.candidate = this.candidateProvider.new();
 
     this.formGroup = formBuilder.group({
-        username: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z0-9_-]*')]), UsernameValidator.checkUsername],
-        email: ['', Validators.compose([Validators.required, Validators.pattern('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')]), EmailValidator.checkEmailaddress],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8), PasswordValidator.isValid])],
-        repeatPassword: ['']
+      username: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('[a-zA-Z0-9_-]*')]), UsernameValidator.checkUsername],
+      email: ['', Validators.compose([Validators.required, Validators.email]), EmailValidator.checkEmailaddress],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), PasswordValidator.isValid])],
+      repeatPassword: ['']
     });
 
-
-
-
+    user.isAvailable("mcdaniel");
   }
 
   validPassword(val: string) {

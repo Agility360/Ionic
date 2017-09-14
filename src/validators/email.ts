@@ -3,37 +3,37 @@ import { DEBUG_MODE } from '../shared/constants';
 
 export class EmailValidator {
 
-    static isValid(control: FormControl): any {
-      if (DEBUG_MODE) console.log('EmailValidator.isValid()');
+  static isValid(control: FormControl): any {
+    if (DEBUG_MODE) console.log('EmailValidator.isValid()');
 
-      if(control.value === "bademail"){
-          return {
-              "too short": true
-          };
-      }
-
-      return null;
+    if (control.value === "bademail") {
+      return {
+        "too short": true
+      };
     }
 
-    static checkEmailaddress(control: FormControl): any {
-      if (DEBUG_MODE) console.log('EmailValidator.checkEmailaddress()');
+    return null;
+  }
 
-      return new Promise(resolve => {
+  static checkEmailaddress(control: FormControl): any {
+    if (DEBUG_MODE) console.log('EmailValidator.checkEmailaddress()');
 
-        //Fake a slow response from server
+    return new Promise(resolve => {
 
-        setTimeout(() => {
-          if(control.value.toLowerCase() === "lpm0073@gmail.com"){
+      //Fake a slow response from server
 
-            resolve({
-              "username taken": true
-            });
+      setTimeout(() => {
+        if (control.value.toLowerCase() === "lpm0073@gmail.com_") {
 
-          } else {
-            resolve(null);
-          }
-        }, 500);
+          resolve({
+            "username taken": true
+          });
 
-      });
-    }
+        } else {
+          resolve(null);
+        }
+      }, 500);
+
+    });
+  }
 }
