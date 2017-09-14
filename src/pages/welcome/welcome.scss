@@ -1,4 +1,26 @@
 page-welcome {
+  .welcome-logo {
+    display: block;
+    margin-top: 0%;
+    padding: 20px 0px 0px 0px;
 
+    img {
+      max-width: 150px;
+    }
+  }
+
+  .right-arrow {
+      float:right;
+      width: 125px;
+  }
+
+  .left-arrow {
+      width: 125px;
+  }
+
+  p.error-message {
+    text-align: center;
+    color: red;
+  }
 
 }

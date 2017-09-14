@@ -1,19 +1,36 @@
-<style>
-  p.error-message {
-    text-align: center;
-    color: red;
-  }
-</style>
-<ion-content>
-  <div text-center class="logo">
-    <img src="assets/agility360-logo-transparent-512x512.png" />
-  </div>
+<ion-content class="app-background">
+
+  <ion-slides pager="true" paginationType="bullets">
+    <ion-slide>
+      <div text-center class="welcome-logo">
+        <img src="assets/agility360-logo-transparent-512x512.png" />
+        <h1>Stay connected to your recruiter</h1>
+        <img src="assets/arrow-right.png" class="right-arrow" />
+      </div>
+
+    </ion-slide>
+    <ion-slide>
+      <h1>Create your professional profile</h1>
+      <p>shooby dooby do</p>
+      <img src="assets/arrow-right.png" class="right-arrow" />
+    </ion-slide>
+    <ion-slide>
+      <h1>Find job opportunities</h1>
+      <p>shooby dooby do</p>
+      <img src="assets/arrow-right.png" class="right-arrow" />
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/arrow-left.png" class="left-arrow" />
+      <h1>Stay connected to your recruiter</h1>
+      <p>shooby dooby do</p>
+    </ion-slide>
+  </ion-slides>
 
   <ion-footer no-shadow>
-  	<ion-toolbar position="bottom">
+    <ion-toolbar position="bottom">
       <button ion-button color="primary" block (click)='signup();'>Join Now</button>
       <button ion-button block clear (click)='login();'>Sign In</button>
-  	</ion-toolbar>
+    </ion-toolbar>
   </ion-footer>
 
 </ion-content>
