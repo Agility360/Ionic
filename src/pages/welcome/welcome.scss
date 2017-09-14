@@ -1,11 +1,21 @@
 page-welcome {
+
   .welcome-logo {
     display: block;
-    margin-top: 0%;
-    padding: 20px 0px 0px 0px;
+    padding-left: 30%;
+    padding-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 
     img {
       max-width: 150px;
+    }
+  }
+
+  ion-card-content {
+
+    h1, p {
+      color: #2897C2 !important;
     }
   }
 
@@ -15,7 +25,8 @@ page-welcome {
   }
 
   .left-arrow {
-      width: 125px;
+    width: 125px;
+    margin-bottom: 25px;
   }
 
   p.error-message {
