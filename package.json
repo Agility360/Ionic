@@ -1,8 +1,8 @@
 {
     "name": "Agility360",
     "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "author": "Agility App Team",
+    "homepage": "https://agility360app.net/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -43,7 +43,7 @@
         "@ionic/app-scripts": "2.1.3",
         "typescript": "2.3.4"
     },
-    "description": "An Ionic project",
+    "description": "Client Engagement App",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
