@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { User } from '../../providers/providers';
+import { DEBUG_MODE } from '../../shared/constants';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -15,11 +17,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ForgotPasswordPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public errMsg: any;
+  public username: string;
+
+
+  constructor(
+    public navCtrl: NavController,
+    public user: User,
+    public navParams: NavParams) {
+
+      if (DEBUG_MODE) console.log('ForgotPasswordPage.constructor()');
+
+
+  }
+
+  resetPassword() {
+    if (DEBUG_MODE) console.log('ForgotPasswordPage.resetPassword(): ', this.username);
+
+    if (this.username)
+
+    this.user.forgotPassword(this.username);
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ForgotPasswordPage');
+    if (DEBUG_MODE) console.log('ForgotPasswordPage.ionViewDidLoad()');
   }
 
 }

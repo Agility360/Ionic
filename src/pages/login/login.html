@@ -1,9 +1,3 @@
-<style>
-  p.error-message {
-    text-align: center;
-    color: red;
-  }
-</style>
 <ion-content>
   <div text-center class="logo">
     <img src="assets/agility360-logo-transparent-512x512.png" />
@@ -22,16 +16,14 @@
         <ion-input [(ngModel)]="loginDetails.password" type="password" name="password"></ion-input>
       </ion-item>
 
-      <div padding>
-        <button ion-button color="primary" block>LOGIN</button>
-      </div>
+      <ion-item no-lines>
+        <button ion-button color="primary" block padding >Sign In</button>
+        <div class="links">
+          <span><a (click)="forgotPassword()">Forgot password?</a></span>
+          <span class="right"><a (click)="signup()">Join Now</a></span>
+        </div>
+      </ion-item>
 
-      <div padding text-center>
-        <p>Don't have an account yet? <a (click)="signup()">Create one.</a></p>
-      </div>
-      <div padding text-center>
-        <a (click)="forgotPassword()">Forgot Password</a>
-      </div>
 
       <div padding text-center>
         <p *ngIf="errMsg" >Problems logging in? Contact us at mobile@agility360app.net or call us at (469) 208-6300.</p>

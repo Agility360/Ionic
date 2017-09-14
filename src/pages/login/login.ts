@@ -3,6 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ConfirmPage } from '../confirm/confirm';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { User } from '../../providers/providers';
 
 export class LoginDetails {
@@ -73,7 +74,7 @@ export class LoginPage {
 
   forgotPassword() {
     if (DEBUG_MODE) console.log('LoginPage.forgotPassword()');
-    this.user.forgotPassword(this.loginDetails.username);
+    this.navCtrl.push(ForgotPasswordPage);
   }
 
 }

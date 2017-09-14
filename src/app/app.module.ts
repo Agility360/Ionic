@@ -9,6 +9,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ConfirmPage } from '../pages/confirm/confirm';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
@@ -65,6 +66,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WelcomePage,
     SignupPage,
     ConfirmPage,
+    ForgotPasswordPage,
     SettingsPage,
     ProfilePage,
     ProfileEditPage,
@@ -95,6 +97,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WelcomePage,
     SignupPage,
     ConfirmPage,
+    ForgotPasswordPage,
     SettingsPage,
     ProfilePage,
     ProfileEditPage,

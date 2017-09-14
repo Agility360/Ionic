@@ -6,6 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Config } from 'ionic-angular';
 import { Cognito } from './providers';
+import { LoginPage } from '../pages/login/login';
 import { DEBUG_MODE } from '../shared/constants';
 
 declare var AWS: any;
@@ -178,6 +179,7 @@ export class User {
     cognitoUser.forgotPassword({
       onSuccess: function(result) {
         if (DEBUG_MODE) console.log('User.forgotPassword() - Success:', result);
+        this.navCtrl.setRoot(LoginPage);
       },
       onFailure: function(err) {
         if (DEBUG_MODE) console.log('User.forgotPassword() - Error:', err);
