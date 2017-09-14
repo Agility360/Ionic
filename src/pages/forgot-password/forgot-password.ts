@@ -47,6 +47,11 @@ export class ForgotPasswordPage {
 
   }
 
+  login() {
+    if (DEBUG_MODE) console.log('ForgotPasswordPage.login()');
+    this.navCtrl.push(LoginPage);
+  }
+
   ionViewDidLoad() {
     if (DEBUG_MODE) console.log('ForgotPasswordPage.ionViewDidLoad()');
   }
