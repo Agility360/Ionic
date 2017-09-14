@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ConfirmPage } from '../confirm/confirm';
@@ -32,8 +32,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     private candidateProvider: CandidateProvider,
-    public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController) {
+    public loadingCtrl: LoadingController) {
 
     if (DEBUG_MODE) console.log('LoginPage.constructor()');
     this.loginDetails = new LoginDetails();
@@ -74,13 +73,7 @@ export class LoginPage {
 
   forgotPassword() {
     if (DEBUG_MODE) console.log('LoginPage.forgotPassword()');
-
-    let alert = this.alertCtrl.create({
-      title: 'Forgot Password',
-      subTitle: 'An email has been sent to ----@---.com with further instructions.',
-      buttons: ['OK']
-    });
-    alert.present();
+    this.user.forgotPassword(this.loginDetails.username);
   }
 
 }

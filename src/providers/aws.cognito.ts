@@ -41,7 +41,7 @@ export class Cognito {
   }
 
   makeAuthDetails(username, password) {
-    if (DEBUG_MODE) console.log('Cognito.makeAuthDetails()');
+    if (DEBUG_MODE) console.log('Cognito.makeAuthDetails(): ', username);
     return new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
       'Username': username,
       'Password': password
@@ -57,7 +57,7 @@ export class Cognito {
   }
 
   makeUser(username) {
-    if (DEBUG_MODE) console.log('Cognito.makeUser()');
+    if (DEBUG_MODE) console.log('Cognito.makeUser(): ', username);
     return new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
       'Username': username,
       'Pool': this.getUserPool()

@@ -24,8 +24,7 @@ export class User {
     public cognito: Cognito,
     public config: Config) {
     if (DEBUG_MODE) console.log('User.constructor()');
-    this.user = null;
-    this.isAvailable("mcdaniel");
+    this.user = this.getUser();
   }
 
   getUser() {
@@ -169,6 +168,29 @@ export class User {
         reject()
       }
     });
+  }
+
+  forgotPassword(username) {
+    if (DEBUG_MODE) console.log('User.forgotPassword(): ', username);
+
+    let cognitoUser = this.cognito.makeUser(username);
+
+    cognitoUser.forgotPassword({
+      onSuccess: function(result) {
+        if (DEBUG_MODE) console.log('User.forgotPassword() - Success:', result);
+      },
+      onFailure: function(err) {
+        if (DEBUG_MODE) console.log('User.forgotPassword() - Error:', err);
+        alert(err);
+      },
+      inputVerificationCode() {
+        if (DEBUG_MODE) console.log('User.forgotPassword() - inputVerificationCode:');
+        var verificationCode = prompt('Please input verification code ', '');
+        var newPassword = prompt('Enter new password ', '');
+        cognitoUser.confirmPassword(verificationCode, newPassword, this);
+      }
+    });
+
   }
 
   isAvailable(username) {
