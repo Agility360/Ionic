@@ -11,6 +11,7 @@ import { PasswordChangePage } from '../password-change/password-change';
 import { DeleteAccountPage } from '../delete-account/delete-account';
 import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy';
 import { TermsOfUsePage } from '../terms-of-use/terms-of-use';
+import { HttpErrorPage } from '../http-error/http-error';
 
 import { DynamoDB, User } from '../../providers/providers';
 import { CandidateProvider } from '../../providers/candidate';
@@ -45,7 +46,8 @@ export class SettingsPage {
   public passwordChangePage = PasswordChangePage;
   public deleteAccountPage = DeleteAccountPage;
   public privacyPolicyPage = PrivacyPolicyPage;
-  public termsOfUse = TermsOfUsePage;
+  public termsOfUsePage = TermsOfUsePage;
+  public httpErrorPage = HttpErrorPage;
 
 
   constructor(public navCtrl: NavController,
