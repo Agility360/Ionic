@@ -7,6 +7,7 @@ import { EducationHistoryProvider } from './educationhistory';
 import { CertificationHistoryProvider } from './certificationhistory';
 import { CandidateProvider } from './candidate';
 import { WordpressProvider } from './wordpress';
+import { IndustriesProvider } from './industries';
 
 export {
   Cognito,
@@ -17,5 +18,6 @@ export {
   EducationHistoryProvider,
   CertificationHistoryProvider,
   CandidateProvider,
-  WordpressProvider
+  WordpressProvider,
+  IndustriesProvider
 };

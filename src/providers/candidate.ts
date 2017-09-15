@@ -33,11 +33,17 @@ export class CandidateProvider {
   }
 
   get(): Observable<Candidate> {
-    if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.get() with username: ', this.username());
+    if (DEBUG_MODE) console.log('CandidateProvider.get() with username: ', this.username());
 
     return this.http.get(this.url(), apiHttpOptions)
-      .map(res => { return this.ProcessHttpmsgService.extractData(res) })
-      .catch(error => { return this.ProcessHttpmsgService.handleError(error) });
+      .map(res => {
+        if (DEBUG_MODE) console.log('CandidateProvider.get() - success', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('CandidateProvider.get() - error', error);
+        return this.ProcessHttpmsgService.handleError(error) 
+      });
   }
 
   add(obj: Candidate): Observable<Candidate> {
