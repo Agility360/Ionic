@@ -19,8 +19,8 @@ import { ProfessionsProvider } from '../../providers/professions';
 export class ProfileEditPage {
 
   public obj: Candidate;
-  public industries: Industries[];
-  public professions: Professions[];
+  industries: Industries[];
+  professions: Professions[];
 
   error: any;
   private shouldConfirmWindowClose: boolean;

@@ -47,6 +47,7 @@ export class HttpService extends Http {
     if (DEBUG_MODE) console.log('HttpService.request()', url, options);
 
     if (this.loading == null) {
+      if (DEBUG_MODE) console.log('HttpService.request() - loadingCtrl.create()');
       this.loading = this.loadingCtrl.create({
         spinner: 'bubbles',
         content: 'Loading ...',
@@ -292,8 +293,9 @@ export class HttpService extends Http {
   private onFinally(): void {
     if (DEBUG_MODE) console.log('HttpService.onFinally()');
     if (this.loading != null) {
-            this.loading.dismiss();
-            this.loading = null;
+      if (DEBUG_MODE) console.log('HttpService.onFinally() - loading.dismiss()');
+      this.loading.dismiss();
+      this.loading = null;
         }
     this.responseInterceptor();
   }
