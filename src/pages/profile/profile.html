@@ -18,8 +18,15 @@
 
 <ion-content padding  class="app-background">
   <ion-list *ngIf="card">
+    <ion-item no-lines>
+      <ion-label class="agility-label">Are you currently job hunting?: </ion-label>
+      <div item-content>
+        {{ this.card.job_hunting }}
+      </div>
+    </ion-item>
+
     <ion-item-divider>
-      Your Full Name
+      Full Name
     </ion-item-divider>
     <ion-item no-lines>
       <ion-label class="agility-label">First: </ion-label>
@@ -73,35 +80,28 @@
     </ion-item>
 
     <ion-item-divider>
-      Professional Profile
+      Industry
     </ion-item-divider>
     <ion-item no-lines>
-      <ion-label class="agility-label">Are your currently job hunting?: </ion-label>
-      <div item-content>
-        {{ this.card.job_hunting }}
-      </div>
-    </ion-item>
-    <ion-item no-lines>
-      <ion-label class="agility-label">Your industry: </ion-label>
       <div item-content>
         {{ this.card.industry_id }}
       </div>
     </ion-item>
     <ion-item no-lines>
-      <ion-label class="agility-label">Your sub-industry: </ion-label>
       <div item-content>
         {{ this.card.subindustry_id }}
       </div>
     </ion-item>
 
+    <ion-item-divider>
+      Profession
+    </ion-item-divider>
     <ion-item no-lines>
-      <ion-label class="agility-label">Your profession: </ion-label>
       <div item-content>
         {{ this.card.profession_id }}
       </div>
     </ion-item>
     <ion-item no-lines>
-      <ion-label class="agility-label">Your sub-profession: </ion-label>
       <div item-content>
         {{ this.card.subprofession_id }}
       </div>
