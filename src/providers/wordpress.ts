@@ -26,10 +26,18 @@ export class WordpressProvider {
     public http: HttpService,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    if (DEBUG_MODE) console.log('instantiated JobHistoryProvider');
+    if (DEBUG_MODE) console.log('WordpressProvider.constructor()');
 
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
 
+  }
+
+  urlPrivacyPolicy() {
+    return cmsURL + 'pages?slug=privacy-policy/';
+  }
+
+  urlTermsOfUse() {
+    return cmsURL + 'pages?slug=terms-of-use/';
   }
 
   urlPosts() {
@@ -41,36 +49,65 @@ export class WordpressProvider {
   }
 
   paramsJobs() {
-     return {categories: '5'};
+    return { categories: '5' };
   }
 
   paramsNews() {
-    return {categories: '3'};
+    return { categories: '3' };
   }
 
   paramsResume() {
-    return {categories: '4'};
+    return { categories: '4' };
   }
 
+  getPage(page: any, params: any): Observable<WPPost[]> {
+    if (DEBUG_MODE) console.log('WordpressProvider.getPage()');
+    return this.http.get(page, {
+      params: params
+    })
+      .map(res => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getPage() - success', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getPage() - error', error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
+  }
 
-getPosts(params: any): Observable<WPPost[]> {
-  return this.http.get(this.urlPosts(), {
-                                       params: params
-                                     })
-    .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-    .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
-}
+  getPosts(params: any): Observable<WPPost[]> {
+    if (DEBUG_MODE) console.log('WordpressProvider.getPosts()');
+    return this.http.get(this.urlPosts(), {
+      params: params
+    })
+      .map(res => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getPosts() - success', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getPosts() - error', error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
+  }
 
 
   getMedia(id: number): Observable<WPMedia> {
+    if (DEBUG_MODE) console.log('WordpressProvider.getMedia()');
     return this.http.get(this.urlMedia() + id.toString())
-      .map(res => {return this.ProcessHttpmsgService.extractData(res)})
-      .catch(error => {return this.ProcessHttpmsgService.handleError(error)});
+      .map(res => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getMedia() - success', res);
+        return this.ProcessHttpmsgService.extractData(res)
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('WordpressProvider.getMedia() - error', error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
   }
 
   newMedia() {
+    if (DEBUG_MODE) console.log('WordpressProvider.newMedia()');
 
-    return  {
+    return {
       id: null,
       date: '',
       date_gmt: '',
