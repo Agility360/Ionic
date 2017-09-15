@@ -14,6 +14,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 /* Added by McDaniel */
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
+import { PasswordChangePage } from '../pages/password-change/password-change';
 import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
@@ -71,6 +72,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     ConfirmPage,
     ForgotPasswordPage,
     PasswordResetPage,
+    PasswordChangePage,
     SettingsPage,
     ProfilePage,
     ProfileEditPage,
@@ -105,6 +107,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     ConfirmPage,
     ForgotPasswordPage,
     PasswordResetPage,
+    PasswordChangePage,
     SettingsPage,
     ProfilePage,
     ProfileEditPage,

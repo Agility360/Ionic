@@ -7,6 +7,7 @@ import { ProfilePage } from '../profile/profile';
 import { CertificationsPage } from '../certifications/certifications';
 import { EducationPage } from '../education/education';
 import { JobhistoryPage } from '../jobhistory/jobhistory';
+import { PasswordChangePage } from '../password-change/password-change';
 import { DeleteAccountPage } from '../delete-account/delete-account';
 import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy';
 import { TermsOfUsePage } from '../terms-of-use/terms-of-use';
@@ -41,6 +42,7 @@ export class SettingsPage {
   public certificationsPage = CertificationsPage;
   public educationPage = EducationPage;
   public jobhistoryPage = JobhistoryPage;
+  public passwordChangePage = PasswordChangePage;
   public deleteAccountPage = DeleteAccountPage;
   public privacyPolicyPage = PrivacyPolicyPage;
   public termsOfUse = TermsOfUsePage;
@@ -91,6 +93,10 @@ export class SettingsPage {
     this.app.getRootNav().setRoot(LoginPage);
   }
 
+  changePassword() {
+    if (DEBUG_MODE) console.log('SettingsPage.changePassword()');
+
+  }
 
   deleteAccount() {
     if (DEBUG_MODE) console.log('SettingsPage.deleteAccount()');
