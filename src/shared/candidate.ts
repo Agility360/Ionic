@@ -11,9 +11,13 @@ export interface Candidate {
   phone_number: string;
   job_hunting: boolean;
   industry_id: number;
+  industry: string;
   subindustry_id: number;
+  subindustry: string;
   profession_id: number;
+  profession: string;
   subprofession_id: number;
+  subprofession: string;
   update_date: string;
   create_date: string;
 }

@@ -109,9 +109,13 @@ export class CandidateProvider {
       phone_number: '',
       job_hunting: false,
       industry_id: null,
+      industry: '',
       subindustry_id: null,
+      subindustry: '',
       profession_id: null,
+      profession: '',
       subprofession_id: null,
+      subprofession: '',
       update_date: null,
       create_date: null
     };

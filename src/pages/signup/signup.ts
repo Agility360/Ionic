@@ -18,7 +18,7 @@ export class UserDetails {
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../validators/password';
 import { UsernameValidator } from '../../validators/username';
 import { EmailValidator } from '../../validators/email';
