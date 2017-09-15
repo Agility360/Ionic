@@ -8,24 +8,23 @@
 
 <ion-content class="app-background">
   <div class="heading">
-    <ion-row>
-      <ion-col col-3 style="text-align: right;">
-        <h4 style="color: gray;"><span style="color: #2897C2;">User</span></h4>
-        <h4 style="color: gray;"><span style="color: #2897C2;">Email</span></h4>
-      </ion-col>
-      <ion-col >
-        <h3 style="color: gray;">{{ this.username }}</h3>
-        <h4 style="color: gray;">{{ this.email }} <span *ngIf="this.email_verified"> - <span style="color: green;">verified</span></span></h4>
-      </ion-col>
-    </ion-row>
-
-  </div>
-  <div padding text-center>
-    <div *ngIf="avatarPhoto" class="avatar" [style.background-image]="'url('+ avatarPhoto +')'">
+    <div>
+      <h6 text-center>
+        <span style="color: #2897C2;">User:</span>
+        <span style="color: gray;">{{ this.username }}</span>
+      </h6>
     </div>
-
+    <div>
+      <h6 text-center>
+        <span style="color: #2897C2;">Email:</span>
+        <span style="color: gray;">{{ this.email }}</span>
+        <span *ngIf="this.email_verified"><ion-icon style="color: green;" name="checkmark"></ion-icon></span>
+    </h6>
+    </div>
+  </div>
+  <div text-center>
+    <div *ngIf="avatarPhoto" class="avatar" [style.background-image]="'url('+ avatarPhoto +')'"></div>
     <button ion-button clear (click)="selectAvatar()">Change photo</button>
-
     <input #avatar class="avatar-input" type="file" (change)="uploadFromFile($event)" />
   </div>
 
@@ -54,14 +53,6 @@
       <ion-icon name="lock" item-start></ion-icon>
       <ion-label>Change Password</ion-label>
     </button>
-    <button ion-item [navPush]="privacyPolicyPage">
-      <ion-icon name="book" item-start></ion-icon>
-      <ion-label>Agility 360 Privacy Policy</ion-label>
-    </button>
-    <button ion-item [navPush]="termsOfUsePage">
-      <ion-icon name="book" item-start></ion-icon>
-      <ion-label>Agility 360 Terms of Use</ion-label>
-    </button>
     <button ion-item (click)="logout()" no-lines>
       <ion-icon name="log-out" item-start></ion-icon>
       <ion-label>Logout</ion-label>
@@ -69,13 +60,21 @@
   </ion-list>
 
   <ion-list padding>
-    <button ion-item [navPush]="deleteAccountPage">
-      <ion-icon name="trash" item-start></ion-icon>
-      <ion-label color="danger">Delete Account</ion-label>
+    <button ion-item [navPush]="privacyPolicyPage">
+      <ion-icon name="" item-start></ion-icon>
+      <ion-label>Privacy Policy</ion-label>
+    </button>
+    <button ion-item [navPush]="termsOfUsePage">
+      <ion-icon name="" item-start></ion-icon>
+      <ion-label>Terms of Use</ion-label>
     </button>
     <button ion-item [navPush]="httpErrorPage">
       <ion-icon name="bug" item-start></ion-icon>
-      <ion-label color="danger">Proof No Internet Error</ion-label>
+      <ion-label>Proof No Internet Error</ion-label>
+    </button>
+    <button ion-item [navPush]="deleteAccountPage">
+      <ion-icon name="trash" item-start></ion-icon>
+      <ion-label color="danger">Delete Account</ion-label>
     </button>
   </ion-list>
 
