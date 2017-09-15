@@ -33,7 +33,10 @@ export class IndustriesProvider {
   get(parent: number): Observable<Industries[]> {
     if (DEBUG_MODE) console.log('IndustriesProvider.get()', this.url());
 
-    return this.http.get(this.url(), apiHttpOptions)
+    let url: string = this.url();
+    if (parent != null) url = this.url() + parent + '/';
+
+    return this.http.get(url, apiHttpOptions)
       .map(res => {
         if (DEBUG_MODE) console.log('IndustriesProvider.get() - success', res);
         return this.ProcessHttpmsgService.extractData(res)

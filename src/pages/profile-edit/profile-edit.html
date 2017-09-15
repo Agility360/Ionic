@@ -62,25 +62,39 @@
 
       <ion-item-divider>Your Industry</ion-item-divider>
       <ion-item no-lines>
-        <ion-select class="editable-field" [(ngModel)]="obj.industry_id" name="industry_id">
+        <ion-select
+            class="editable-field"
+            [(ngModel)]="obj.industry_id"
+            (ionChange)='industryIdDidChange()'
+            name="industry_id">
           <ion-option *ngFor="let i of industries" value="{{ i.id }}">{{ i.description }}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item no-lines>
-        <ion-select class="editable-field" [(ngModel)]="obj.subindustry_id" name="subindustry_id">
-          <ion-option *ngFor="let i of industries" value="{{ i.id }}">{{ i.description }}</ion-option>
+        <ion-select
+            class="editable-field"
+            [(ngModel)]="obj.subindustry_id"
+            name="subindustry_id">
+          <ion-option *ngFor="let i of subIndustries" value="{{ i.id }}">{{ i.description }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item-divider>Your Profession</ion-item-divider>
       <ion-item no-lines>
-        <ion-select class="editable-field" [(ngModel)]="obj.profession_id" name="profession_id">
+        <ion-select
+            class="editable-field"
+            [(ngModel)]="obj.profession_id"
+            (ionChange)='professionIdDidChange()'
+            name="profession_id">
           <ion-option *ngFor="let p of professions" value="{{ p.id }}">{{ p.description }}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item no-lines>
-        <ion-select class="editable-field" [(ngModel)]="obj.subprofession_id" name="subprofession_id">
-          <ion-option *ngFor="let p of professions" value="{{ p.id }}">{{ p.description }}</ion-option>
+        <ion-select
+            class="editable-field"
+            [(ngModel)]="obj.subprofession_id"
+            name="subprofession_id">
+          <ion-option *ngFor="let p of subProfessions" value="{{ p.id }}">{{ p.description }}</ion-option>
         </ion-select>
       </ion-item>
 

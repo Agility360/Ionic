@@ -20,7 +20,9 @@ export class ProfileEditPage {
 
   public obj: Candidate;
   industries: Industries[];
+  subIndustries: Industries[];
   professions: Professions[];
+  subProfessions: Professions[];
 
   error: any;
   private shouldConfirmWindowClose: boolean;
@@ -39,7 +41,7 @@ export class ProfileEditPage {
       this.shouldConfirmWindowClose = true;
 
       /* initialize Industries and Professions objects */
-      this.industriesProvider.get(0)
+      this.industriesProvider.get(null)
         .subscribe(
           results => {
             if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - initialized Industries', results);
@@ -50,7 +52,7 @@ export class ProfileEditPage {
             this.error = <any>err
         });
 
-        this.professionsProvider.get(0)
+        this.professionsProvider.get(null)
           .subscribe(
             results => {
               if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - initialized Professions', results);
@@ -61,10 +63,54 @@ export class ProfileEditPage {
               this.error = <any>err
           });
 
+        this.getSubIndustry();
+        this.getSubProfession();
+  }
+
+  getSubIndustry() {
+    if (DEBUG_MODE) console.log('ProfileEditPage.getSubIndustry()');
+    this.industriesProvider.get(this.obj.industry_id)
+      .subscribe(
+        results => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.getSubIndustry() - success', results);
+          this.subIndustries = results
+        },
+        err => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.getSubIndustry() - Error', err);
+          this.error = <any>err
+      });
+
+  }
+
+  getSubProfession() {
+    if (DEBUG_MODE) console.log('ProfileEditPage.getSubProfession()');
+    this.professionsProvider.get(this.obj.profession_id)
+      .subscribe(
+        results => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.getSubProfession() - success', results);
+          this.subProfessions = results
+        },
+        err => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.getSubProfession() - Error', err);
+          this.error = <any>err
+      });
+
+  }
+
+  industryIdDidChange() {
+    if (DEBUG_MODE) console.log('ProfileEditPage.industryIdDidChange()' );
+    this.getSubIndustry();
+    this.obj.subindustry_id = null;
+  }
+
+  professionIdDidChange() {
+    if (DEBUG_MODE) console.log('ProfileEditPage.professionIdDidChange()' );
+    this.getSubProfession();
+    this.obj.subprofession_id = null;
   }
 
   save() {
-    if (DEBUG_MODE) console.log('ProfileEditPage.save(): ', );
+    if (DEBUG_MODE) console.log('ProfileEditPage.save()' );
 
     let toast = this.toastCtrl.create({
       message: 'Success.',
