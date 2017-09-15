@@ -3,8 +3,13 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
-import { CandidateProvider } from '../../providers/candidate';
+import { Industries } from '../../shared/industries';
+import { Professions } from '../../shared/professions';
 
+
+import { CandidateProvider } from '../../providers/candidate';
+import { IndustriesProvider } from '../../providers/industries';
+import { ProfessionsProvider } from '../../providers/professions';
 
 @IonicPage()
 @Component({
@@ -14,6 +19,9 @@ import { CandidateProvider } from '../../providers/candidate';
 export class ProfileEditPage {
 
   public obj: Candidate;
+  public industries: Industries[];
+  public professions: Professions[];
+
   error: any;
   private shouldConfirmWindowClose: boolean;
 
@@ -21,6 +29,8 @@ export class ProfileEditPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private provider: CandidateProvider,
+    private industriesProvider: IndustriesProvider,
+    private professionsProvider: ProfessionsProvider,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController) {
 
@@ -28,6 +38,28 @@ export class ProfileEditPage {
       this.obj = navParams.get('obj');
       this.shouldConfirmWindowClose = true;
 
+      /* initialize Industries and Professions objects */
+      this.industriesProvider.get(0)
+        .subscribe(
+          results => {
+            if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - initialized Industries', results);
+            this.industries = results
+          },
+          err => {
+            if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - Error initializing Industries', err);
+            this.error = <any>err
+        });
+
+        this.professionsProvider.get(0)
+          .subscribe(
+            results => {
+              if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - initialized Professions', results);
+              this.professions = results
+            },
+            err => {
+              if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - Error initializing Professions', err);
+              this.error = <any>err
+          });
 
   }
 

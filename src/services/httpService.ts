@@ -46,16 +46,21 @@ export class HttpService extends Http {
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     if (DEBUG_MODE) console.log('HttpService.request()', url, options);
 
-    this.loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Loading ...',
-      showBackdrop: false,
-      enableBackdropDismiss: true
-    });
+    if (this.loading == null) {
+      this.loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Loading ...',
+        showBackdrop: false,
+        enableBackdropDismiss: true
+      });
+       this.loading.present();
+   } else {
+      /* for future: make content dynamic? */
+       this.loading.data.content = 'Loading ...';
+   }
 
-    this.loading.present();
-    return super.request(url, options)
-      .timeout(TIMEOUT);
+   return super.request(url, options)
+     .timeout(TIMEOUT);
   }
 
   /**
@@ -224,7 +229,6 @@ export class HttpService extends Http {
    */
   private onSubscribeSuccess(res: Response): void {
     if (DEBUG_MODE) console.log('HttpService.onSubscribeSuccess() - res:', res);
-    this.loading.dismiss();
   }
 
   /**
@@ -233,7 +237,6 @@ export class HttpService extends Http {
    */
   private onSubscribeError(error: any): void {
     if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error:', error);
-    this.loading.dismiss();
 
     if (error.name) {
       if (error.name == "TimeoutError") {
@@ -288,6 +291,10 @@ export class HttpService extends Http {
    */
   private onFinally(): void {
     if (DEBUG_MODE) console.log('HttpService.onFinally()');
+    if (this.loading != null) {
+            this.loading.dismiss();
+            this.loading = null;
+        }
     this.responseInterceptor();
   }
 
