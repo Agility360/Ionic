@@ -41,6 +41,7 @@ import { EducationHistoryProvider } from '../providers/educationhistory';
 import { JobHistoryProvider } from '../providers/jobhistory';
 import { WordpressProvider } from '../providers/wordpress';
 import { IndustriesProvider } from '../providers/industries';
+import { ProfessionsProvider } from '../providers/professions';
 import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
@@ -145,7 +146,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     { provide: 'CMSURL', useValue: cmsURL },
     DynamoDB,
     WordpressProvider,
-    IndustriesProvider
+    IndustriesProvider,
+    ProfessionsProvider
   ]
 })
 export class AppModule { }

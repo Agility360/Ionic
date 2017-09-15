@@ -1,10 +1,10 @@
 /*====================================================================
 * McDaniel Aug-2017
 *
-* For Industries entity from agility REST api
+* For Professions entity from agility REST api
 * ====================================================================*/
 import { Injectable } from '@angular/core';
-import { Industries } from '../shared/industries';
+import { Professions } from '../shared/professions';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/httpService';
 import { apiURL, apiHttpOptions, DEBUG_MODE } from '../shared/constants';
@@ -15,31 +15,31 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class IndustriesProvider {
+export class ProfessionsProvider {
 
   config: string;
 
   constructor(public http: HttpService,
     private ProcessHttpmsgService: ProcessHttpmsgProvider) {
 
-    if (DEBUG_MODE) console.log('IndustriesProvider.constructor()');
+    if (DEBUG_MODE) console.log('ProfessionsProvider.constructor()');
     this.config = "{ 'contentType': 'application/json; charset=utf-8', 'dataType': 'json'}";
   }
 
   url() {
-    return apiURL + 'industries/';
+    return apiURL + 'professions/';
   }
 
-  get(parent: number): Observable<Industries[]> {
-    if (DEBUG_MODE) console.log('IndustriesProvider.get()', this.url());
+  get(parent: number): Observable<Professions[]> {
+    if (DEBUG_MODE) console.log('ProfessionsProvider.get()', this.url());
 
     return this.http.get(this.url(), apiHttpOptions)
       .map(res => {
-        if (DEBUG_MODE) console.log('IndustriesProvider.get() - success', res);
+        if (DEBUG_MODE) console.log('ProfessionsProvider.get() - success', res);
         return this.ProcessHttpmsgService.extractData(res)
       })
       .catch(error => {
-        if (DEBUG_MODE) console.log('IndustriesProvider.get() - error', error);
+        if (DEBUG_MODE) console.log('ProfessionsProvider.get() - error', error);
         return this.ProcessHttpmsgService.handleError(error)
       });
   }
