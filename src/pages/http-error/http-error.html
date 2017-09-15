@@ -1,26 +1,7 @@
-<!--
-  Generated template for the HttpErrorPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<style>
-  .error-message {
-    margin-top: 75px;
-  }
-
-  .error-message button {
-    margin-top: 75px;
-  }
-</style>
-<ion-header>
-</ion-header>
-
-
-<ion-content padding>
+<ion-content  padding class="app-background">
   <form (submit)="login()">
     <div text-center class="logo">
-      <img src="assets/error_cloud_filled.png" width="50%"/>
+      <img src="/assets/error_cloud_filled.png" width="50%"/>
     </div>
 
     <div class="error-message">
@@ -28,6 +9,8 @@
       <p text-center>We encountered an unexpected problem.</p>
       <p text-center>(Network unreachable).</p>
 
+    </div>
+    <div class="button-bottom">
       <button ion-button block type="submit">RETRY</button>
     </div>
   </form>
