@@ -1,5 +1,4 @@
 import { FormControl } from '@angular/forms';
-import { User } from '../providers/user';
 import { DEBUG_MODE } from '../shared/constants';
 
 export class UsernameValidator {
@@ -21,7 +20,7 @@ export class UsernameValidator {
         } else {
           resolve(null);
         }
-      }, 2000);
+      }, 1000);
 
     });
   }
