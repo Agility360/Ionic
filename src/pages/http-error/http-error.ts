@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DEBUG_MODE } from '../../shared/constants';
 
-/**
- * Generated class for the HttpErrorPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,14 +11,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class HttpErrorPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    if (DEBUG_MODE) console.log('HttpErrorPage.constructor()');
+  }
+
+
+  RetryButtonClick() {
+    if (DEBUG_MODE) console.log('HttpErrorPage.RetryButtonClick()');
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HttpErrorPage');
-  }
-
-  RetryButtonClick() {
-    console.log('RetryButtonClick()');
-    this.navCtrl.pop();
+    if (DEBUG_MODE) console.log('HttpErrorPage.ionViewDidLoad()');
   }
 }
