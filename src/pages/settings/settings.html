@@ -58,7 +58,7 @@
       <ion-icon name="book" item-start></ion-icon>
       <ion-label>Agility 360 Privacy Policy</ion-label>
     </button>
-    <button ion-item [navPush]="termsOfUse">
+    <button ion-item [navPush]="termsOfUsePage">
       <ion-icon name="book" item-start></ion-icon>
       <ion-label>Agility 360 Terms of Use</ion-label>
     </button>
@@ -72,6 +72,10 @@
     <button ion-item [navPush]="deleteAccountPage">
       <ion-icon name="trash" item-start></ion-icon>
       <ion-label color="danger">Delete Account</ion-label>
+    </button>
+    <button ion-item [navPush]="httpErrorPage">
+      <ion-icon name="bug" item-start></ion-icon>
+      <ion-label color="danger">Proof No Internet Error</ion-label>
     </button>
   </ion-list>
 

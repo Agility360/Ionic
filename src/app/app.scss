@@ -27,8 +27,8 @@
 
 .app-background {
   background: #f1f1f1; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("/assets/background-image.jpg") center repeat; /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("/assets/background-image.jpg") center repeat; /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15) , rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("/assets/background-image.jpg") center repeat; /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgba(0, 127, 166, .05), rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .5), rgba(0, 127, 166, .5) 100%), url("/assets/background-image.jpg") center repeat; /* Standard syntax */
+  background: -webkit-linear-gradient(left top, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("assets/background-image.jpg") center repeat; /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("assets/background-image.jpg") center repeat; /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #f1f1f1, #f1f1f1, rgba(0, 127, 166, .15) , rgba(0, 127, 166, .30), rgba(0, 127, 166, .35), rgba(0, 127, 166, .5) 100%), url("assets/background-image.jpg") center repeat; /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgba(0, 127, 166, .05), rgba(0, 127, 166, .15), rgba(0, 127, 166, .30), rgba(0, 127, 166, .5), rgba(0, 127, 166, .5) 100%), url("assets/background-image.jpg") center repeat; /* Standard syntax */
 }

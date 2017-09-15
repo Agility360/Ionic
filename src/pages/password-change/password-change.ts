@@ -20,7 +20,6 @@ export class PasswordChangePage {
   public newPassword: string;
   public ReenterNewPassword: string;
 
-  private username: string;
   private cognitoUser: any;
 
   constructor(
