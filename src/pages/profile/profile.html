@@ -19,10 +19,8 @@
 <ion-content padding  class="app-background">
   <ion-list *ngIf="card">
     <ion-item no-lines>
-      <ion-label class="agility-label">Are you currently job hunting?: </ion-label>
-      <div item-content>
-        {{ this.card.job_hunting }}
-      </div>
+      <p *ngIf="this.card.job_hunting == 1" class="jobhunting-yes">You are currently job hunting.</p>
+      <p *ngIf="this.card.job_hunting != 1" class="jobhunting-no">You are not currently job hunting.</p>
     </ion-item>
 
     <ion-item-divider>

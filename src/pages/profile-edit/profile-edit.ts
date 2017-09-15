@@ -63,6 +63,10 @@ export class ProfileEditPage {
               this.error = <any>err
           });
 
+        /*
+          initialize sub-Industries and sub-Professions objects.
+          these get refreshed any time the Industry or Profession change, so these are implemented as functions.
+        */
         this.getSubIndustry();
         this.getSubProfession();
   }

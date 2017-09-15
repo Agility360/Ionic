@@ -1,8 +1,19 @@
 page-profile {
 
-.agility-label {
-  color: #2897C2;
-  padding-left: 10px;
-}
+  .agility-label {
+    color: #2897C2;
+    padding-left: 10px;
+  }
 
+  .jobhunting-yes {
+    text-align: center;
+    font-weight: bolder;
+    color: green;
+  }
+
+  .jobhunting-no {
+    text-align: center;
+    font-weight: bolder;
+    color: red;
+  }
 }
