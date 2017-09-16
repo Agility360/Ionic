@@ -9,14 +9,17 @@
     <img src="assets/agility360-logo-transparent-512x512.png" width="35%" />
   </div>
   <div padding>
-    <strong><p class="system-message">In a few moments you should receive an email from Agility 360 with a 6-digit confirmation code. To confirm that your email address is correct please enter the code below</p></strong>
+    <strong><p class="system-message">{{ systemMessage }}</p></strong>
+  </div>
+  <div padding class="error-message" *ngIf="errorMsg">
+    <p style="color: red;">{{errorMsg}}</p>
   </div>
 
   <form (submit)="confirm()" padding [formGroup]="formGroup">
     <ion-list>
 
       <ion-item>
-        <ion-label floating>Confirmation Code</ion-label>
+        <ion-label floating>Enter Verification Code Here</ion-label>
         <ion-input
           type="number"
           [class.valid]="formGroup.controls.code.valid"
@@ -28,15 +31,12 @@
       </ion-item>
 
       <div padding>
-        <button ion-button color="primary" block>Confirm Account</button>
+        <button ion-button color="primary" block>Verify Email</button>
       </div>
 
-      <div padding>
-        <p>Haven't received the confirmation code email yet? <a (click)="resendCode()">Resend</a></p>
-      </div>
-
-      <div>
-        <p>Problems getting setup? Contact us at mobile@agility360app.net or call us at (469) 208-6300.</p>
+      <div text-center>
+        <p><a (click)="resendCode()">Resend Verification Code</a></p>
+        <p>Having problems? Call us at (469) 208-6300.</p>
       </div>
 
     </ion-list>

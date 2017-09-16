@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { User } from '../../providers/user';
 
@@ -7,7 +7,6 @@ import { User } from '../../providers/user';
  * added by mcdaniel
  *-----------------------------------------------------------------------*/
 import { DEBUG_MODE } from '../../shared/constants';
-import { CandidateProvider } from '../../providers/candidate';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /*-----------------------------------------------------------------------
  *
@@ -22,20 +21,21 @@ export class ConfirmPage {
 
   public code: number;
   public username: string;
-  public errMess: string;
 
   /* added by mcdaniel */
   public candidate: any;
   public formGroup: FormGroup;
+  public systemMessage: string = null;
   public errorMsg: string = null;
+  public error: any;
   /* added by mcdaniel */
 
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public user: User,
-    private candidateProvider: CandidateProvider,
     private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     public formBuilder: FormBuilder) {
 
@@ -43,6 +43,7 @@ export class ConfirmPage {
     this.candidate = navParams.get('candidate');
     this.username = this.candidate.account_name;
     if (DEBUG_MODE) console.log('ConfirmPage.constructor() - begin', this.username);
+    this.systemMessage = "Momentarily you should receive an email from us with a 6-digit verification code."
     /* modified by mcdaniel */
 
     /* setup form validators */
@@ -86,49 +87,46 @@ export class ConfirmPage {
     if (DEBUG_MODE) console.log('ConfirmPage.confirm()', this.candidate);
     this.user.confirmRegistration(this.username, this.code)
     .then(() => {
+      if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration() - success');
 
       /* mcdaniel: some user experience improvements to the starter app */
       let loading = this.loadingCtrl.create({
         content: 'Email confirmed. Setting up your account ...'
       });
+      loading.present();
 
       let toast = this.toastCtrl.create({
         message: 'Your account is ready.',
         duration: 2000
       });
-
-      loading.present();
-
-      /* mcdaniel: hook to create MySQL candidate master record */
-      this.candidateProvider.add(this.candidate)
-        .subscribe(obj => {
-          this.candidate = obj;
-          loading.dismiss();
-          toast.present();
-          this.navCtrl.push(LoginPage);
-          if (DEBUG_MODE) console.log('ConfirmPage.confirm() - Added obj: ', this.candidate);
-        },
-        err => {
-          if (DEBUG_MODE) console.log('ConfirmPage.confirm() - error: ', err);
-          this.errMess = err;
-          loading.dismiss();
-        });
-
     })
     .catch((err) => {
       if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration - error: ', err);
+      this.error = err;
       this.errorMsg = err.message;
     })
   }
 
   resendCode() {
+    if (DEBUG_MODE) console.log('ConfirmPage.resendCode()');
+    this.errorMsg = null;
     this.user.resendRegistrationCode(this.username)
     .then(() => {
       if (DEBUG_MODE) console.log('ConfirmPage.resendCode() - success');
 
+      let alert = this.alertCtrl.create({
+        title: 'Email Resent',
+        message: 'Please check your email inbox for further instructions.',
+        buttons: ['OK']
+      });
+
+      alert.present(alert);
+      this.systemMessage = "Verification email resent. Please check your email inbox."
+
     })
     .catch((err) => {
       if (DEBUG_MODE) console.log('ConfirmPage.resendCode() - error', err);
+      this.error = err;
       this.errorMsg = err.message;
     });
   }

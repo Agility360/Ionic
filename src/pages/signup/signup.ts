@@ -41,7 +41,7 @@ export class SignupPage {
   public userDetails: UserDetails;
   public candidate: Candidate;
   public errorMsg: string;
-  error: any;
+  public error: any;
 
   public formGroup: FormGroup;
 

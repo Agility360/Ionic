@@ -42,7 +42,7 @@ export class CandidateProvider {
       })
       .catch(error => {
         if (DEBUG_MODE) console.log('CandidateProvider.get() - error', error);
-        return this.ProcessHttpmsgService.handleError(error) 
+        return this.ProcessHttpmsgService.handleError(error)
       });
   }
 
@@ -59,7 +59,7 @@ export class CandidateProvider {
       )
       .catch(
       error => {
-        if (DEBUG_MODE) console.log('CandidateProvider.add() - error while posting', this.url, this.config, obj, error);
+        if (DEBUG_MODE) console.log('CandidateProvider.add() - error', this.url, this.config, obj, error);
         return this.ProcessHttpmsgService.handleError(error)
       }
       );
