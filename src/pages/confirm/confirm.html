@@ -11,12 +11,20 @@
   <div padding>
     <strong><p class="system-message">In a few moments you should receive an email from Agility 360 with a 6-digit confirmation code. To confirm that your email address is correct please enter the code below</p></strong>
   </div>
-  <form (submit)="confirm()">
+
+  <form (submit)="confirm()" padding [formGroup]="formGroup">
     <ion-list>
 
       <ion-item>
         <ion-label floating>Confirmation Code</ion-label>
-        <ion-input type="text" [(ngModel)]="code" name="code"></ion-input>
+        <ion-input
+          type="number"
+          [class.valid]="formGroup.controls.code.valid"
+          [(ngModel)]="code"
+          (ionBlur)="codeDidBlur($event)"
+          formControlName="code"
+          name="code">
+        </ion-input>
       </ion-item>
 
       <div padding>

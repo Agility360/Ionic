@@ -66,21 +66,31 @@ export class SignupPage {
       this.formGroup = formBuilder.group({
         'username': [
           '',
-          Validators.compose([Validators.required, Validators.minLength(8)])
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern('^[a-zA-Z0-9_]*$')
+          ])
         ],
         'email': [
           '',
-          Validators.compose([Validators.required, Validators.email])
+          Validators.compose([
+            Validators.required,
+            Validators.email
+          ])
         ],
         'password': [
           '',
-          Validators.compose([Validators.required, Validators.minLength(8)])
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(8)
+          ])
         ]
       });
 
       this.formGroup.valueChanges
         .subscribe(data => {
-          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()', data);
+          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()');
           this.errorMsg = null;
         });
 
@@ -99,8 +109,9 @@ export class SignupPage {
         this.errorMsg = 'Username is required';
       } else if (control.errors['minlength']) {
         this.errorMsg = 'Username should be at least 8 characters';
+      }  else if (control.errors['pattern']) {
+        this.errorMsg = 'Username should be alphanumeric with no spaces nor special characters';
       }
-    } else {
     }
 
   }
@@ -136,7 +147,6 @@ export class SignupPage {
       } else if (control.errors['minlength']) {
         this.errorMsg = 'Password should be at least 8 characters';
       }
-    } else {
     }
   }
 

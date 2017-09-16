@@ -8,10 +8,10 @@ import { User } from '../../providers/user';
  *-----------------------------------------------------------------------*/
 import { DEBUG_MODE } from '../../shared/constants';
 import { CandidateProvider } from '../../providers/candidate';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /*-----------------------------------------------------------------------
  *
  *-----------------------------------------------------------------------*/
-
 
 
 @Component({
@@ -20,12 +20,14 @@ import { CandidateProvider } from '../../providers/candidate';
 })
 export class ConfirmPage {
 
-  public code: string;
+  public code: number;
   public username: string;
   public errMess: string;
 
   /* added by mcdaniel */
   public candidate: any;
+  public formGroup: FormGroup;
+  public errorMsg: string = null;
   /* added by mcdaniel */
 
 
@@ -34,18 +36,56 @@ export class ConfirmPage {
     public user: User,
     private candidateProvider: CandidateProvider,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public formBuilder: FormBuilder) {
 
     /* modified by mcdaniel */
     this.candidate = navParams.get('candidate');
     this.username = this.candidate.account_name;
+    if (DEBUG_MODE) console.log('ConfirmPage.constructor() - begin', this.username);
     /* modified by mcdaniel */
+
+    /* setup form validators */
+    this.formGroup = formBuilder.group({
+      'code': [
+        '',
+        Validators.compose([Validators.required])
+      ]
+    });
+
+    this.formGroup.valueChanges
+      .subscribe(data => {
+        if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()', data);
+        this.errorMsg = null;
+      });
+
+    if (DEBUG_MODE) console.log('ConfirmPage.constructor() - finished.');
+  }
+
+  codeDidBlur($event) {
+    if (DEBUG_MODE) console.log('ConfirmPage.codeDidBlur()', $event);
+
+    this.errorMsg = null;
+    if ($event == null) return;
+
+    if (this.code < 100000 || this.code > 999999) {
+      this.errorMsg = 'The verification code should be exactly 6 digits.';
+      return;
+    }
+
+    let control = this.formGroup.controls['code'];
+    if (!control.valid) {
+      if (control.errors['required']) {
+        this.errorMsg = 'Please enter the 6-digit code from the Agility360 app email address verification.';
+      }
+    }
 
   }
 
   confirm() {
     if (DEBUG_MODE) console.log('ConfirmPage.confirm()', this.candidate);
-    this.user.confirmRegistration(this.username, this.code).then(() => {
+    this.user.confirmRegistration(this.username, this.code)
+    .then(() => {
 
       /* mcdaniel: some user experience improvements to the starter app */
       let loading = this.loadingCtrl.create({
@@ -70,14 +110,31 @@ export class ConfirmPage {
         },
         err => {
           if (DEBUG_MODE) console.log('ConfirmPage.confirm() - error: ', err);
-          this.errMess = err; loading.dismiss();
+          this.errMess = err;
+          loading.dismiss();
         });
 
-    });
+    })
+    .catch((err) => {
+      if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration - error: ', err);
+      this.errorMsg = err.message;
+    })
   }
 
   resendCode() {
-    this.user.resendRegistrationCode(this.username);
+    this.user.resendRegistrationCode(this.username)
+    .then(() => {
+      if (DEBUG_MODE) console.log('ConfirmPage.resendCode() - success');
+
+    })
+    .catch((err) => {
+      if (DEBUG_MODE) console.log('ConfirmPage.resendCode() - error', err);
+      this.errorMsg = err.message;
+    });
+  }
+
+  ionViewDidLoad() {
+    if (DEBUG_MODE) console.log('ConfirmPage.ionViewDidLoad()');
   }
 
 

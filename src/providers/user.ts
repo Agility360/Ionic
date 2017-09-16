@@ -59,9 +59,11 @@ export class User {
             'Logins': logins
           });
 
-          this.isAuthenticated().then(() => {
+          this.isAuthenticated()
+          .then(() => {
             resolve();
-          }).catch((err) => {
+          })
+          .catch((err) => {
             if (DEBUG_MODE) console.log('User.login() -- failed.');
           });
 

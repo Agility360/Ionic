@@ -1,19 +1,5 @@
-<ion-content>
-  <div text-center class="logo">
-    <img src="assets/agility360-logo-transparent-512x512.png" />
-  </div>
+<ion-content  class="app-background">
   <form (submit)="signup()" padding [formGroup]="formGroup">
-    <div class="error-message" *ngIf="errorMsg">
-      <p style="color: red;">{{errorMsg}}</p>
-    </div>
-    <div class="info-message">
-      <ion-item *ngIf="formGroup.controls.email.pending">
-        <p class="info-message">Checking email address...</p>
-      </ion-item>
-      <div *ngIf="formGroup.controls.username.pending">
-        <p class="info-message">Checking username...</p>
-      </div>
-    </div>
 
     <ion-list>
       <!-- --------------------- Username ----------------------------------- -->
@@ -25,7 +11,7 @@
         <ion-input type="text"
               [class.valid]="formGroup.controls.username.valid"
               [(ngModel)]="userDetails.username"
-              (blur)="usernameDidBlur($event)"
+              (ionBlur)="usernameDidBlur($event)"
               formControlName="username"
               autocorrect="off"
               autocapitalize="none"
@@ -42,7 +28,7 @@
         <ion-input type="email"
               [class.valid]="formGroup.controls.email.valid"
               [(ngModel)]="userDetails.email"
-              (blur)="emailDidBlur($event)"
+              (ionBlur)="emailDidBlur($event)"
               formControlName="email"
               autocorrect="off"
               autocapitalize="none"
@@ -60,30 +46,31 @@
         <ion-input type="password"
               [class.valid]="formGroup.controls.password.valid"
               [(ngModel)]="userDetails.password"
-              (blur)="passwordDidBlur($event)"
+              (ionBlur)="passwordDidBlur($event)"
               formControlName="password"
               autocorrect="off"
               autocapitalize="none"
               name="password">
-      </ion-input>
+        </ion-input>
       </ion-item>
-      <ion-item-divider no-lines></ion-item-divider>
-
-      <ion-item-divider no-lines></ion-item-divider>
-
-      <div padding>
-        <p text-center>By clicking Sign Up, you agree to Agility 360's User Agreement, Privacy Policy and Cookie Policy</p>
-        <button ion-button
-                color="primary"
-                block
-                [disabled]="!formGroup.valid">Sign Up</button>
-
-        <div text-center>
-          <p><a (click)="login()">Return to login page</a>
-        </div>
-      </div>
-
 
     </ion-list>
   </form>
+  <div class="error-message" *ngIf="errorMsg">
+    <p style="color: red;">{{errorMsg}}</p>
+  </div>
+  <ion-footer>
+    <div padding style="background-color: white;">
+      <p text-center>By clicking Sign Up, you agree to Agility 360's User Agreement, Privacy Policy and Cookie Policy</p>
+      <button ion-button
+              (click)="signup()"
+              color="primary"
+              block
+              [disabled]="!formGroup.valid">Sign Up</button>
+
+      <div text-center>
+        <p><a (click)="login()">Return to login page</a>
+      </div>
+    </div>
+  </ion-footer>
 </ion-content>
