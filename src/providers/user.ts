@@ -171,17 +171,10 @@ export class User {
   }
 
 
-  isAvailable(username) {
+  isAvailable(username): boolean {
     if (DEBUG_MODE) console.log('User.isAvailable: ', username);
 
-    this.register(username, "", { 'email': "mail@mail.com" })
-      .then((user) => {
-        if (DEBUG_MODE) console.log('User.isAvailable() - success. registered. WTF?');
-      }).catch((err) => {
-        if (DEBUG_MODE) console.log('User.isAvailable() - error.', err);
-      });
-
-
+    //future use.
     return true;
   }
 
