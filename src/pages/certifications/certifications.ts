@@ -60,7 +60,7 @@ export class CertificationsPage {
     });
   }
 
-  edit(event, obj: Certification) {
+  edit(obj: Certification) {
     if (DEBUG_MODE) console.log('JobhistoryPage.edit() - button clicked for obj:', obj);
     this.navCtrl.push(CertificationDetailPage, {
       obj: obj,

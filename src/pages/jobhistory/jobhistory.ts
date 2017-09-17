@@ -60,7 +60,7 @@ export class JobhistoryPage {
     });
   }
 
-  edit(event, job: Job) {
+  edit(job: Job) {
     if (DEBUG_MODE) console.log('JobhistoryPage.edit() - button clicked for job:', job);
     this.navCtrl.push(JobhistoryDetailPage, {
       obj: job,

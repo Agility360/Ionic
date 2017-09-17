@@ -66,7 +66,7 @@ export class EducationPage {
     });
   }
 
-  edit(event, obj: Education) {
+  edit(obj: Education) {
     if (DEBUG_MODE) console.log('EducationPage.edit() - button clicked for obj:', obj);
     this.navCtrl.push(EducationDetailPage, {
       obj: obj,
