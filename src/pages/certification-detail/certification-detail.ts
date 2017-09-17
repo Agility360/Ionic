@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 import { DEBUG_MODE } from '../../shared/constants';
 import { Certification } from '../../shared/certification';
 import { CertificationHistoryProvider } from '../../providers/certificationhistory';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @IonicPage()
@@ -12,19 +13,22 @@ import { CertificationHistoryProvider } from '../../providers/certificationhisto
 })
 export class CertificationDetailPage {
 
-  obj: Certification;
-  errMess: string;
-  action: string;
-  shouldConfirmWindowClose: boolean;
-  today: string;
+  public obj: Certification;
+  public errorMsg: string;
+  public error: any;
+  public action: string;
+  public shouldConfirmWindowClose: boolean;
+  public today: string;
+  public formGroup: FormGroup;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private provider: CertificationHistoryProvider,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public formBuilder: FormBuilder) {
 
-    if (DEBUG_MODE) console.log('EducationDetailPage.constructor() with obj: ', this.obj, this.action);
+    if (DEBUG_MODE) console.log('CertificationDetailPage.constructor() with obj: ', this.obj, this.action);
 
     this.obj = navParams.get('obj');
     this.action = navParams.get('action').toLowerCase();
@@ -47,10 +51,72 @@ export class CertificationDetailPage {
       this.obj.expire_date = new Date(this.obj.expire_date.replace("None", "")).toISOString();
     }
 
+    /* setup form validators */
+      this.formGroup = formBuilder.group({
+        'institution_name': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'certification_name': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'date_received': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'expire_date': [
+          '',
+          Validators.compose([
+          ])
+        ],
+        'description': [
+          '',
+          Validators.compose([
+          ])
+        ]
+      });
+
+      this.formGroup.valueChanges
+        .subscribe(data => {
+          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()');
+          this.errorMsg = null;
+        });
+
+
+  }
+
+  formValidate(): boolean {
+    if (DEBUG_MODE) console.log('CertificationDetailPage.formValidate()');
+    this.errorMsg = null;
+
+    //begin business rule validations.
+    if (this.obj.expire_date < this.obj.date_received) {
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        message: 'The expiratoin date should be after the date received.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      return false;
+    }
+
+    if (this.formGroup.valid) {
+      return true;
+    }
+    return false;
   }
 
   processForm() {
-    if (DEBUG_MODE) console.log('EducationDetailPage.processForm(): ', );
+    if (DEBUG_MODE) console.log('CertificationDetailPage.processForm(): ', );
+
+    if (!this.formValidate()) return
 
     if (this.action === 'add') {
       let toast = this.toastCtrl.create({
@@ -58,18 +124,18 @@ export class CertificationDetailPage {
         duration: 2000
       });
 
-      if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Adding obj: ', this.obj);
+      if (DEBUG_MODE) console.log('CertificationDetailPage.processForm() - Adding obj: ', this.obj);
       this.provider.add(this.obj)
         .subscribe(obj => {
-          if (DEBUG_MODE) console.log('EducationDetailPage.processForm() - Added obj: ', this.obj);
+          if (DEBUG_MODE) console.log('CertificationDetailPage.processForm() - Added obj: ', this.obj);
           toast.present();
           this.shouldConfirmWindowClose = false;
           /* this.navCtrl.getActiveChildNav() */
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
@@ -87,9 +153,9 @@ export class CertificationDetailPage {
           this.shouldConfirmWindowClose = false;
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
@@ -98,7 +164,7 @@ export class CertificationDetailPage {
   }
 
   ionViewDidLoad() {
-    if (DEBUG_MODE) console.log('EducationDetailPage.ionViewDidLoad()');
+    if (DEBUG_MODE) console.log('CertificationDetailPage.ionViewDidLoad()');
   }
 
 
