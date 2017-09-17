@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DEBUG_MODE } from '../../shared/constants';
 import { Education } from '../../shared/education';
 import { EducationHistoryProvider } from '../../providers/educationhistory';
@@ -12,8 +13,11 @@ import { EducationHistoryProvider } from '../../providers/educationhistory';
 })
 export class EducationDetailPage {
 
+  public errorMsg: string;
+  public error: any;
+  public formGroup: FormGroup;
+
   obj: Education;
-  errMess: string;
   action: string;
   shouldConfirmWindowClose: boolean;
   graduated: boolean;
@@ -22,7 +26,8 @@ export class EducationDetailPage {
     public navParams: NavParams,
     private provider: EducationHistoryProvider,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public formBuilder: FormBuilder) {
 
     if (DEBUG_MODE) console.log('EducationDetailPage.constructor() with obj: ', this.obj, this.action);
 
@@ -51,6 +56,69 @@ export class EducationDetailPage {
     if (this.obj.graduated == 1) this.graduated = true
     else this.graduated = false;
 
+    /* setup form validators */
+      this.formGroup = formBuilder.group({
+        'institution_name': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'degree': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'graduated': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'start_date': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'end_date': [
+          '',
+          Validators.compose([
+          ])
+        ],
+        'description': [
+          '',
+          Validators.compose([
+          ])
+        ]
+      });
+
+      this.formGroup.valueChanges
+        .subscribe(data => {
+          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()');
+          this.errorMsg = null;
+        });
+
+
+  }
+
+  formValidate(): boolean {
+    if (DEBUG_MODE) console.log('CertificationDetailPage.formValidate()');
+    if (!this.formValidate()) return
+    this.errorMsg = null;
+
+    //begin business rule validations.
+    if (this.obj.end_date < this.obj.end_date) {
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        message: 'The end date should be after the start date.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      return false;
+    }
+
   }
 
   processForm() {
@@ -75,9 +143,9 @@ export class EducationDetailPage {
           /* this.navCtrl.getActiveChildNav() */
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
@@ -96,9 +164,9 @@ export class EducationDetailPage {
           this.shouldConfirmWindowClose = false;
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
