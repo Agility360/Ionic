@@ -45,11 +45,11 @@ export class CertificationDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-    if (this.obj.date_received.replace("None", "") != "") {
-      this.obj.date_received = new Date(this.obj.date_received.replace("None", "")).toISOString();
+    if (this.obj.date_received != "") {
+      this.obj.date_received = new Date(this.obj.date_received).toISOString();
     }
-    if (this.obj.expire_date.replace("None", "") != "") {
-      this.obj.expire_date = new Date(this.obj.expire_date.replace("None", "")).toISOString();
+    if (this.obj.expire_date != "") {
+      this.obj.expire_date = new Date(this.obj.expire_date).toISOString();
     }
 
     /* setup form validators */

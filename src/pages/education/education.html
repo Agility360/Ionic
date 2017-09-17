@@ -49,21 +49,21 @@
         </ion-item>
 
         <ion-card-content>
-          <ion-item class="job-dates">
+          <ion-item>
             <ion-row>
               <ion-col text-left>
                 <p>Start Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ card.start_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.start_date | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row *ngIf="card.end_date">
               <ion-col text-left>
                 <p>End Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ card.end_date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.end_date | date:"MMM dd, yyyy" }}</p>
               </ion-col>
             </ion-row>
           </ion-item>

@@ -43,11 +43,11 @@ export class JobhistoryDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-    if (this.obj.start_date.replace("None", "") != "") {
-      this.obj.start_date = new Date(this.obj.start_date.replace("None", "")).toISOString();
+    if (this.obj.start_date != "") {
+      this.obj.start_date = new Date(this.obj.start_date).toISOString();
     }
-    if (this.obj.end_date.replace("None", "") != "") {
-      this.obj.end_date = new Date(this.obj.end_date.replace("None", "")).toISOString();
+    if (this.obj.end_date != "") {
+      this.obj.end_date = new Date(this.obj.end_date).toISOString();
     }
 
     /* setup form validators */
