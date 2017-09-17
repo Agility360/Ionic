@@ -28,7 +28,7 @@
         <div class="card-title-block">
           <ion-item>
             <ion-avatar item-start>
-              <ion-img src="https://cdn.agility360app.net/">
+              <img src="https://cdn.agility360app.net/">
             </ion-avatar>
             <h2 text-wrap>{{ post.title.rendered }}</h2>
             <p style="margin-top: 10px;">Posted: {{ post.date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
@@ -39,7 +39,7 @@
           <ion-item>
             <ion-row>
               <ion-col>
-                <ion-img src="{{ post.featured_media_url }}">
+                <img src="{{ post.featured_media_url }}">
               <div class="wordpress" text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
               </ion-col>
             </ion-row>

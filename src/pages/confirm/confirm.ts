@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController, AlertController, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { User } from '../../providers/user';
 
@@ -34,6 +34,7 @@ export class ConfirmPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public user: User,
+    public app: App,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
@@ -99,6 +100,8 @@ export class ConfirmPage {
         message: 'Your account is ready.',
         duration: 2000
       });
+      toast.present();
+      if (!this.user.isAuthenticated()) this.app.getRootNav().setRoot(LoginPage);
     })
     .catch((err) => {
       if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration - error: ', err);
