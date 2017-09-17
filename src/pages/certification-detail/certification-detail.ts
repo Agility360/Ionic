@@ -13,13 +13,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CertificationDetailPage {
 
-  public obj: Certification;
   public errorMsg: string;
   public error: any;
+  public formGroup: FormGroup;
+
+  public obj: Certification;
   public action: string;
   public shouldConfirmWindowClose: boolean;
   public today: string;
-  public formGroup: FormGroup;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -100,7 +101,7 @@ export class CertificationDetailPage {
     if (this.obj.expire_date < this.obj.date_received) {
       let alert = this.alertCtrl.create({
         title: 'Error',
-        message: 'The expiratoin date should be after the date received.',
+        message: 'The expiration date should be after the date received.',
         buttons: ['Dismiss']
       });
       alert.present();

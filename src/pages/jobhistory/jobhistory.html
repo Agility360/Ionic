@@ -81,7 +81,7 @@
                 <p>Final Salary:</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ card.final_salary | currency :$ :0 }}</p>
+                <p *ngIf="card.final_salary > 0">{{ card.final_salary | currency:'USD':true:'1.0-0' }}</p>
               </ion-col>
             </ion-row>
           </ion-item>

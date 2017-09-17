@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DEBUG_MODE } from '../../shared/constants';
 import { Job } from '../../shared/job';
 import { JobHistoryProvider } from '../../providers/jobhistory';
@@ -11,16 +12,20 @@ import { JobHistoryProvider } from '../../providers/jobhistory';
 })
 export class JobhistoryDetailPage {
 
-  obj: Job;
-  errMess: string;
-  action: string;
-  shouldConfirmWindowClose: boolean;
+  public errorMsg: string;
+  public error: any;
+  public formGroup: FormGroup;
+
+  public obj: Job;
+  public action: string;
+  public shouldConfirmWindowClose: boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private provider: JobHistoryProvider,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public formBuilder: FormBuilder) {
 
     if (DEBUG_MODE) console.log('JobhistoryDetailPage.constructor() with obj: ', this.obj, this.action);
 
@@ -44,11 +49,93 @@ export class JobhistoryDetailPage {
     if (this.obj.end_date.replace("None", "") != "") {
       this.obj.end_date = new Date(this.obj.end_date.replace("None", "")).toISOString();
     }
-    
+
+    /* setup form validators */
+      this.formGroup = formBuilder.group({
+        'company_name': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'department': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'job_title': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'start_date': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'end_date': [
+          '',
+          Validators.compose([
+          ])
+        ],
+        'final_salary': [
+          '',
+          Validators.compose([
+          ])
+        ],
+        'description': [
+          '',
+          Validators.compose([
+          ])
+        ]
+      });
+
+      this.formGroup.valueChanges
+        .subscribe(data => {
+          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()');
+          this.errorMsg = null;
+        });
+
+
+  }
+
+  formValidate(): boolean {
+    if (DEBUG_MODE) console.log('CertificationDetailPage.formValidate()');
+    this.errorMsg = null;
+
+    //begin business rule validations.
+    if (this.obj.end_date < this.obj.end_date) {
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        message: 'The end date should be after the start date.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      return false;
+    }
+
+    if (this.obj.final_salary < 0) {
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        message: 'Salary should be greater than zero.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      return false;
+    }
+
+    if (this.formGroup.valid) {
+      return true;
+    }
+    return false;
   }
 
   processForm() {
     if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm(): ', );
+    if (!this.formValidate()) return
 
     if (this.action === 'add') {
 
@@ -66,9 +153,9 @@ export class JobhistoryDetailPage {
           /* this.navCtrl.getActiveChildNav() */
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
@@ -87,9 +174,9 @@ export class JobhistoryDetailPage {
           this.shouldConfirmWindowClose = false;
           this.exitPage();
         },
-        errmess => {
+        errorMsg => {
           this.shouldConfirmWindowClose = true;
-          this.errMess = errmess;
+          this.errorMsg = errorMsg;
         });
 
     };
