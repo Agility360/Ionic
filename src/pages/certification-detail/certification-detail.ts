@@ -20,7 +20,9 @@ export class CertificationDetailPage {
   public obj: Certification;
   public action: string;
   public shouldConfirmWindowClose: boolean;
-  public today: string;
+
+  public date_received: string;
+  public expire_date: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,12 +47,8 @@ export class CertificationDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-    if (this.obj.date_received != "") {
-      this.obj.date_received = new Date(this.obj.date_received).toISOString();
-    }
-    if (this.obj.expire_date != "") {
-      this.obj.expire_date = new Date(this.obj.expire_date).toISOString();
-    }
+     if (this.obj.date_received) this.date_received = new Date(this.obj.date_received).toISOString();
+     if (this.obj.expire_date) this.expire_date = new Date(this.obj.expire_date).toISOString();
 
     /* setup form validators */
       this.formGroup = formBuilder.group({
@@ -118,6 +116,9 @@ export class CertificationDetailPage {
     if (DEBUG_MODE) console.log('CertificationDetailPage.processForm(): ', );
 
     if (!this.formValidate()) return
+
+    this.obj.date_received = new Date(this.date_received);
+    this.obj.expire_date = new Date(this.expire_date);
 
     if (this.action === 'add') {
       let toast = this.toastCtrl.create({

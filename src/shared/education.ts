@@ -5,8 +5,8 @@ export interface Education {
   institution_name: string;
   degree: string;
   graduated: number;
-  start_date: string;
-  end_date: string;
-  create_date: string;
+  start_date: Date;
+  end_date: Date;
+  create_date: Date;
   description: string;
 }

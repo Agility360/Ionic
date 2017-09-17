@@ -4,8 +4,8 @@ export interface Certification {
   candidate_id: number;
   institution_name: string;
   certification_name: string;
-  date_received: string;
-  expire_date: string;
-  create_date: string;
+  date_received: Date;
+  expire_date: Date;
+  create_date: Date;
   description: string;
 }

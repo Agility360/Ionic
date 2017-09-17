@@ -20,6 +20,9 @@ export class JobhistoryDetailPage {
   public action: string;
   public shouldConfirmWindowClose: boolean;
 
+  public start_date: string;
+  public end_date: string;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private provider: JobHistoryProvider,
@@ -36,19 +39,33 @@ export class JobhistoryDetailPage {
     /*----------------------------------------------
      * some explanation is merited for the following.
      * the Ionic Date Picker control uses a 2-way to a string representation of a date
-     * formatted in ISO 8601 format. meanwhile, the underlying MySQL database that stores
-     * any persisted data use IOS [some other format] which will result in the Date Picker
+     * formatted in ISO 8601 format. meanwhile, the underlying Date object
+     * uses [some other format] which will result in the Date Picker
      * object not being initialized to a value.
      *
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-    if (this.obj.start_date != "") {
-      this.obj.start_date = new Date(this.obj.start_date).toISOString();
-    }
-    if (this.obj.end_date != "") {
-      this.obj.end_date = new Date(this.obj.end_date).toISOString();
-    }
+
+     if (this.obj.start_date) {
+
+       var s = this.obj.start_date.toString();
+       var y = parseInt(s.substring(0, 5));
+       var m = parseInt(s.substring(4, 3));
+       var d = parseInt(s.substring(7, 3));
+
+       this.start_date = new Date(y, m, d, 0, 0, 0, 0).toISOString();
+
+       /*
+       console.log('my regular date: ', this.obj.start_date.toString())
+       console.log('my awesome date: ', new Date(this.obj.start_date).toISOString())
+       console.log('my manufactured date: ', this.start_date)
+       */
+
+     }
+     /*
+     if (this.obj.end_date) this.end_date = new Date(this.obj.end_date).toISOString();
+     */
 
     /* setup form validators */
       this.formGroup = formBuilder.group({
@@ -136,6 +153,10 @@ export class JobhistoryDetailPage {
   processForm() {
     if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm(): ', );
     if (!this.formValidate()) return
+
+    this.obj.start_date = new Date(this.start_date);
+    this.obj.end_date = new Date(this.end_date);
+
 
     if (this.action === 'add') {
 

@@ -17,10 +17,13 @@ export class EducationDetailPage {
   public error: any;
   public formGroup: FormGroup;
 
-  obj: Education;
-  action: string;
-  shouldConfirmWindowClose: boolean;
-  graduated: boolean;
+  public obj: Education;
+  public action: string;
+  public shouldConfirmWindowClose: boolean;
+  public graduated: boolean;
+
+  public start_date: string;
+  public end_date: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,16 +48,12 @@ export class EducationDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-    if (this.obj.start_date != "") {
-      this.obj.start_date = new Date(this.obj.start_date).toISOString();
-    }
-    if (this.obj.end_date != "") {
-      this.obj.end_date = new Date(this.obj.end_date).toISOString();
-    }
+     if (this.obj.start_date) this.start_date = new Date(this.obj.start_date).toISOString();
+     if (this.obj.end_date) this.end_date = new Date(this.obj.end_date).toISOString();
 
-    /* Ditto regarding boolean values for the Ionic Checkbox control. */
-    if (this.obj.graduated == 1) this.graduated = true
-    else this.graduated = false;
+     /* Ditto regarding boolean values for the Ionic Checkbox control. */
+     if (this.obj.graduated == 1) this.graduated = true
+     else this.graduated = false;
 
     /* setup form validators */
       this.formGroup = formBuilder.group({
@@ -105,7 +104,6 @@ export class EducationDetailPage {
 
   formValidate(): boolean {
     if (DEBUG_MODE) console.log('CertificationDetailPage.formValidate()');
-    if (!this.formValidate()) return
     this.errorMsg = null;
 
     //begin business rule validations.
@@ -123,6 +121,10 @@ export class EducationDetailPage {
 
   processForm() {
     if (DEBUG_MODE) console.log('EducationDetailPage.processForm(): ', );
+    if (!this.formValidate()) return
+
+    this.obj.start_date = new Date(this.start_date);
+    this.obj.end_date = new Date(this.end_date);
 
     /* rebind our local boolean "graduated" object to the real graduated object. */
     this.obj.graduated = this.graduated ? 1 : 0;
