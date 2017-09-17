@@ -70,7 +70,13 @@ export class ConfirmPage {
     this.errorMsg = null;
     if ($event == null) return;
 
-    if (this.code < 100000 || this.code > 999999) {
+    if (this.code > 999999) {
+      if (DEBUG_MODE) console.log('ConfirmPage.codeDidBlur() - validation failure - 1', $event);
+      this.errorMsg = 'The verification code should be exactly 6 digits.';
+      return;
+    }
+    if (this.code.toString().length != 6) {
+      if (DEBUG_MODE) console.log('ConfirmPage.codeDidBlur() - validation failure - 2', $event);
       this.errorMsg = 'The verification code should be exactly 6 digits.';
       return;
     }
@@ -78,6 +84,7 @@ export class ConfirmPage {
     let control = this.formGroup.controls['code'];
     if (!control.valid) {
       if (control.errors['required']) {
+        if (DEBUG_MODE) console.log('ConfirmPage.codeDidBlur() - validation failure - 3', $event);
         this.errorMsg = 'Please enter the 6-digit code from the Agility360 app email address verification.';
       }
     }
@@ -101,7 +108,16 @@ export class ConfirmPage {
         duration: 2000
       });
       toast.present();
-      if (!this.user.isAuthenticated()) this.app.getRootNav().setRoot(LoginPage);
+      this.user.isAuthenticated()
+      .then(() => {
+        if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.isAuthenticated - Yes.');
+      })
+      .catch((err) => {
+        if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.isAuthenticated - No.');
+        this.app.getRootNav().setRoot(LoginPage);
+      });
+
+
     })
     .catch((err) => {
       if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration - error: ', err);

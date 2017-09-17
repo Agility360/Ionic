@@ -46,7 +46,7 @@ export class User {
       user.authenticateUser(authDetails, {
         'onSuccess': (result: any) => {
 
-          if (DEBUG_MODE) console.log('User.login() -- success.');
+          if (DEBUG_MODE) console.log('User.login() - authenticateUser onSuccess');
           var logins = {};
           var loginKey = 'cognito-idp.' +
             aws_cognito_region +
@@ -61,17 +61,18 @@ export class User {
 
           this.isAuthenticated()
           .then(() => {
+            if (DEBUG_MODE) console.log('User.login() - isAuthenticated - yes');
             resolve();
           })
           .catch((err) => {
-            if (DEBUG_MODE) console.log('User.login() -- failed.');
+            if (DEBUG_MODE) console.log('User.login() - isAuthenticated - no');
           });
 
         },
 
         'onFailure': (err: any) => {
 
-          if (DEBUG_MODE) console.log('User.login() -- failed.');
+          if (DEBUG_MODE) console.log('User.login() - onFailure');
           reject(err);
 
         }
