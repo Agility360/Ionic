@@ -48,8 +48,27 @@ export class EducationDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
-     if (this.obj.start_date) this.start_date = new Date(this.obj.start_date).toISOString();
-     if (this.obj.end_date) this.end_date = new Date(this.obj.end_date).toISOString();
+     var s: string;
+     var y, m, d: number;
+
+     if (this.obj.start_date) {
+       s = this.obj.start_date.toString();
+       y = parseInt(s.substring(0, 5));
+       m = parseInt(s.substring(5, 7)) - 1;
+       d = parseInt(s.substring(8, 10));
+
+       this.start_date = new Date(y, m, d, 0, 0, 0, 0).toISOString();
+     }
+     if (this.obj.end_date) {
+       s = this.obj.end_date.toString();
+       y = parseInt(s.substring(0, 5));
+       m = parseInt(s.substring(5, 7)) - 1;
+       d = parseInt(s.substring(8, 10));
+
+       this.end_date = new Date(y, m, d, 0, 0, 0, 0).toISOString();
+     }
+
+
 
      /* Ditto regarding boolean values for the Ionic Checkbox control. */
      if (this.obj.graduated == 1) this.graduated = true

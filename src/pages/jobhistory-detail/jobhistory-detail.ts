@@ -46,26 +46,25 @@ export class JobhistoryDetailPage {
      * to resolve this cunundrum the following code converts the string representation to a date object
      * and then back to a string; albeit in ISO 8601 format.
      */
+     var s: string;
+     var y, m, d: number;
 
      if (this.obj.start_date) {
-
-       var s = this.obj.start_date.toString();
-       var y = parseInt(s.substring(0, 5));
-       var m = parseInt(s.substring(4, 3));
-       var d = parseInt(s.substring(7, 3));
+       s = this.obj.start_date.toString();
+       y = parseInt(s.substring(0, 5));
+       m = parseInt(s.substring(5, 7)) - 1;
+       d = parseInt(s.substring(8, 10));
 
        this.start_date = new Date(y, m, d, 0, 0, 0, 0).toISOString();
-
-       /*
-       console.log('my regular date: ', this.obj.start_date.toString())
-       console.log('my awesome date: ', new Date(this.obj.start_date).toISOString())
-       console.log('my manufactured date: ', this.start_date)
-       */
-
      }
-     /*
-     if (this.obj.end_date) this.end_date = new Date(this.obj.end_date).toISOString();
-     */
+     if (this.obj.end_date) {
+       s = this.obj.end_date.toString();
+       y = parseInt(s.substring(0, 5));
+       m = parseInt(s.substring(5, 7)) - 1;
+       d = parseInt(s.substring(8, 10));
+
+       this.end_date = new Date(y, m, d, 0, 0, 0, 0).toISOString();
+     }
 
     /* setup form validators */
       this.formGroup = formBuilder.group({
