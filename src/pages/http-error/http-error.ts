@@ -15,7 +15,7 @@ export class HttpErrorPage {
   }
 
 
-  RetryButtonClick() {
+  retryButtonClick() {
     if (DEBUG_MODE) console.log('HttpErrorPage.RetryButtonClick()');
     this.navCtrl.pop();
   }
