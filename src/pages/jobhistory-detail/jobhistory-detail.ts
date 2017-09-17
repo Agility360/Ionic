@@ -153,8 +153,8 @@ export class JobhistoryDetailPage {
     if (DEBUG_MODE) console.log('JobhistoryDetailPage.processForm(): ', );
     if (!this.formValidate()) return
 
-    this.obj.start_date = new Date(this.start_date);
-    this.obj.end_date = new Date(this.end_date);
+    this.obj.start_date = this.start_date;
+    this.obj.end_date = this.end_date;
 
 
     if (this.action === 'add') {

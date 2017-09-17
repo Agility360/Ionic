@@ -5,8 +5,8 @@ export interface Job {
   company_name: string;
   department: string;
   job_title: string;
-  start_date: Date;
-  end_date: Date;
+  start_date: string;
+  end_date: string;
   description: string;
   final_salary: number;
   create_date: Date;
