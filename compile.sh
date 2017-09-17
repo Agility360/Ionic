@@ -10,5 +10,5 @@ echo "To execute from Cloudfront: https://d1s3rwkbgrvc9r.cloudfront.net/"
 echo "To execute in prod: https://web.agility360app.net"
 
 echo "Building Ionic View app."
-ionic upload
+echo "ionic upload -- is disabled"
 echo "Build complete. App id: 73ac5e25"

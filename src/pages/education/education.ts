@@ -72,7 +72,7 @@ export class EducationPage {
       obj: obj,
       action: 'Edit'
     });
-  } /* edit() */
+  } 
 
 
   delete(obj: Education) {

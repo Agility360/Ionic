@@ -66,7 +66,7 @@ export class CertificationsPage {
       obj: obj,
       action: 'Edit'
     });
-  } /* edit() */
+  }
 
 
   delete(obj: Certification) {

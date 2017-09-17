@@ -55,7 +55,7 @@
                 <p>Start Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ card.start_date | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.start_date }}</p>
               </ion-col>
             </ion-row>
             <ion-row *ngIf="card.end_date">
@@ -63,7 +63,7 @@
                 <p>End Date</p>
               </ion-col>
               <ion-col text-right>
-                <p>{{ card.end_date | date:"MMM dd, yyyy" }}</p>
+                <p>{{ card.end_date }}</p>
               </ion-col>
             </ion-row>
           </ion-item>

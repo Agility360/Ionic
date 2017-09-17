@@ -66,7 +66,8 @@ export class JobhistoryPage {
       obj: job,
       action: 'Edit'
     });
-  } /* edit() */
+
+  }
 
 
   delete(job: Job) {
