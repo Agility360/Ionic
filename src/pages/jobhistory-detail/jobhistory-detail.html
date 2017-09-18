@@ -1,15 +1,25 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title text-capitalize>{{ action }} Job</ion-title>
+    <ion-buttons end>
+      <button
+        ion-button
+        icon-left
+        clear
+        small
+        [disabled]="!formGroup.valid"
+        (click)="processForm()">
+        <ion-icon name="create"></ion-icon>
+        <div>Save</div>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding class="app-background">
 
-  <form (ngSubmit)="processForm()" [formGroup]="formGroup">
+  <form [formGroup]="formGroup">
     <ion-item>
       <ion-label stacked class="form-label">Company Name</ion-label>
       <ion-input
@@ -79,11 +89,6 @@
         name="description"
         placeholder="Optional: provide us with a few sentences about your role and responsibilities for this position."></ion-textarea>
     </ion-item>
-    <button
-      ion-button
-      type="submit"
-      block
-      [disabled]="!formGroup.valid">Save</button>
   </form>
 
 </ion-content>
