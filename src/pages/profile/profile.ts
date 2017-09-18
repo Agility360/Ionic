@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
-import { User } from '../../providers/user';
 import { ProfileEditPage } from '../profile-edit/profile-edit';
 
 /**
@@ -25,8 +24,7 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private provider: CandidateProvider,
-    private user: User) {
+    private provider: CandidateProvider) {
 
     if (DEBUG_MODE) console.log('ProfilePage.constructor()');
     this.get();
