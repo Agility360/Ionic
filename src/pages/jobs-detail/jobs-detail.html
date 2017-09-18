@@ -30,18 +30,14 @@
             <img src="https://cdn.agility360app.net/">
           </ion-avatar>
           <h2 text-wrap>{{ post.title.rendered }}</h2>
-          <p style="margin-top: 10px;">Posted: {{ post.date | date:"MMM dd, yyyy" }}</p>
+          <p class="publication-date">Posted: {{ post.date | date:"MMM dd, yyyy" }}</p>
         </ion-item>
       </div>
 
       <ion-card-content>
         <ion-item>
-          <ion-row>
-            <ion-col>
-              <img src="{{ post.featured_media_url }}">
-            <div text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
-            </ion-col>
-          </ion-row>
+          <img src="{{ post.featured_media_url }}">
+          <p class="post" text-wrap [innerHtml]="post.content.rendered | safeHtml"></p>
         </ion-item>
       </ion-card-content>
 
