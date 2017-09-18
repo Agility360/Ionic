@@ -178,11 +178,6 @@ export class SignupPage {
     if (DEBUG_MODE) console.log('SignupPage.signup()');
     if (!this.formValidate()) return
 
-    let loading = this.loadingCtrl.create({
-      content: 'Registering new account ...'
-    });
-    loading.present();
-
     let details = this.userDetails;
     this.error = null;
 
@@ -197,7 +192,6 @@ export class SignupPage {
         if (DEBUG_MODE) console.log('SignupPage.signup() - Create new candidate object', this.candidate);
           this.candidateProvider.add(this.candidate)
           .finally(()=>{
-            loading.dismiss();
           })
           .subscribe(
             result => {
@@ -215,7 +209,6 @@ export class SignupPage {
       })
       .catch((err) => {
         if (DEBUG_MODE) console.log('SignupPage.signup() - registration error.');
-        loading.dismiss();
         this.error = err;
         this.errMsg = err.message;
       });
