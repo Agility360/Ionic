@@ -26,40 +26,58 @@
     <ion-item-divider>
       Your Full Name
     </ion-item-divider>
-    <ion-item no-lines>
-      <ion-label class="agility-label">First: </ion-label>
-      <div item-content>
-        {{ this.card.first_name }}
-      </div>
-    </ion-item>
-    <ion-item no-lines>
-      <ion-label class="agility-label">Middle: </ion-label>
-      <div item-content>
-        {{ this.card.middle_name }}
-      </div>
-    </ion-item>
-    <ion-item no-lines>
-      <ion-label class="agility-label">Last: </ion-label>
-      <div item-content>
-        {{ this.card.last_name }}
-      </div>
-    </ion-item>
+    <div *ngIf="!card.first_name && !card.middle_name && !card.last_name ">
+      <ion-item no-lines>
+        <ion-card>
+          <p class="promote-box" text-wrap>Click the <code>Edit</code> button to begin setting up your profile.</p>
+        </ion-card>
+      </ion-item>
+    </div>
+    <div *ngIf="card.first_name || card.middle_name || card.last_name">
+      <ion-item no-lines>
+        <ion-label class="agility-label">First: </ion-label>
+        <div item-content>
+          {{ card.first_name }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">Middle: </ion-label>
+        <div item-content>
+          {{ card.middle_name }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">Last: </ion-label>
+        <div item-content>
+          {{ card.last_name }}
+        </div>
+      </ion-item>
+    </div>
 
     <ion-item-divider>
       Your Address
     </ion-item-divider>
-    <ion-item no-lines>
-      <ion-label class="agility-label">City: </ion-label>
-      <div item-content>
-        {{ this.card.city }}
-      </div>
-    </ion-item>
-    <ion-item no-lines>
-      <ion-label class="agility-label">State: </ion-label>
-      <div item-content>
-        {{ this.card.state }}
-      </div>
-    </ion-item>
+    <div *ngIf="card.city == '' && card.state == ''">
+      <ion-item no-lines>
+        <ion-card>
+          <p class="promote-box" text-wrap>Get notified about job opportunities in your area by providing us with your <strong>City</strong> and <strong>State</strong>.</p>
+        </ion-card>
+      </ion-item>
+    </div>
+    <div *ngIf="card.city != '' && card.state != ''">
+      <ion-item no-lines>
+        <ion-label class="agility-label">City: </ion-label>
+        <div item-content>
+          {{ card.city }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">State: </ion-label>
+        <div item-content>
+          {{ card.state }}
+        </div>
+      </ion-item>
+    </div>
 
     <ion-item-divider>
       Your Contact Information
@@ -67,13 +85,13 @@
     <ion-item no-lines>
       <ion-label class="agility-label">Phone: </ion-label>
       <div item-content>
-        {{ this.card.phone_number }}
+        {{ card.phone_number }}
       </div>
     </ion-item>
     <ion-item no-lines>
       <ion-label class="agility-label">Email: </ion-label>
       <div item-content>
-        {{ this.card.email }}
+        {{ card.email }}
       </div>
     </ion-item>
 
@@ -81,29 +99,43 @@
       Your Industry
     </ion-item-divider>
     <ion-item no-lines>
-      <div item-content>
-        {{ this.card.industry }}
+      <div *ngIf="card.industry_id == 0">
+        <ion-card>
+          <p class="promote-box" text-wrap>Get relevant job opportunities by telling us in which <strong>industry</strong> you work.</p>
+        </ion-card>
+      </div>
+      <div *ngIf="card.industry_id != 0">
+        <div item-content>
+          {{ card.industry }}
+        </div>
       </div>
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines *ngIf="card.subindustry_id != 0">
       <div item-content>
-        {{ this.card.subindustry }}
+        {{ card.subindustry }}
       </div>
     </ion-item>
 
     <ion-item-divider>
       Your Profession
     </ion-item-divider>
-    <ion-item no-lines>
-      <div item-content>
-        {{ this.card.profession }}
-      </div>
-    </ion-item>
-    <ion-item no-lines>
-      <div item-content>
-        {{ this.card.subprofession }}
-      </div>
-    </ion-item>
+      <ion-item no-lines>
+        <div *ngIf="card.profession_id == 0">
+          <ion-card>
+            <p class="promote-box" text-wrap>Help us target the job opportunties you care about most by telling us your <strong>profession</strong>.</p>
+          </ion-card>
+        </div>
+        <div *ngIf="card.profession_id != 0">
+          <div item-content text-right>
+            {{ card.profession }}
+          </div>
+        </div>
+      </ion-item>
+      <ion-item no-lines *ngIf="card.subprofession_id != 0">
+        <div item-content>
+          {{ card.subprofession }}
+        </div>
+      </ion-item>
 
   </ion-list>
 

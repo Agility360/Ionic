@@ -16,4 +16,14 @@ page-profile {
     font-weight: bolder;
     color: red;
   }
+
+  .promote-box {
+    margin: auto !important;
+    border: 2px solid rgba(253, 242, 160, 1) !important;
+    padding: 15px;
+    font-size: 1.25em;
+    background-color: rgba(253, 242, 160, .5);
+    color: #333;
+    text-align: center;
+  }
 }
