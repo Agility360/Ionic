@@ -1,15 +1,16 @@
 <ion-content  class="app-background">
+  <p></p>
   <form (submit)="signup()" padding [formGroup]="formGroup">
-
+    <strong><p class="error-message" *ngIf="errMsg" >{{errMsg}}</p></strong>
     <ion-list>
       <!-- --------------------- Username ----------------------------------- -->
       <ion-item>
         <ion-label floating>
           Username
-          <ion-icon name="checkmark" *ngIf="formGroup.controls.username.valid" class="valid"></ion-icon>
+          <ion-icon name="checkmark" *ngIf="formGroup.controls.username.valid && isUsernameAvailable" class="valid"></ion-icon>
         </ion-label>
         <ion-input type="text"
-              [class.valid]="formGroup.controls.username.valid"
+              [class.valid]="formGroup.controls.username.valid && isUsernameAvailable"
               [(ngModel)]="userDetails.username"
               (ionBlur)="usernameDidBlur($event)"
               formControlName="username"
@@ -23,10 +24,10 @@
       <ion-item>
         <ion-label floating>
           Email
-          <ion-icon name="checkmark" *ngIf="formGroup.controls.email.valid" class="valid"></ion-icon>
+          <ion-icon name="checkmark" *ngIf="formGroup.controls.email.valid && isEmailAvailable" class="valid"></ion-icon>
         </ion-label>
         <ion-input type="email"
-              [class.valid]="formGroup.controls.email.valid"
+              [class.valid]="formGroup.controls.email.valid && isEmailAvailable"
               [(ngModel)]="userDetails.email"
               (ionBlur)="emailDidBlur($event)"
               formControlName="email"

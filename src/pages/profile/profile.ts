@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
+import { User } from '../../providers/user';
 import { ProfileEditPage } from '../profile-edit/profile-edit';
 
 /**
@@ -24,10 +25,12 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private provider: CandidateProvider
-  ) {
+    private provider: CandidateProvider,
+    private user: User) {
+
     if (DEBUG_MODE) console.log('ProfilePage.constructor()');
     this.get();
+
   }
 
   ionViewWillEnter() {
@@ -50,7 +53,6 @@ export class ProfilePage {
       result => {
         this.card = result
         if (DEBUG_MODE) console.log('ProfilePage.get() - got: ', this.card);
-        if (DEBUG_MODE) console.log('ProfilePage.get() - got: ', this.card.first_name);
       },
       err => {
         this.errMess = <any>err

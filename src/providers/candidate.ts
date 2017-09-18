@@ -29,6 +29,7 @@ export class CandidateProvider {
   }
 
   url() {
+    if (DEBUG_MODE) console.log('CandidateProvider.url()');
     return apiURL + 'candidates/' + this.username();
   }
 
@@ -49,8 +50,8 @@ export class CandidateProvider {
   add(obj: Candidate): Observable<Candidate> {
 
     if (DEBUG_MODE) console.log('CandidateProvider.add() - adding', obj);
-
-    return this.http.post(this.url(), obj, this.config)
+    var url = apiURL + 'candidates/';
+    return this.http.post(url, obj, this.config)
       .map(
       res => {
         if (DEBUG_MODE) console.log('CandidateProvider.add() - success', res);
@@ -128,9 +129,50 @@ export class CandidateProvider {
   }
 
   username() {
+    if (DEBUG_MODE) console.log('CandidateProvider.username()');
     var user = this.cognito.getCurrentUser();
     return user.username;
   }
 
+  checkEmailAvailability(emailAddress): Observable<boolean> {
+    if (DEBUG_MODE) console.log('CandidateProvider.checkEmail() with emailAddress: ', emailAddress);
+
+    var url = apiURL + 'candidates/' + emailAddress;
+
+    return this.http.get(url, apiHttpOptions)
+      .map(res => {
+        if (DEBUG_MODE) console.log('CandidateProvider.checkEmail() - success', res);
+        return this.isEmpty(this.ProcessHttpmsgService.extractData(res))
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('CandidateProvider.checkEmail() - error', error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
+  }
+
+  checkUsernameAvailable(username): Observable<boolean> {
+    if (DEBUG_MODE) console.log('CandidateProvider.checkUsername() with username: ', username);
+
+    var url = apiURL + 'candidates/' + username;
+
+    return this.http.get(url, apiHttpOptions)
+      .map(res => {
+        if (DEBUG_MODE) console.log('CandidateProvider.checkUsername() - success', res);
+        return this.isEmpty(this.ProcessHttpmsgService.extractData(res))
+      })
+      .catch(error => {
+        if (DEBUG_MODE) console.log('CandidateProvider.checkUsername() - error', error);
+        return this.ProcessHttpmsgService.handleError(error)
+      });
+  }
+
+  private isEmpty(obj) {
+      for(var prop in obj) {
+          if(obj.hasOwnProperty(prop))
+              return false;
+      }
+
+      return JSON.stringify(obj) === JSON.stringify({});
+  }
 
 }

@@ -29,7 +29,10 @@ export class User {
 
   getUser() {
     if (DEBUG_MODE) console.log('User.getUser()');
-    return this.user;
+    if (this.user) return this.user;
+    //No user. we should logout the session to prevent unpredicable behavior.
+    //if (DEBUG_MODE) console.log('User.getUser() - no user found. Logging out.');
+    //this.logout();
   }
 
   getUsername() {
