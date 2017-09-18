@@ -77,7 +77,6 @@ export class JobhistoryDetailPage {
         'department': [
           '',
           Validators.compose([
-            Validators.required
           ])
         ],
         'job_title': [

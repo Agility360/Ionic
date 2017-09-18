@@ -126,17 +126,25 @@ export class EducationDetailPage {
     this.errorMsg = null;
 
     //begin business rule validations.
-    if (this.obj.end_date < this.obj.end_date) {
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        message: 'The end date should be after the start date.',
-        buttons: ['Dismiss']
-      });
-      alert.present();
-      return false;
+    if (this.end_date != null) {
+      this.obj.start_date = new Date(this.start_date);
+      this.obj.end_date = new Date(this.end_date);
+      if (this.obj.end_date < this.obj.start_date) {
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          message: 'The end date should be after the start date.',
+          buttons: ['Dismiss']
+        });
+        alert.present();
+        return false;
+      }
     }
 
-  }
+    if (this.formGroup.valid) {
+      return true;
+    }
+    return false;
+}
 
   processForm() {
     if (DEBUG_MODE) console.log('EducationDetailPage.processForm(): ', );

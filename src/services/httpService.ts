@@ -50,14 +50,14 @@ export class HttpService extends Http {
       if (DEBUG_MODE) console.log('HttpService.request() - loadingCtrl.create()');
       this.loading = this.loadingCtrl.create({
         spinner: 'bubbles',
-        content: 'Loading ...',
+//        content: 'Loading ...',
         showBackdrop: false,
         enableBackdropDismiss: true
       });
        this.loading.present();
    } else {
       /* for future: make content dynamic? */
-       this.loading.data.content = 'Loading ...';
+//       this.loading.data.content = 'Loading ...';
    }
 
    return super.request(url, options)
