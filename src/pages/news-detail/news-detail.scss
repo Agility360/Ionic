@@ -1,13 +1,13 @@
-page-news {
-  .card-title-block {
-    margin-left: 2px;
-    margin-right: 2px;
-    border-bottom: 1px solid #ddd;
-  }
+page-news-detail {
 
   p.publish-date {
     color: gray;
     font-style: italic;
+  }
+
+  p.article {
+    text-align: justify;
+    padding: 10px;
   }
 
   ion-card-title {
@@ -24,4 +24,5 @@ page-news {
     padding-left: 5px !important;
     padding-right: 5px !important;
   }
+
 }

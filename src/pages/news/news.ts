@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { WPPost } from '../../shared/wppost';
 import { WordpressProvider } from '../../providers/wordpress';
+import { NewsDetailPage } from '../news-detail/news-detail';
 
 @IonicPage()
 @Component({
@@ -89,6 +90,14 @@ export class NewsPage {
         if (DEBUG_MODE) console.log('NewsPage.getMedia() - error', err);
         this.errMess = <any>err;
       });
+
+  }
+
+  viewPost(post: WPPost) {
+    if (DEBUG_MODE) console.log('NewsPage.viewPost()', post);
+    this.navCtrl.push(NewsDetailPage, {
+      post: post
+    });
 
   }
 
