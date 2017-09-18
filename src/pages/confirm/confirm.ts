@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController, AlertController, App } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { User } from '../../providers/user';
 
@@ -37,7 +37,6 @@ export class ConfirmPage {
     public app: App,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController,
     public formBuilder: FormBuilder) {
 
     /* modified by mcdaniel */
@@ -98,16 +97,13 @@ export class ConfirmPage {
       if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.confirmRegistration() - success');
 
       /* mcdaniel: some user experience improvements to the starter app */
-      let loading = this.loadingCtrl.create({
-        content: 'Email confirmed. Setting up your account ...'
-      });
-      loading.present();
 
       let toast = this.toastCtrl.create({
         message: 'Your account is ready.',
-        duration: 2000
+        duration: 3000
       });
       toast.present();
+
       this.user.isAuthenticated()
       .then(() => {
         if (DEBUG_MODE) console.log('ConfirmPage.confirm() - user.isAuthenticated - Yes.');
