@@ -33,7 +33,7 @@ export class JobsDetailPage {
     console.log('ionViewDidLoad JobsDetailPage');
   }
 
-  refresh(refresher) {
+  refreshData(refresher) {
     setTimeout(() => {
       if (DEBUG_MODE) console.log('JobhistoryPage.refresh()');
 

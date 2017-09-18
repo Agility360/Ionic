@@ -39,7 +39,7 @@
           <ion-row>
             <ion-col>
               <img src="{{ post.featured_media_url }}">
-            <div class="wordpress" text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
+            <div text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
             </ion-col>
           </ion-row>
         </ion-item>

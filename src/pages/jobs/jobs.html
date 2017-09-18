@@ -22,6 +22,11 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <div class="leader">
+    <h3 style="color: #2897C2;">A thoughtful question?</h3>
+    <p>Migas tattooed hot chicken chia, raclette flannel DIY pug gluten-free kombucha yuccie. Bushwick viral unicorn ugh pitchfork cardigan austin microdosing salvia put a bird on it 90's direct trade authentic normcore. </p>
+  </div>
+
   <div *ngIf="posts">
     <ion-list *ngFor="let post of posts">
 
@@ -31,7 +36,6 @@
         </ion-avatar>
         <h2 text-wrap>{{ post.title.rendered }}</h2>
         <p style="margin-top: 10px;">Posted: {{ post.date | date:"MMM dd, yyyy" }}</p>
-
       </button>
 
     </ion-list> <!-- *ngFor="let post of posts" -->
