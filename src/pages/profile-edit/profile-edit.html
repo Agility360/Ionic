@@ -22,7 +22,7 @@
 
     <ion-list>
       <ion-item>
-        <ion-label>Are You Currently Job Hunting?</ion-label>
+        <ion-label>Are you job hunting?</ion-label>
         <ion-select class="editable-field" [(ngModel)]="obj.job_hunting" name="job_hunting">
           <ion-option value="1">Yes</ion-option>
           <ion-option value="0">No</ion-option>
@@ -70,7 +70,7 @@
           <ion-option *ngFor="let i of industries" value="{{ i.id }}">{{ i.description }}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item no-lines>
+      <ion-item no-lines *ngIf="getSubIndustrySize > 0">
         <ion-select
             class="editable-field"
             [(ngModel)]="obj.subindustry_id"
@@ -89,7 +89,7 @@
           <ion-option *ngFor="let p of professions" value="{{ p.id }}">{{ p.description }}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item no-lines>
+      <ion-item no-lines *ngIf="getSubProfessionSize > 0">
         <ion-select
             class="editable-field"
             [(ngModel)]="obj.subprofession_id"

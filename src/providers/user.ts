@@ -63,13 +63,13 @@ export class User {
           });
 
           this.isAuthenticated()
-          .then(() => {
-            if (DEBUG_MODE) console.log('User.login() - isAuthenticated - yes');
-            resolve();
-          })
-          .catch((err) => {
-            if (DEBUG_MODE) console.log('User.login() - isAuthenticated - no');
-          });
+            .then(() => {
+              if (DEBUG_MODE) console.log('User.login() - isAuthenticated - yes');
+              resolve();
+            })
+            .catch((err) => {
+              if (DEBUG_MODE) console.log('User.login() - isAuthenticated - no');
+            });
 
         },
 
@@ -174,14 +174,6 @@ export class User {
         reject()
       }
     });
-  }
-
-
-  isAvailable(username): boolean {
-    if (DEBUG_MODE) console.log('User.isAvailable: ', username);
-
-    //future use.
-    return true;
   }
 
 
