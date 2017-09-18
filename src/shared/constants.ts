@@ -19,7 +19,7 @@ Wordpress Content Management System and Content Delivery Network
 More info on CMS here: https://github.com/Agility360/Wordpress
 */
 export const cdnURL = 'https://cdn.agility360app.net/'
-export const cmsURL = 'https://agility360app.net/wp-json/wp/v2/'
+export const cmsURL = 'https://cms.agility360app.net/wp-json/wp/v2/'
 
 /*
 App constants
