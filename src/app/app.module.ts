@@ -32,6 +32,7 @@ import { HttpErrorPage } from '../pages/http-error/http-error';
 import { DeleteAccountPage } from '../pages/delete-account/delete-account';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
 import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
+import { JobsDetailPage } from '../pages/jobs-detail/jobs-detail';
 
 import { apiURL, cmsURL } from '../shared/constants';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg';
@@ -93,6 +94,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     DeleteAccountPage,
     PrivacyPolicyPage,
     TermsOfUsePage,
+    JobsDetailPage,
     SafeHtmlPipe
   ],
   imports: [
@@ -127,7 +129,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     HttpErrorPage,
     DeleteAccountPage,
     PrivacyPolicyPage,
-    TermsOfUsePage
+    TermsOfUsePage,
+    JobsDetailPage
   ],
   providers: [
     StatusBar,

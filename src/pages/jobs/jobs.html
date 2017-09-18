@@ -24,29 +24,15 @@
 
   <div *ngIf="posts">
     <ion-list *ngFor="let post of posts">
-      <ion-card>
-        <div class="card-title-block">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://cdn.agility360app.net/">
-            </ion-avatar>
-            <h2 text-wrap>{{ post.title.rendered }}</h2>
-            <p style="margin-top: 10px;">Posted: {{ post.date.toString().replace("None", "") | date:"MMM dd, yyyy" }}</p>
-          </ion-item>
-        </div>
 
-        <ion-card-content>
-          <ion-item>
-            <ion-row>
-              <ion-col>
-                <img src="{{ post.featured_media_url }}">
-              <div class="wordpress" text-wrap [innerHtml]="post.content.rendered | safeHtml"></div>
-              </ion-col>
-            </ion-row>
-          </ion-item>
-        </ion-card-content>
+      <button ion-item (click)="viewPost(post)">
+        <ion-avatar item-start>
+          <img src="https://cdn.agility360app.net/">
+        </ion-avatar>
+        <h2 text-wrap>{{ post.title.rendered }}</h2>
+        <p style="margin-top: 10px;">Posted: {{ post.date | date:"MMM dd, yyyy" }}</p>
 
-      </ion-card>
+      </button>
 
     </ion-list> <!-- *ngFor="let post of posts" -->
   </div> <!-- *ngIf="posts" -->

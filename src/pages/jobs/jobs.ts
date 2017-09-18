@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DEBUG_MODE } from '../../shared/constants';
 import { WPPost } from '../../shared/wppost';
 import { WordpressProvider } from '../../providers/wordpress';
+import { JobsDetailPage } from '../jobs-detail/jobs-detail';
 
 @IonicPage()
 @Component({
@@ -93,4 +94,11 @@ export class JobsPage {
 
   }
 
+  viewPost(post: WPPost) {
+    if (DEBUG_MODE) console.log('JobsPage.viewPost()', post);
+    this.navCtrl.push(JobsDetailPage, {
+      post: post
+    });
+
+  }
 }
