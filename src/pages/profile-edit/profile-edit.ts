@@ -185,14 +185,5 @@ export class ProfileEditPage {
     }
   }
 
-  private isEmpty(obj): boolean {
-    if (DEBUG_MODE) console.log('ProfileEditPage.isEmpty()');
-    for (var prop in obj) {
-      if (obj.hasOwnProperty(prop))
-        return false;
-    }
-
-    return JSON.stringify(obj) === JSON.stringify({});
-  }
 
 }
