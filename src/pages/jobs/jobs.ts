@@ -38,7 +38,6 @@ export class JobsPage {
   }
 
   refreshData(refresher) {
-    this.errMess = null;
     setTimeout(() => {
       if (DEBUG_MODE) console.log('JobsPage.refreshData()');
       this.getPosts();
@@ -48,6 +47,7 @@ export class JobsPage {
 
   getPosts() {
     if (DEBUG_MODE) console.log('JobsPage.getPosts()');
+    this.errMess = null;
 
     /* Note: set this to appropriate parameter factory fuction:
         paramsJobs()
