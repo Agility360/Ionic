@@ -25,3 +25,4 @@ export const cmsURL = 'https://cms.agility360app.net/wp-json/wp/v2/'
 App constants
 */
 export const DEBUG_MODE = true
+export const HTTP_RETRIES = 3

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Industries } from '../shared/industries';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/httpService';
-import { apiURL, apiHttpOptions, DEBUG_MODE } from '../shared/constants';
+import { apiURL, apiHttpOptions, DEBUG_MODE, HTTP_RETRIES } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -37,6 +37,7 @@ export class IndustriesProvider {
     if (parent != null) url = this.url() + parent + '/';
 
     return this.http.get(url, apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('IndustriesProvider.get() - success', res);
         return this.ProcessHttpmsgService.extractData(res)

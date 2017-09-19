@@ -1,6 +1,14 @@
 /**
- * Check out https://googlechrome.github.io/sw-toolbox/ for
- * more info on how to use sw-toolbox to custom configure your service worker.
+ * Check out
+
+    https://googlechrome.github.io/sw-toolbox/
+    https://googlechrome.github.io/sw-toolbox/usage.html#main
+    https://github.com/GoogleChrome/samples/blob/gh-pages/service-worker/read-through-caching/service-worker.js
+
+ * for more info on how to use sw-toolbox to custom configure your service worker.
+
+  Note: caching is only enabled if the device is offline.
+
  */
 
 
@@ -8,7 +16,9 @@
 importScripts('./build/sw-toolbox.js');
 
 self.toolbox.options.cache = {
-  name: 'ionic-cache'
+  name: 'ionic-cache',
+  maxAgeSeconds: 60 * 60 * 24,
+  maxEntries: null
 };
 
 // pre-cache our key assets

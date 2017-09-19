@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { WPPost, WPMedia } from '../shared/wppost';
 import { Observable } from 'rxjs/Observable';
-import { cmsURL, DEBUG_MODE } from '../shared/constants';
+import { cmsURL, DEBUG_MODE, HTTP_RETRIES } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -65,6 +65,7 @@ export class WordpressProvider {
     return this.http.get(page, {
       params: params
     })
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('WordpressProvider.getPage() - success', res);
         return this.ProcessHttpmsgService.extractData(res)
@@ -80,6 +81,7 @@ export class WordpressProvider {
     return this.http.get(this.urlPosts(), {
       params: params
     })
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('WordpressProvider.getPosts() - success', res);
         return this.ProcessHttpmsgService.extractData(res)

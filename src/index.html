@@ -21,13 +21,16 @@
   <script src="cordova.js"></script>
 
   <!-- un-comment this code to enable service worker
+    un-commented by mcdaniel. using service workers for
+    Background synch, push notifications, and caching.
+  -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
         .then(() => console.log('service worker installed'))
         .catch(err => console.log('Error', err));
     }
-  </script>-->
+  </script>
 
   <link href="build/main.css" rel="stylesheet">
 

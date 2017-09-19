@@ -8,7 +8,7 @@ import { Cognito } from './aws.cognito';
 import { Job } from '../shared/job';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/httpService';
-import { apiURL, apiHttpOptions, DEBUG_MODE } from '../shared/constants';
+import { apiURL, apiHttpOptions, DEBUG_MODE, HTTP_RETRIES } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -49,6 +49,7 @@ export class JobHistoryProvider {
     if (DEBUG_MODE) console.log('ProcessHttpmsgProvider.get() with username: ', this.username());
 
     return this.http.get(this.url(), apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => { return this.ProcessHttpmsgService.extractData(res) })
       .catch(error => { return this.ProcessHttpmsgService.handleError(error) });
   }
@@ -58,6 +59,7 @@ export class JobHistoryProvider {
     if (DEBUG_MODE) console.log('JobHistoryProvider.add() - adding', job);
 
     return this.http.post(this.url(), job, apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(
       res => {
         if (DEBUG_MODE) console.log('JobHistoryProvider.add() - success', res);
@@ -77,6 +79,7 @@ export class JobHistoryProvider {
     if (DEBUG_MODE) console.log('JobHistoryProvider.update() - updating', this.url() + job.id.toString(), apiHttpOptions, job);
 
     return this.http.patch(this.url() + job.id.toString(), job, apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('JobHistoryProvider.update() - updated. result: ', res);
         return this.ProcessHttpmsgService.extractData(res)
@@ -92,6 +95,7 @@ export class JobHistoryProvider {
     if (DEBUG_MODE) console.log('JobHistoryProvider.delete()', this.url() + id.toString(), apiHttpOptions);
 
     return this.http.delete(this.url() + id.toString(), apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('JobHistoryProvider.delete() - success.', res);
         return this.ProcessHttpmsgService.extractData(res)

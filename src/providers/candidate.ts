@@ -8,7 +8,7 @@ import { Cognito } from './aws.cognito';
 import { Candidate } from '../shared/candidate';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/httpService';
-import { apiURL, apiHttpOptions, DEBUG_MODE } from '../shared/constants';
+import { apiURL, apiHttpOptions, DEBUG_MODE, HTTP_RETRIES } from '../shared/constants';
 import { ProcessHttpmsgProvider } from './process-httpmsg';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
@@ -37,6 +37,7 @@ export class CandidateProvider {
     if (DEBUG_MODE) console.log('CandidateProvider.get() with username: ', this.username());
 
     return this.http.get(this.url(), apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('CandidateProvider.get() - success', res);
         return this.ProcessHttpmsgService.extractData(res)
@@ -52,6 +53,7 @@ export class CandidateProvider {
     if (DEBUG_MODE) console.log('CandidateProvider.add() - adding', obj);
     var url = apiURL + 'candidates/';
     return this.http.post(url, obj, this.config)
+      .retry(HTTP_RETRIES)
       .map(
       res => {
         if (DEBUG_MODE) console.log('CandidateProvider.add() - success', res);
@@ -72,6 +74,7 @@ export class CandidateProvider {
   update(candidate: Candidate): Observable<Candidate[]> {
 
     return this.http.patch(this.url(), candidate, this.config)
+      .retry(HTTP_RETRIES)
       .map(
       res => {
         if (DEBUG_MODE) console.log('CandidateProvider.update() - success', res);
@@ -90,6 +93,7 @@ export class CandidateProvider {
     if (DEBUG_MODE) console.log('CandidateProvider.delete()', this.url(), apiHttpOptions);
 
     return this.http.delete(this.url(), apiHttpOptions)
+      .retry(HTTP_RETRIES)
       .map(res => {
         if (DEBUG_MODE) console.log('CandidateProvider.delete() - success.', res);
         return this.ProcessHttpmsgService.extractData(res)
@@ -167,12 +171,12 @@ export class CandidateProvider {
   }
 
   private isEmpty(obj) {
-      for(var prop in obj) {
-          if(obj.hasOwnProperty(prop))
-              return false;
-      }
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop))
+        return false;
+    }
 
-      return JSON.stringify(obj) === JSON.stringify({});
+    return JSON.stringify(obj) === JSON.stringify({});
   }
 
 }
