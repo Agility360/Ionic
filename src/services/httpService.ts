@@ -239,26 +239,32 @@ export class HttpService extends Http {
   private onSubscribeError(error: any): void {
     if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error:', error);
 
+    this.moveToHttpError();
+    return;
+
+    /*
+
     if (error.name) {
       if (error.name == "TimeoutError") {
-        this.moveToHttpError();
-        return;
+        if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - timeout error:', error);
       }
     }
 
 
     switch (error.status) {
       case 401:
+        if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error 401:', error);
         this.moveToLogin();
         break;
 
       case 500:
+        if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error 500:', error);
         let errObj: any;
         let errMsg: any;
 
         if (error instanceof Response) {
           if (DEBUG_MODE) console.log('onSubscribeError() - 500 Response Object');
-          console.log('i am a Response instance', error.text())
+          if (DEBUG_MODE) console.log('i am a Response instance', error.text())
           errObj = JSON.parse(error.text());
           errMsg = errObj.errorType + ': ' + errObj.errorMessage;
           if (DEBUG_MODE) console.log('onSubscribeError() - 500 Response Object:', errObj);
@@ -281,10 +287,13 @@ export class HttpService extends Http {
         alert.present();
 
       default:
-
+        if (DEBUG_MODE) console.log('HttpService.onSubscribeError() - error default:', error);
+        this.moveToHttpError();
         break;
 
     }
+    */
+
   }
 
   /**
@@ -312,7 +321,9 @@ export class HttpService extends Http {
 
   private moveToHttpError(): void {
     if (DEBUG_MODE) console.log('HttpService.moveToHttpError()');
-    this.app.getRootNav().push(HttpErrorPage);
+    let view = this.app.getRootNav().getActive();
+    if (view.instance instanceof HttpErrorPage) { }
+    else { this.app.getRootNav().setRoot(HttpErrorPage); }
   }
 
 }
