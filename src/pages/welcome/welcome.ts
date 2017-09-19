@@ -5,12 +5,6 @@ import { LoginPage } from '../login/login';
 
 import { DEBUG_MODE } from '../../shared/constants';
 
-/**
- * Generated class for the WelcomePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -20,19 +14,19 @@ import { DEBUG_MODE } from '../../shared/constants';
 export class WelcomePage {
 
   constructor(
-      public navCtrl: NavController,
-      public navParams: NavParams) {
-        
+    public navCtrl: NavController,
+    public navParams: NavParams) {
+
     if (DEBUG_MODE) console.log('WelcomePage.constructor()');
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
+    if (DEBUG_MODE) console.log('WelcomePage.ionViewDidLoad()');
   }
 
   login() {
-    if (DEBUG_MODE) console.log('WelcomePage.signup()');
+    if (DEBUG_MODE) console.log('WelcomePage.login()');
     this.navCtrl.push(LoginPage);
   }
 
