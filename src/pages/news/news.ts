@@ -36,6 +36,7 @@ export class NewsPage {
   }
 
   refreshData(refresher) {
+    this.errMess = null;
     setTimeout(() => {
       if (DEBUG_MODE) console.log('NewsPage.refreshData()');
       this.getPosts();

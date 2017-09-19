@@ -38,6 +38,7 @@ export class JobsPage {
   }
 
   refreshData(refresher) {
+    this.errMess = null;
     setTimeout(() => {
       if (DEBUG_MODE) console.log('JobsPage.refreshData()');
       this.getPosts();

@@ -35,6 +35,7 @@ export class ResumePage {
   }
 
   refreshData(refresher) {
+    this.errMess = null;
     setTimeout(() => {
       if (DEBUG_MODE) console.log('ResumePage.refreshData()');
       this.getPosts();
