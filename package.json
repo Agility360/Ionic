@@ -2,7 +2,7 @@
     "name": "Agility360",
     "version": "0.0.1",
     "author": "Agility App Team",
-    "homepage": "https://agility360app.net/",
+    "homepage": "https://www.agility360app.net/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
