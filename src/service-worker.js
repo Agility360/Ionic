@@ -16,7 +16,7 @@ importScripts('./build/sw-toolbox.js');
 
 self.toolbox.options.cache = {
   name: 'ionic-cache',
-  maxAgeSeconds: 1 * 1 * 1, // 60 seconds * 60 minutes * X days
+  maxAgeSeconds: 60 * 60 * 1, // 60 seconds * 60 minutes * X days
   maxEntries: null
 };
 
@@ -29,9 +29,6 @@ self.toolbox.precache(
     './build/polyfills.js',
     'index.html',
     'manifest.json',
-    './assets/img/favicon.ico',
-    './assets/img/arrow-left.png',
-    './assets/img/arrow-right.png',
     './assets/img/error_cloud_filled.png'
   ]
 );
