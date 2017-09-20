@@ -47,10 +47,12 @@
         </div>
       </ion-item>
 
-
-      <div padding text-center>
-        <p *ngIf="errMsg" >Problems logging in? Contact us at mobile@agility360app.net or call us at (469) 208-6300.</p>
-      </div>
     </ion-list>
   </form>
+  <ion-footer *ngIf="errMsg">
+    <div padding text-center >
+      <p>Problems logging in?</p>
+      <p>Contact us at <a href="mailto:mobile@agility360app.net">mobile@agility360app.net</a> or call us at <a href="call:+14692086300">(469) 208-6300</a>.</p>
+    </div>
+  </ion-footer>
 </ion-content>
