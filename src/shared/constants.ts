@@ -3,6 +3,8 @@ AWS REST api parameter values.
 More info on REST api here: https://github.com/Agility360/AWS
 */
 export const apiURL = 'https://api.agility360app.net/beta/'
+export const appLogo = './assets/img/agility360-logo-transparent-512x512.png'
+
 /* export const apiKey = '0nnoTnFyq85ZSm1x31nX44lah1pWsqp9D8vEoE3h' */
 export const apiKey = '0nnoTnFyq85ZSm1x31nX44lah1pWsqp9D8vEoE3h'
 export const apiClientCertificate = 'aaxbh4'

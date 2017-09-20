@@ -16,7 +16,7 @@ importScripts('./build/sw-toolbox.js');
 
 self.toolbox.options.cache = {
   name: 'ionic-cache',
-  maxAgeSeconds: 60 * 60 * 1, // 60 seconds * 60 minutes * X days
+  maxAgeSeconds: 1 * 1 * 1, // 60 seconds * 60 minutes * X days
   maxEntries: null
 };
 
