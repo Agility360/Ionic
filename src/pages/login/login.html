@@ -2,22 +2,45 @@
   <div text-center class="logo">
     <img src=appLogo />
   </div>
-  <form (submit)="login()">
+  <form (submit)="login()" [formGroup]="formGroup">
     <strong><p class="error-message" *ngIf="errMsg" >{{errMsg}}</p></strong>
     <ion-list>
 
       <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input [(ngModel)]="loginDetails.username" type="text" autocorrect="off" autocapitalize="none" name="username"></ion-input>
+        <ion-label floating>
+          Username
+          <ion-icon name="checkmark" *ngIf="formGroup.controls.username.valid" class="valid"></ion-icon>
+        </ion-label>
+        <ion-input
+          [(ngModel)]="loginDetails.username"
+          [class.valid]="formGroup.controls.username.valid"
+          formControlName="username"
+          type="text"
+          autocorrect="off"
+          autocapitalize="none"
+          name="username"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input [(ngModel)]="loginDetails.password" type="password" name="password"></ion-input>
+        <ion-label floating>
+          Password
+          <ion-icon name="checkmark" *ngIf="formGroup.controls.password.valid" class="valid"></ion-icon>
+        </ion-label>
+        <ion-input
+          [(ngModel)]="loginDetails.password"
+          [class.valid]="formGroup.controls.password.valid"
+          formControlName="password"
+          type="password"
+          name="password"></ion-input>
       </ion-item>
 
       <ion-item no-lines>
-        <button ion-button color="primary" block padding >Sign In</button>
+        <button
+          ion-button
+          color="primary"
+          block
+          [disabled]="!formGroup.valid"
+          padding>Sign In</button>
         <div class="links">
           <span><a (click)="forgotPassword()">Forgot password?</a></span>
           <span class="right"><a (click)="signup()">Join Now</a></span>

@@ -17,6 +17,8 @@ export class LoginDetails {
 import { DEBUG_MODE, appLogo } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 /*-----------------------------------------------------------------------
  *
  *-----------------------------------------------------------------------*/
@@ -29,14 +31,40 @@ export class LoginPage {
   public loginDetails: LoginDetails;
   public candidate: Candidate;
   public errMsg: string;
+  public formGroup: FormGroup;
+
 
   constructor(public navCtrl: NavController,
     public user: User,
     private candidateProvider: CandidateProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public formBuilder: FormBuilder) {
 
     if (DEBUG_MODE) console.log('LoginPage.constructor()');
     this.loginDetails = new LoginDetails();
+
+    /* setup form validators */
+      this.formGroup = formBuilder.group({
+        'username': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ],
+        'password': [
+          '',
+          Validators.compose([
+            Validators.required
+          ])
+        ]
+      });
+
+      this.formGroup.valueChanges
+        .subscribe(data => {
+          if (DEBUG_MODE) console.log('formGroup.valueChanges.subscribe()');
+          //this.errMsg = null;
+        });
+
   }
 
   login() {
