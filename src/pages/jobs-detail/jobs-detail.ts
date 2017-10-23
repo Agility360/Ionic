@@ -23,6 +23,10 @@ export class JobsDetailPage {
 
   }
 
+  applyNow() {
+    console.log('JobsDetailPage.applyNow()');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad JobsDetailPage');
   }

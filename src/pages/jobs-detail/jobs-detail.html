@@ -39,6 +39,17 @@
           <img src="{{ post.featured_media_url }}">
           <p class="post" text-wrap [innerHtml]="post.content.rendered | safeHtml"></p>
         </ion-item>
+
+        <ion-item>
+          <button ion-button
+                  block
+                  (click)="applyNow()"
+                  color="primary"
+                  large
+                  >
+            Apply Now
+          </button>
+        </ion-item>
       </ion-card-content>
 
     </ion-card>
