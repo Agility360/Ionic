@@ -5,11 +5,12 @@ import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { Industries } from '../../shared/industries';
 import { Professions } from '../../shared/professions';
-
+import { States } from '../../shared/states';
 
 import { CandidateProvider } from '../../providers/candidate';
 import { IndustriesProvider } from '../../providers/industries';
 import { ProfessionsProvider } from '../../providers/professions';
+import { StatesProvider } from '../../providers/states';
 
 @IonicPage()
 @Component({
@@ -23,6 +24,7 @@ export class ProfileEditPage {
   public subIndustries: Industries[];
   public professions: Professions[];
   public subProfessions: Professions[];
+  public states: States[];
 
   public error: any;
   private shouldConfirmWindowClose: boolean;
@@ -33,6 +35,7 @@ export class ProfileEditPage {
     private provider: CandidateProvider,
     private industriesProvider: IndustriesProvider,
     private professionsProvider: ProfessionsProvider,
+    private statesProvider: StatesProvider,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController) {
 
@@ -40,7 +43,7 @@ export class ProfileEditPage {
     this.obj = navParams.get('obj');
     this.shouldConfirmWindowClose = true;
 
-    /* initialize Industries and Professions objects */
+    /* initialize Industries and Professions and States objects */
     this.industriesProvider.get(null)
       .subscribe(
       results => {
@@ -62,6 +65,17 @@ export class ProfileEditPage {
         if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - Error initializing Professions', err);
         this.error = <any>err
       });
+
+      this.statesProvider.get()
+        .subscribe(
+        results => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - initialized States', results);
+          this.states = results
+        },
+        err => {
+          if (DEBUG_MODE) console.log('ProfileEditPage.constructor() - Error initializing States', err);
+          this.error = <any>err
+        });
 
     /*
       initialize sub-Industries and sub-Professions objects.

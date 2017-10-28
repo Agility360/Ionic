@@ -49,10 +49,15 @@
         <ion-input class="editable-field" type="text" [(ngModel)]="obj.city" autocorrect="off" autocapitalize="none" name="city"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label floating>Your Current State of Residence</ion-label>
-        <ion-input class="editable-field" type="text" [(ngModel)]="obj.state" autocorrect="off" autocapitalize="none" name="state"></ion-input>
-      </ion-item>
+        <ion-item-divider>Your Current State of Residence</ion-item-divider>
+        <ion-item no-lines>
+          <ion-select
+              class="editable-field"
+              [(ngModel)]="obj.state"
+              name="state">
+            <ion-option *ngFor="let i of states" value="{{ i.id }}">{{ i.description }}</ion-option>
+          </ion-select>
+        </ion-item>
 
       <ion-item>
         <ion-label floating>Your Daytime Phone Number</ion-label>

@@ -45,6 +45,7 @@ import { JobHistoryProvider } from '../providers/jobhistory';
 import { WordpressProvider } from '../providers/wordpress';
 import { IndustriesProvider } from '../providers/industries';
 import { ProfessionsProvider } from '../providers/professions';
+import { StatesProvider } from '../providers/states';
 import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
@@ -154,7 +155,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     DynamoDB,
     WordpressProvider,
     IndustriesProvider,
-    ProfessionsProvider
+    ProfessionsProvider,
+    StatesProvider
   ]
 })
 export class AppModule { }

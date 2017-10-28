@@ -9,6 +9,7 @@ import { CandidateProvider } from './candidate';
 import { WordpressProvider } from './wordpress';
 import { IndustriesProvider } from './industries';
 import { ProfessionsProvider } from './professions';
+import { StatesProvider } from './states';
 
 export {
   Cognito,
@@ -21,5 +22,6 @@ export {
   CandidateProvider,
   WordpressProvider,
   IndustriesProvider,
-  ProfessionsProvider
+  ProfessionsProvider,
+  StatesProvider
 };
