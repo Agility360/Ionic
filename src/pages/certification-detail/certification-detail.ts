@@ -108,6 +108,15 @@ export class CertificationDetailPage {
 
   }
 
+  minExpirationDate(): Date {
+    if (DEBUG_MODE) console.log('CertificationDetailPage.minExpirationDate()');
+
+    if (this.obj.create_date != null)
+      return this.obj.create_date
+    else
+      return new Date();
+  }
+
   formValidate(): boolean {
     if (DEBUG_MODE) console.log('CertificationDetailPage.formValidate()');
     this.errorMsg = null;

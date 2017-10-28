@@ -24,7 +24,7 @@
 
   <form [formGroup]="formGroup">
     <ion-item>
-      <ion-label stacked class="form-label">Instituion Name</ion-label>
+      <ion-label stacked class="form-label">Institution Name</ion-label>
       <ion-input
         class="editable-field"
         type="text"
@@ -57,6 +57,7 @@
       <ion-datetime
         class="editable-field"
         displayFormat="MMMM D, YYYY"
+        [min]="date_received"
         [(ngModel)]="expire_date"
         formControlName="expire_date"
         name="expire_date"></ion-datetime>
