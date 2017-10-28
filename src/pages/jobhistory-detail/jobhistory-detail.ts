@@ -101,6 +101,11 @@ export class JobhistoryDetailPage {
           Validators.compose([
           ])
         ],
+        'compensation_type': [
+          '',
+          Validators.compose([
+          ])
+        ],
         'description': [
           '',
           Validators.compose([

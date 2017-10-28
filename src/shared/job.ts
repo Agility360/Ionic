@@ -9,5 +9,6 @@ export interface Job {
   end_date: string;
   description: string;
   final_salary: number;
+  compensation_type: number;
   create_date: Date;
 }

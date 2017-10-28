@@ -119,6 +119,7 @@ export class JobHistoryProvider {
       end_date: '',
       description: '',
       final_salary: null,
+      compensation_type: 0,
       create_date: ''
     };
   }

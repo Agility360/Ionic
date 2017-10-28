@@ -71,7 +71,7 @@
         name="end_date"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label stacked class="form-label">Final Salary</ion-label>
+      <ion-label stacked class="form-label">Final Compensation</ion-label>
       <ion-input
         class="editable-field"
         type="number"
@@ -81,6 +81,19 @@
         placeholder="Optional: your final salary"
         min=0></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label stacked class="form-label">Compensation Type</ion-label>
+      <ion-select
+        [(ngModel)]="obj.compensation_type"
+        formControlName="compensation_type"
+        name="compensation_type"
+        >
+        <ion-option value="1">Hourly</ion-option>
+        <ion-option value="2">Monthly</ion-option>
+        <ion-option value="3">Annually</ion-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item>
       <ion-label stacked class="form-label">Description</ion-label>
       <ion-textarea
