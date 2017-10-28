@@ -25,6 +25,7 @@ export class ProfileEditPage {
   public professions: Professions[];
   public subProfessions: Professions[];
   public states: States[];
+  public telephoneMask: any[] = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   public error: any;
   private shouldConfirmWindowClose: boolean;

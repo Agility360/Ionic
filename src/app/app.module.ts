@@ -49,6 +49,7 @@ import { StatesProvider } from '../providers/states';
 import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
+import { TextMaskModule } from 'angular2-text-mask';
 
 export function httpFactory(
   backend: XHRBackend,
@@ -104,6 +105,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
   imports: [
     BrowserModule,
     HttpModule,
+    TextMaskModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

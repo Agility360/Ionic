@@ -33,7 +33,7 @@
         </ion-card>
       </ion-item>
     </div>
-    <div *ngIf="card.first_name || card.middle_name || card.last_name">
+    <div *ngIf="card.first_name || card.middle_name || card.last_name" text-capitalize>
       <ion-item no-lines>
         <ion-label class="agility-label">First: </ion-label>
         <div item-content>
@@ -64,7 +64,7 @@
         </ion-card>
       </ion-item>
     </div>
-    <div *ngIf="card.city != '' && card.state != ''">
+    <div *ngIf="card.city != '' && card.state != ''" text-capitalize>
       <ion-item no-lines>
         <ion-label class="agility-label">City: </ion-label>
         <div item-content>

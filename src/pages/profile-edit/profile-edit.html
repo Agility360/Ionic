@@ -60,8 +60,19 @@
         </ion-item>
 
       <ion-item>
-        <ion-label floating>Your Daytime Phone Number</ion-label>
-        <ion-input class="editable-field" type="tel" [(ngModel)]="obj.phone_number" autocorrect="off" autocapitalize="none" name="phone_number"></ion-input>
+        <ion-label floating>Phone Number: (123) 456-7890</ion-label>
+        <ion-input
+          class="editable-field"
+          type="tel"
+          [textMask]="{mask: telephoneMask}"
+          maxlength="14"
+          minlength="14"
+          pattern="06([0-9]{8})"
+          [(ngModel)]="obj.phone_number"
+          autocorrect="off"
+          autocapitalize="none"
+          name="phone_number">
+        </ion-input>
       </ion-item>
 
 
