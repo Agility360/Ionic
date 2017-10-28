@@ -78,10 +78,13 @@
           <ion-item>
             <ion-row class="salary">
               <ion-col>
-                <p>Final Salary:</p>
+                <p>Final Compensation:</p>
               </ion-col>
               <ion-col text-right>
                 <p *ngIf="card.final_salary > 0">{{ card.final_salary | currency:'USD':true:'1.0-0' }}</p>
+                <p *ngIf="card.compensation_type == 1">Per Hour</p>
+                <p *ngIf="card.compensation_type == 2">Per Month</p>
+                <p *ngIf="card.compensation_type == 3">Per Year</p>
               </ion-col>
             </ion-row>
           </ion-item>
