@@ -11,7 +11,7 @@
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { App, LoadingController, AlertController } from 'ionic-angular';
+import { App, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { HttpErrorPage } from '../pages/http-error/http-error';
 import 'rxjs/Rx';
@@ -28,8 +28,7 @@ export class HttpService extends Http {
     xhrBackend: XHRBackend,
     requestOptions: RequestOptions,
     private app: App,
-    public loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+    public loadingCtrl: LoadingController) {
 
     super(xhrBackend, requestOptions);
     if (DEBUG_MODE) console.log('HttpService.constructor()');

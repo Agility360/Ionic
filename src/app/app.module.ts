@@ -56,7 +56,7 @@ export function httpFactory(
   app: App,
   loadingCtrl: LoadingController,
   alertCtrl: AlertController) {
-  return new HttpService(backend, defaultOptions, app, loadingCtrl, alertCtrl);
+  return new HttpService(backend, defaultOptions, app, loadingCtrl);
 }
 /* Added by McDaniel */
 
