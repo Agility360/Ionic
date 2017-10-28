@@ -55,6 +55,7 @@
       <ion-datetime
         class="editable-field"
         displayFormat="MMMM D, YYYY"
+        [max]="end_date"
         [(ngModel)]="start_date"
         formControlName="start_date"
         name="start_date"></ion-datetime>
@@ -64,6 +65,7 @@
       <ion-datetime
         class="editable-field"
         displayFormat="MMMM D, YYYY"
+        [min]="start_date"
         [(ngModel)]="end_date"
         formControlName="end_date"
         name="end_date"></ion-datetime>
