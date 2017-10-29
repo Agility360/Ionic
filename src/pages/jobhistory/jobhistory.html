@@ -81,10 +81,10 @@
                 <p>Final Compensation:</p>
               </ion-col>
               <ion-col text-right>
-                <p *ngIf="card.final_salary > 0">{{ card.final_salary | currency:'USD':true:'1.0-0' }}</p>
-                <p *ngIf="card.compensation_type == 1">Per Hour</p>
-                <p *ngIf="card.compensation_type == 2">Per Month</p>
-                <p *ngIf="card.compensation_type == 3">Per Year</p>
+                <p *ngIf="card.final_salary > 0">{{ card.final_salary | currency:'USD':true:'1.0-0' }}
+                <span *ngIf="card.compensation_type == 1">/ Hour</span>
+                <span *ngIf="card.compensation_type == 2">/ Month</span>
+                <span *ngIf="card.compensation_type == 3">/ Year</span></p>
               </ion-col>
             </ion-row>
           </ion-item>
