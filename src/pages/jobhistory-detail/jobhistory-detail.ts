@@ -213,7 +213,7 @@ export class JobhistoryDetailPage {
 
 
   ionViewCanLeave() {
-    if (this.shouldConfirmWindowClose) {
+    if (this.shouldConfirmWindowClose && this.formGroup.dirty) {
       let alert = this.alertCtrl.create({
         title: 'Exit',
         message: 'Discard changes?',
