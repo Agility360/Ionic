@@ -47,7 +47,6 @@ import { WordpressProvider } from '../providers/wordpress';
 import { IndustriesProvider } from '../providers/industries';
 import { ProfessionsProvider } from '../providers/professions';
 import { StatesProvider } from '../providers/states';
-import { FilemanagerProvider } from '../providers/filemanager/filemanager';
 import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
@@ -162,8 +161,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WordpressProvider,
     IndustriesProvider,
     ProfessionsProvider,
-    StatesProvider,
-    FilemanagerProvider
+    StatesProvider
   ]
 })
 export class AppModule { }

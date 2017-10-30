@@ -132,7 +132,7 @@ export class SettingsPage {
 
   refreshAvatar() {
     if (DEBUG_MODE) console.log('SettingsPage.refreshAvatar()');
-    this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.sub + '/avatar' }, (err, url) => {
+    this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.sub + '/avatar.jpg' }, (err, url) => {
       this.avatarPhoto = url;
     });
   }
@@ -159,20 +159,20 @@ export class SettingsPage {
       mediaType: this.camera.MediaType.PICTURE
     }
 
-    this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      this.selectedPhoto = this.dataURItoBlob('data:image/jpeg;base64,' + imageData);
-      this.upload();
-    }, (err) => {
-      this.avatarInput.nativeElement.click();
-      // Handle error
+    this.camera.getPicture(options)
+    .then(
+      (imageData) => {
+        this.selectedPhoto = this.dataURItoBlob('data:image/jpeg;base64,' + imageData);
+        this.upload();
+      },
+      (err) => {
+          this.avatarInput.nativeElement.click();
     });
   }
 
   uploadFromFile(event) {
     if (DEBUG_MODE) console.log('SettingsPage.uploadFromFile()');
-    const files = event.target.files;
+    const files = (<HTMLInputElement>event.target).files;
     console.log('Uploading', files)
     var reader = new FileReader();
     reader.readAsDataURL(files[0]);
@@ -194,15 +194,17 @@ export class SettingsPage {
 
     if (this.selectedPhoto) {
       this.s3.upload({
-        'Key': 'protected/' + this.sub + '/avatar',
+        'Key': 'protected/' + this.sub + '/avatar.jpg',
         'Body': this.selectedPhoto,
         'ContentType': 'image/jpeg'
-      }).promise().then((data) => {
+      }).promise()
+      .then(
+        (data) => {
         this.refreshAvatar();
-        console.log('upload complete:', data);
+        if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - success');
         loading.dismiss();
       }, err => {
-        console.log('upload failed....', err);
+        if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - failure', err);
         loading.dismiss();
       });
     }

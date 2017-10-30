@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>Resume Uploader</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="add()">
+      <button ion-button icon-only (click)="add($event)">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -28,6 +28,15 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <p>Here I Yam!!! :D</p>
+  <div text-center>
+    <button ion-button clear (click)="selectFile()">Upload Resume</button>
+    <input #resume type="file" (change)="uploadFromFile($event)" />
+    <div *ngIf="avatarPhoto" class="avatar" [style.background-image]="'url('+ avatarPhoto +')'"></div>
+  </div>
+
+  <ion-item>
+    <ion-input type="file" accept="*"  (change)="add($event)"></ion-input>
+  </ion-item>
+
 
 </ion-content>
