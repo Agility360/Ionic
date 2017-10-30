@@ -1,12 +1,9 @@
 import { IonicPage, NavParams, ToastController, Config, LoadingController, NavController, App, AlertController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Component, ViewChild } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { apiURL, apiHttpOptions, DEBUG_MODE, HTTP_RETRIES } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { S3File } from '../../shared/s3file';
 import { DynamoDB, User } from '../../providers/providers';
 
@@ -29,19 +26,18 @@ declare const aws_user_files_s3_bucket_region;
 })
 export class ResumeUploaderPage {
 
-  @ViewChild('resume') resumeInput;
   private fileContent: Blob;
+  public errMess: string;
 
+  /* AWS variables */
   private s3: any;
-  public avatarPhoto: string;
+  public url: string;
   public attributes: any;
-  public sub: string = null;
+  public userFolder: string = null;
   public username: string;
   public email: string;
   public email_verified: boolean;
 
-  public resume: S3File;
-  public errMess: string;
 
   constructor(
     public navCtrl: NavController,
@@ -51,13 +47,12 @@ export class ResumeUploaderPage {
     public app: App,
     public db: DynamoDB,
     public config: Config,
-    public camera: Camera,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
 
       if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor()');
       this.attributes = [];
-      this.avatarPhoto = null;
+      this.url = null;
       this.s3 = new AWS.S3({
         'params': {
           'Bucket': aws_user_files_s3_bucket
@@ -65,7 +60,7 @@ export class ResumeUploaderPage {
         'region': aws_user_files_s3_bucket_region
       });
 
-      this.sub = AWS.config.credentials.identityId;
+      this.userFolder = AWS.config.credentials.identityId;
 
       user.getUser().getUserAttributes((err, data) => {
         if (DEBUG_MODE) console.log('SettingsPage.constructor() - getUserAttributes: ', data);
@@ -87,8 +82,8 @@ export class ResumeUploaderPage {
 
   get() {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.get()');
-    this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.sub + '/resume.jpg' }, (err, url) => {
-      this.avatarPhoto = url;
+    this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.userFolder + '/resume.jpg' }, (err, url) => {
+      this.url = url;
       if (DEBUG_MODE) console.log('ResumeUploaderPage.get() - got', url);
     });
   }
@@ -153,7 +148,7 @@ export class ResumeUploaderPage {
     });
     loading.present();
 
-    var s3file: S3File = this.new('protected/' + this.sub + '/resume.jpg', this.fileContent, 'image/jpeg');
+    var s3file: S3File = this.new('protected/' + this.userFolder + '/resume.jpg', this.fileContent, 'image/jpeg');
 
     if (this.fileContent) {
       this.s3.upload(s3file).promise()
