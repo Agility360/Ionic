@@ -26,6 +26,7 @@ import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
 import { JobhistoryPage } from '../pages/jobhistory/jobhistory';
 import { JobhistoryDetailPage } from '../pages/jobhistory-detail/jobhistory-detail';
+import { ResumeUploaderPage } from '../pages/resume-uploader/resume-uploader';
 import { EducationDetailPage } from '../pages/education-detail/education-detail';
 import { CertificationDetailPage } from '../pages/certification-detail/certification-detail';
 import { HttpErrorPage } from '../pages/http-error/http-error';
@@ -94,6 +95,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobhistoryDetailPage,
     EducationDetailPage,
     CertificationDetailPage,
+    ResumeUploaderPage,
     HttpErrorPage,
     DeleteAccountPage,
     PrivacyPolicyPage,
@@ -132,6 +134,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     JobhistoryDetailPage,
     EducationDetailPage,
     CertificationDetailPage,
+    ResumeUploaderPage,
     HttpErrorPage,
     DeleteAccountPage,
     PrivacyPolicyPage,

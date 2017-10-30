@@ -7,6 +7,7 @@ import { ProfilePage } from '../profile/profile';
 import { CertificationsPage } from '../certifications/certifications';
 import { EducationPage } from '../education/education';
 import { JobhistoryPage } from '../jobhistory/jobhistory';
+import { ResumeUploaderPage } from '../resume-uploader/resume-uploader';
 import { PasswordChangePage } from '../password-change/password-change';
 import { DeleteAccountPage } from '../delete-account/delete-account';
 import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy';
@@ -43,6 +44,7 @@ export class SettingsPage {
   public certificationsPage = CertificationsPage;
   public educationPage = EducationPage;
   public jobhistoryPage = JobhistoryPage;
+  public resumeUploaderPage = ResumeUploaderPage;
   public passwordChangePage = PasswordChangePage;
   public deleteAccountPage = DeleteAccountPage;
   public privacyPolicyPage = PrivacyPolicyPage;
