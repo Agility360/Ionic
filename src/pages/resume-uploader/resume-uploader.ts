@@ -1,11 +1,11 @@
-import { IonicPage, NavParams, ToastController, Config, LoadingController, NavController, App, AlertController } from 'ionic-angular';
+import { IonicPage, NavParams, ToastController, Config, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { DEBUG_MODE } from '../../shared/constants';
 import { S3File } from '../../shared/s3file';
-import { DynamoDB, User } from '../../providers/providers';
+import { User } from '../../providers/providers';
 
 declare var AWS: any;
 declare const aws_user_files_s3_bucket;
@@ -32,26 +32,19 @@ export class ResumeUploaderPage {
   /* AWS variables */
   private s3: any;
   public url: string;
-  public attributes: any;
   public userFolder: string = null;
-  public username: string;
-  public email: string;
-  public email_verified: boolean;
-
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private toastCtrl: ToastController,
     public user: User,
-    public app: App,
-    public db: DynamoDB,
     public config: Config,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
 
       if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor()');
-      this.attributes = [];
+
       this.url = null;
       this.s3 = new AWS.S3({
         'params': {
@@ -61,18 +54,6 @@ export class ResumeUploaderPage {
       });
 
       this.userFolder = AWS.config.credentials.identityId;
-
-      user.getUser().getUserAttributes((err, data) => {
-        if (DEBUG_MODE) console.log('SettingsPage.constructor() - getUserAttributes: ', data);
-        this.attributes = data;
-        this.username = user.getUser().getUsername().toString();
-        for (let element of data) {
-          if (element.Name == "email") this.email = element.Value;
-          if (element.Name == "email_verified") this.email_verified = element.Value;
-        }
-        if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - getUserAttributes: email, verified', this.email, this.email_verified);
-      });
-
       this.get();
   }
 
@@ -88,15 +69,8 @@ export class ResumeUploaderPage {
     });
   }
 
-
-
-  add(event) {
-    if (DEBUG_MODE) console.log('ResumeUploaderPage.add()');
-  }
-
   delete() {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.delete()');
-
   }
 
   refresh(refresher) {
@@ -107,13 +81,6 @@ export class ResumeUploaderPage {
     }, 500);
   }
 
-  private new(Key, Body, ContentType) {
-      return {
-        Key: Key,
-        Body: Body,
-        ContentType: ContentType
-      };
-  }
 
   private dataURItoBlob(dataURI) {
     if (DEBUG_MODE) console.log('SettingsPage.dataURItoBlob()');
@@ -129,41 +96,42 @@ export class ResumeUploaderPage {
   uploadFromFile(event) {
     if (DEBUG_MODE) console.log('SettingsPage.uploadFromFile()');
     const files = (<HTMLInputElement>event.target).files;
-    console.log('Uploading', files)
     var reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = () => {
+      if (DEBUG_MODE) console.log('SettingsPage.uploadFromFile() - file read.');
       this.fileContent = this.dataURItoBlob(reader.result);
-      this.upload();
+
+      let loading = this.loadingCtrl.create({
+        content: 'Uploading'
+      });
+      loading.present();
+
+      var s3file: S3File = this.new('protected/' + this.userFolder + '/resume.jpg', this.fileContent, 'image/jpeg');
+
+      this.s3.upload(s3file).promise()
+      .then(
+        (data) => {
+          if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - success');
+          this.get();
+        },
+        (err) => {
+          if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - failure', err);
+        });
+
+      loading.dismiss();
     };
     reader.onerror = (error) => {
       alert('Unable to load file. Please try another.')
     }
   }
 
-  upload() {
-    if (DEBUG_MODE) console.log('SettingsPage.upload()');
-    let loading = this.loadingCtrl.create({
-      content: 'Uploading ...'
-    });
-    loading.present();
-
-    var s3file: S3File = this.new('protected/' + this.userFolder + '/resume.jpg', this.fileContent, 'image/jpeg');
-
-    if (this.fileContent) {
-      this.s3.upload(s3file).promise()
-      .then(
-        (data) => {
-        if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - success');
-        this.get();
-      }, (err) => {
-        if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - failure', err);
-      });
-    }
-    loading.dismiss();
-
+  private new(Key, Body, ContentType) {
+      return {
+        Key: Key,
+        Body: Body,
+        ContentType: ContentType
+      };
   }
-
-
 
 }
