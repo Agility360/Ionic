@@ -1,11 +1,10 @@
-import { IonicPage, NavParams, ToastController, Config, LoadingController, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavParams, ToastController, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { DEBUG_MODE } from '../../shared/constants';
 import { S3File } from '../../shared/s3file';
-import { User } from '../../providers/providers';
 
 declare var AWS: any;
 declare const aws_user_files_s3_bucket;
@@ -38,8 +37,6 @@ export class ResumeUploaderPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private toastCtrl: ToastController,
-    public user: User,
-    public config: Config,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
 

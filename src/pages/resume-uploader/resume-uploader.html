@@ -30,7 +30,9 @@
 
   <div text-center>
     <input #resume type="file" (change)="uploadFromFile($event)" />
-    <div *ngIf="url" class="avatar" [style.background-image]="'url('+ url +')'"></div>
+    <div class="resume">
+      <img src="{{ url }}" />
+    </div>
   </div>
 
 
