@@ -33,6 +33,7 @@ export class ResumeUploaderPage {
   private fileContent: Blob;
 
   private s3: any;
+  public avatarPhoto: string;
   public attributes: any;
   public sub: string = null;
   public username: string;
@@ -56,6 +57,7 @@ export class ResumeUploaderPage {
 
       if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor()');
       this.attributes = [];
+      this.avatarPhoto = null;
       this.s3 = new AWS.S3({
         'params': {
           'Bucket': aws_user_files_s3_bucket
@@ -76,6 +78,7 @@ export class ResumeUploaderPage {
         if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - getUserAttributes: email, verified', this.email, this.email_verified);
       });
 
+      this.get();
   }
 
   ionViewDidLoad() {
@@ -84,6 +87,10 @@ export class ResumeUploaderPage {
 
   get() {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.get()');
+    this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.sub + '/resume.jpg' }, (err, url) => {
+      this.avatarPhoto = url;
+      if (DEBUG_MODE) console.log('ResumeUploaderPage.get() - got', url);
+    });
   }
 
 
@@ -124,28 +131,6 @@ export class ResumeUploaderPage {
     return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
   };
 
-  selectFile() {
-    if (DEBUG_MODE) console.log('SettingsPage.selectAvatar()');
-    const options: CameraOptions = {
-      quality: 100,
-      targetHeight: 200,
-      targetWidth: 200,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options)
-    .then(
-      (imageData) => {
-        this.fileContent = this.dataURItoBlob('data:image/jpeg;base64,' + imageData);
-        this.upload();
-      },
-    (err) => {
-        this.resumeInput.nativeElement.click();
-    });
-  }
-
   uploadFromFile(event) {
     if (DEBUG_MODE) console.log('SettingsPage.uploadFromFile()');
     const files = (<HTMLInputElement>event.target).files;
@@ -175,6 +160,7 @@ export class ResumeUploaderPage {
       .then(
         (data) => {
         if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - success');
+        this.get();
       }, (err) => {
         if (DEBUG_MODE) console.log('SettingsPage.upload() - s3.upload - failure', err);
       });

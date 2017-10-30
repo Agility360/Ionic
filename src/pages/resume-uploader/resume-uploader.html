@@ -29,14 +29,9 @@
   </ion-refresher>
 
   <div text-center>
-    <button ion-button clear (click)="selectFile()">Upload Resume</button>
     <input #resume type="file" (change)="uploadFromFile($event)" />
     <div *ngIf="avatarPhoto" class="avatar" [style.background-image]="'url('+ avatarPhoto +')'"></div>
   </div>
-
-  <ion-item>
-    <ion-input type="file" accept="*"  (change)="add($event)"></ion-input>
-  </ion-item>
 
 
 </ion-content>
