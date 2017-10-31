@@ -51,6 +51,7 @@ import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DocumentViewer } from '@ionic-native/document-viewer';
 
 export function httpFactory(
   backend: XHRBackend,
@@ -161,7 +162,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WordpressProvider,
     IndustriesProvider,
     ProfessionsProvider,
-    StatesProvider
+    StatesProvider,
+    DocumentViewer
   ]
 })
 export class AppModule { }
