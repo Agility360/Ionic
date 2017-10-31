@@ -28,6 +28,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <input #resume type="file" (change)="uploadFromFile($event)" />
   <pdf-viewer src="{{ url }}"></pdf-viewer>
 
 </ion-content>
