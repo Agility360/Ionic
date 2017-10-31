@@ -64,10 +64,12 @@ export class ResumeUploaderPage {
   ionViewDidLoad() {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.ionViewDidLoad()');
   }
+
   private key(): string {
-    if (DEBUG_MODE) console.log('ResumeUploaderPage.key(): ', 'uploads/' + this.username + '.jpg');
-    return 'uploads/' + this.username + '.jpg';
+    if (DEBUG_MODE) console.log('ResumeUploaderPage.key(): ');
+    return 'public/' + this.username + '.pdf';
   }
+
   get() {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.get()');
       this.s3.getSignedUrl('getObject', { 'Key': this.key() }, (err, url) => {
@@ -145,7 +147,7 @@ export class ResumeUploaderPage {
       });
       loading.present();
 
-      var s3file: S3File = this.new(this.key(), this.fileContent, 'image/jpeg');
+      var s3file: S3File = this.new(this.key(), this.fileContent, 'application/pdf');
 
       this.s3.upload(s3file).promise()
       .then(

@@ -134,6 +134,7 @@ export class SettingsPage {
     if (DEBUG_MODE) console.log('SettingsPage.refreshAvatar()');
     this.s3.getSignedUrl('getObject', { 'Key': 'protected/' + this.sub + '/avatar.jpg' }, (err, url) => {
       this.avatarPhoto = url;
+      if (DEBUG_MODE) console.log('SettingsPage.refreshAvatar() - url: ', url);
     });
   }
 

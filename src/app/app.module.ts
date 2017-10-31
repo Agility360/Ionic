@@ -52,6 +52,7 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DocumentViewer } from '@ionic-native/document-viewer';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 export function httpFactory(
   backend: XHRBackend,
@@ -103,7 +104,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TermsOfUsePage,
     JobsDetailPage,
     NewsDetailPage,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    PdfViewerComponent
   ],
   imports: [
     BrowserModule,
