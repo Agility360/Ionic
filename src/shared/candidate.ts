@@ -20,4 +20,5 @@ export interface Candidate {
   subprofession: string;
   update_date: string;
   create_date: string;
+  resume_filename: string;
 }

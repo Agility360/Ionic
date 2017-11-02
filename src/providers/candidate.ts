@@ -128,7 +128,8 @@ export class CandidateProvider {
       subprofession_id: null,
       subprofession: '',
       update_date: null,
-      create_date: null
+      create_date: null,
+      resume_filename: null
     };
   }
 
