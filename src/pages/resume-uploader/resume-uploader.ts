@@ -31,6 +31,7 @@ export class ResumeUploaderPage {
   public candidate: Candidate;
 
   private fileContent: Blob;
+  private fileMetaData: any;
   public errMess: string;
   private documentViewerOptions: any;
 
@@ -67,11 +68,13 @@ export class ResumeUploaderPage {
         .subscribe(
         result => {
           this.candidate = result
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - got: ', this.candidate);
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get: ', this.candidate);
+          if (this.candidate.resume_filename) this.fileMetaData = JSON.parse(this.candidate.resume_filename);
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get: ', this.fileMetaData);
         },
         err => {
           this.errMess = <any>err
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - error: ', this.errMess);
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get - error: ', this.errMess);
         });
 
   }
@@ -147,12 +150,9 @@ export class ResumeUploaderPage {
 
           /* for future references, we'll store the original resume filename in the candidate profile object. */
           console.log('files[0]: ', files[0]);
-          console.log('files[0]: ', String(files[0]));
-          /*
-          console.log('files[0]: ', files[0].name, files[0].size, files[0].type, files[0].lastModifiedDate);
-          */
+          this.candidate.resume_filename = this.stringifyFile(files[0]);
+          console.log('HELLO WORLD!!!!', this.candidate.resume_filename);
 
-          this.candidate.resume_filename = JSON.stringify(files[0]);
           this.candidateProvider.update(this.candidate)
             .subscribe(obj => {
               if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - candidateProvider.update(this.candidate): success ', obj);
@@ -176,6 +176,7 @@ export class ResumeUploaderPage {
   }
 
   private new(Key, Body, ContentType) {
+    if (DEBUG_MODE) console.log('ResumeUploaderPage.new()');
       return {
         Key: Key,
         Body: Body,
@@ -183,6 +184,12 @@ export class ResumeUploaderPage {
       };
   }
 
+  private stringifyFile(file): string {
+    if (DEBUG_MODE) console.log('ResumeUploaderPage.stringifyFile(file)');
+
+    return '{ "name": "' + file.name + '", "size": ' + file.size + ', "type": "' + file.type + '", "lastModifiedDate": "' + file.lastModifiedDate + '" }';
+
+  }
 
 
 }

@@ -8,7 +8,6 @@
 
   <ion-navbar>
     <ion-title>Resume Uploader</ion-title>
-    <input right #resume type="file" (change)="uploadFromFile($event)" />
   </ion-navbar>
 
 </ion-header>
@@ -25,50 +24,52 @@
   </ion-refresher>
 
 
-  <ion-list *ngIf="candidate && candidate.resume_filename">
-    <ion-item no-lines>
-      <p class="thank-you" text-center>Thank You! We received your resume.</p>
-    </ion-item>
-    <ion-item-divider></ion-item-divider>
-    <div >
+  <ion-list>
+    <ion-list *ngIf="candidate && !candidate.resume_filename">
+      <ion-item-divider></ion-item-divider>
+      <div>
+        <ion-item no-lines>
+          <ion-card>
+            <p class="promote-box" text-wrap>Click the <code>Choose File</code> button to upload your resume.</p>
+          </ion-card>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <div *ngIf="fileMetaData">
+      <ion-item no-lines>
+        <p class="thank-you" text-center>Thank You! We've received your resume.</p>
+      </ion-item>
+      <ion-item-divider></ion-item-divider>
       <ion-item no-lines>
         <ion-label class="agility-label">Filename: </ion-label>
         <div item-content>
-          {{ candidate.resume_filename }}
+          {{ this.fileMetaData.name }}
         </div>
       </ion-item>
       <ion-item no-lines>
         <ion-label class="agility-label">Uploaded: </ion-label>
         <div item-content>
-          {{ candidate.resume_filename }}
+          {{ this.fileMetaData.name }}
         </div>
       </ion-item>
       <ion-item no-lines>
         <ion-label class="agility-label">Size: </ion-label>
         <div item-content>
-          {{ candidate.resume_filename }}
+          {{ this.fileMetaData.size }}
         </div>
       </ion-item>
       <ion-item no-lines>
         <ion-label class="agility-label">Last Modified: </ion-label>
         <div item-content>
-          {{ candidate.resume_filename }}
+          {{ this.fileMetaData.lastModifiedDate }}
         </div>
       </ion-item>
     </div>
-
-  </ion-list>
-  <ion-list *ngIf="candidate && !candidate.resume_filename">
-
     <ion-item-divider></ion-item-divider>
-    <div>
-      <ion-item no-lines>
-        <ion-card>
-          <p class="promote-box" text-wrap>Click the <code>Add</code> button to upload your resume.</p>
-        </ion-card>
-      </ion-item>
-    </div>
-
+    <ion-item no-lines>
+      <input right #resume type="file" (change)="uploadFromFile($event)" />
+    </ion-item>
   </ion-list>
 
   <pdf-viewer src="{{ url }}"></pdf-viewer>

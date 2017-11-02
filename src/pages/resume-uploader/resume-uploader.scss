@@ -3,15 +3,16 @@ page-resume-uploader {
   .resume {
     height: 100vh;
     width: 100%;
-
     margin: auto;
-    margin-top: 35px;
   }
 
 .thank-you {
-    margin-top: 16px;
+    margin-top: 24px;
     font-weight: bolder;
     font-size: 24px;
   }
 
+input {
+  width: 100%;
+}
 }
