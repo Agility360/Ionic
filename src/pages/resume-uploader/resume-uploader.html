@@ -50,19 +50,19 @@
       <ion-item no-lines>
         <ion-label class="agility-label">Uploaded: </ion-label>
         <div item-content>
-          {{ this.fileMetaData.name }}
+          {{ this.fileMetaData.uploadDate | date:"MMM dd, yyyy h:mma" }}
         </div>
       </ion-item>
       <ion-item no-lines>
         <ion-label class="agility-label">Size: </ion-label>
         <div item-content>
-          {{ this.fileMetaData.size }}
+          {{ this.fileMetaData.size | number : 0 }} Kb
         </div>
       </ion-item>
       <ion-item no-lines>
         <ion-label class="agility-label">Last Modified: </ion-label>
         <div item-content>
-          {{ this.fileMetaData.lastModifiedDate }}
+          {{ this.fileMetaData.lastModifiedDate | date:"MMM dd, yyyy h:mma" }}
         </div>
       </ion-item>
     </div>

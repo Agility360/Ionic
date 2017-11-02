@@ -64,19 +64,6 @@ export class ResumeUploaderPage {
       this.username = user.getUser().getUsername().toString();
       this.getResume();
 
-      this.candidateProvider.get()
-        .subscribe(
-        result => {
-          this.candidate = result
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get: ', this.candidate);
-          if (this.candidate.resume_filename) this.fileMetaData = JSON.parse(this.candidate.resume_filename);
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get: ', this.fileMetaData);
-        },
-        err => {
-          this.errMess = <any>err
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor() - this.candidateProvider.get - error: ', this.errMess);
-        });
-
   }
 
   ionViewDidLoad() {
@@ -99,6 +86,24 @@ export class ResumeUploaderPage {
         if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - this.s3.getSignedUrl - success', url);
 
         this.url = url;
+
+        this.fileMetaData = null;
+        this.candidate = null;
+        this.candidateProvider.get()
+          .subscribe(
+            result => {
+              this.candidate = result
+              if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - this.candidateProvider.get: - success', this.candidate);
+              if (this.candidate.resume_filename) {
+                this.fileMetaData = JSON.parse(this.candidate.resume_filename);
+                this.fileMetaData.size = Math.round(this.fileMetaData.size / 1024);
+              }
+            },
+            err => {
+              this.errMess = <any>err
+              if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - this.candidateProvider.get - error: ', this.errMess);
+          });
+
 
     });
   }
@@ -156,13 +161,14 @@ export class ResumeUploaderPage {
           this.candidateProvider.update(this.candidate)
             .subscribe(obj => {
               if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - candidateProvider.update(this.candidate): success ', obj);
+              this.getResume();
             },
             error => {
               if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - candidateProvider.update(this.candidate): error ', error);
               this.errMess = error;
+              this.getResume();
             });
 
-          this.getResume();
         },
         (err) => {
           if (DEBUG_MODE) console.log('ResumeUploaderPage.upload() - s3.upload - failure', err);
@@ -187,7 +193,15 @@ export class ResumeUploaderPage {
   private stringifyFile(file): string {
     if (DEBUG_MODE) console.log('ResumeUploaderPage.stringifyFile(file)');
 
-    return '{ "name": "' + file.name + '", "size": ' + file.size + ', "type": "' + file.type + '", "lastModifiedDate": "' + file.lastModifiedDate + '" }';
+    var now = new Date();
+
+    return '{ '
+          + '"name": "' + file.name
+          + '", "size": ' + file.size
+          + ', "type": "' + file.type
+          + '", "lastModifiedDate": "' + file.lastModifiedDate
+          + '", "uploadDate": "' + now.toString()
+          + '" }';
 
   }
 
