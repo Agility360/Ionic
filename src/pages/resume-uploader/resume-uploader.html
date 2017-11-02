@@ -29,6 +29,11 @@
   </ion-refresher>
 
   <input #resume type="file" (change)="uploadFromFile($event)" />
+
+  <div *ngIf="candidate && candidate.resume_filename">
+    <p>Thanks for uploading your incredible resume. You're definitely going to get an amazing job thru our service. you rock!!</p>
+    <p>{{ candidate.resume_filename }}</p>
+  </div>
   <pdf-viewer src="{{ url }}"></pdf-viewer>
 
 </ion-content>

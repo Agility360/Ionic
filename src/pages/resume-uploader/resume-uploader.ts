@@ -4,6 +4,8 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { DEBUG_MODE } from '../../shared/constants';
+import { Candidate } from '../../shared/candidate';
+import { CandidateProvider } from '../../providers/candidate';
 import { User } from '../../providers/providers';
 import { S3File } from '../../shared/s3file';
 
@@ -26,6 +28,8 @@ declare const aws_user_files_s3_bucket_region;
 })
 export class ResumeUploaderPage {
 
+  public candidate: Candidate;
+
   private fileContent: Blob;
   public errMess: string;
   private documentViewerOptions: any;
@@ -39,7 +43,8 @@ export class ResumeUploaderPage {
     public user: User,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private candidateProvider: CandidateProvider) {
 
       if (DEBUG_MODE) console.log('ResumeUploaderPage.constructor()');
 
@@ -56,7 +61,19 @@ export class ResumeUploaderPage {
       };
 
       this.username = user.getUser().getUsername().toString();
-      this.get();
+      this.getResume();
+
+      this.candidateProvider.get()
+        .subscribe(
+        result => {
+          this.candidate = result
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - got: ', this.candidate);
+        },
+        err => {
+          this.errMess = <any>err
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - error: ', this.errMess);
+        });
+
   }
 
   ionViewDidLoad() {
@@ -68,29 +85,29 @@ export class ResumeUploaderPage {
     return 'public/' + this.username + '.pdf';
   }
 
-  get() {
-    if (DEBUG_MODE) console.log('ResumeUploaderPage.get()');
+  getResume() {
+    if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume()');
       this.s3.getSignedUrl('getObject', { 'Key': this.key() }, (err, url) => {
 
         if (err) {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.get() - this.s3.getSignedUrl - error', err);
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - this.s3.getSignedUrl - error', err);
           return;
         }
-        if (DEBUG_MODE) console.log('ResumeUploaderPage.get() - this.s3.getSignedUrl - success', url);
+        if (DEBUG_MODE) console.log('ResumeUploaderPage.getResume() - this.s3.getSignedUrl - success', url);
 
         this.url = url;
 
     });
   }
 
-  delete() {
-    if (DEBUG_MODE) console.log('ResumeUploaderPage.delete()');
+  deleteResume() {
+    if (DEBUG_MODE) console.log('ResumeUploaderPage.deleteResume()');
   }
 
   refresh(refresher) {
     setTimeout(() => {
       if (DEBUG_MODE) console.log('ResumeUploaderPage.refresh()');
-      this.get();
+      this.getResume();
       refresher.complete();
     }, 500);
   }
@@ -127,7 +144,7 @@ export class ResumeUploaderPage {
       .then(
         (data) => {
           if (DEBUG_MODE) console.log('ResumeUploaderPage.upload() - s3.upload - success');
-          this.get();
+          this.getResume();
         },
         (err) => {
           if (DEBUG_MODE) console.log('ResumeUploaderPage.upload() - s3.upload - failure', err);
