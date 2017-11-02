@@ -8,11 +8,7 @@
 
   <ion-navbar>
     <ion-title>Resume Uploader</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="add($event)">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
+    <input right #resume type="file" (change)="uploadFromFile($event)" />
   </ion-navbar>
 
 </ion-header>
@@ -28,12 +24,53 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <input #resume type="file" (change)="uploadFromFile($event)" />
 
-  <div *ngIf="candidate && candidate.resume_filename">
-    <p>Thanks for uploading your incredible resume. You're definitely going to get an amazing job thru our service. you rock!!</p>
-    <p>{{ candidate.resume_filename }}</p>
-  </div>
+  <ion-list *ngIf="candidate && candidate.resume_filename">
+    <ion-item no-lines>
+      <p class="thank-you" text-center>Thank You! We received your resume.</p>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+    <div >
+      <ion-item no-lines>
+        <ion-label class="agility-label">Filename: </ion-label>
+        <div item-content>
+          {{ candidate.resume_filename }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">Uploaded: </ion-label>
+        <div item-content>
+          {{ candidate.resume_filename }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">Size: </ion-label>
+        <div item-content>
+          {{ candidate.resume_filename }}
+        </div>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label class="agility-label">Last Modified: </ion-label>
+        <div item-content>
+          {{ candidate.resume_filename }}
+        </div>
+      </ion-item>
+    </div>
+
+  </ion-list>
+  <ion-list *ngIf="candidate && !candidate.resume_filename">
+
+    <ion-item-divider></ion-item-divider>
+    <div>
+      <ion-item no-lines>
+        <ion-card>
+          <p class="promote-box" text-wrap>Click the <code>Add</code> button to upload your resume.</p>
+        </ion-card>
+      </ion-item>
+    </div>
+
+  </ion-list>
+
   <pdf-viewer src="{{ url }}"></pdf-viewer>
 
 </ion-content>

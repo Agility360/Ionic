@@ -138,12 +138,30 @@ export class ResumeUploaderPage {
       });
       loading.present();
 
-      var s3file: S3File = this.new(this.key(), this.fileContent, 'application/pdf');
+      var s3file: S3File = this.new(this.key(), this.fileContent, files[0].type);
 
       this.s3.upload(s3file).promise()
       .then(
         (data) => {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.upload() - s3.upload - success');
+          if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - s3.upload - success');
+
+          /* for future references, we'll store the original resume filename in the candidate profile object. */
+          console.log('files[0]: ', files[0]);
+          console.log('files[0]: ', String(files[0]));
+          /*
+          console.log('files[0]: ', files[0].name, files[0].size, files[0].type, files[0].lastModifiedDate);
+          */
+
+          this.candidate.resume_filename = JSON.stringify(files[0]);
+          this.candidateProvider.update(this.candidate)
+            .subscribe(obj => {
+              if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - candidateProvider.update(this.candidate): success ', obj);
+            },
+            error => {
+              if (DEBUG_MODE) console.log('ResumeUploaderPage.uploadFromFile() - candidateProvider.update(this.candidate): error ', error);
+              this.errMess = error;
+            });
+
           this.getResume();
         },
         (err) => {
