@@ -20,7 +20,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
 import { JobsPage } from '../pages/jobs/jobs';
 import { NewsPage } from '../pages/news/news';
-import { ResumePage } from '../pages/resume/resume';
+import { ResumeTipsPage } from '../pages/resume-tips/resume-tips';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { CertificationsPage } from '../pages/certifications/certifications';
 import { EducationPage } from '../pages/education/education';
@@ -51,7 +51,6 @@ import { SafeHtmlPipe } from "../shared/pipe.safehtml";
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpService } from '../services/httpService';
 import { TextMaskModule } from 'angular2-text-mask';
-import { DocumentViewer } from '@ionic-native/document-viewer';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 export function httpFactory(
@@ -89,7 +88,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TabsPage,
     JobsPage,
     NewsPage,
-    ResumePage,
+    ResumeTipsPage,
     NotificationsPage,
     CertificationsPage,
     EducationPage,
@@ -129,7 +128,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TabsPage,
     JobsPage,
     NewsPage,
-    ResumePage,
+    ResumeTipsPage,
     NotificationsPage,
     CertificationsPage,
     EducationPage,
@@ -164,8 +163,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     WordpressProvider,
     IndustriesProvider,
     ProfessionsProvider,
-    StatesProvider,
-    DocumentViewer
+    StatesProvider
   ]
 })
 export class AppModule { }

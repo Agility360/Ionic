@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 import { DEBUG_MODE } from '../../shared/constants';
 import { User } from '../../providers/providers';
 import { S3File } from '../../shared/s3file';
-import { DocumentViewer } from '@ionic-native/document-viewer';
 
 declare var AWS: any;
 declare const aws_user_files_s3_bucket;
@@ -38,7 +37,6 @@ export class ResumeUploaderPage {
 
   constructor(
     public user: User,
-    public resume: DocumentViewer,
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController) {
@@ -82,30 +80,6 @@ export class ResumeUploaderPage {
 
         this.url = url;
 
-        var docViewerOnShow = function() {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.docViewerOnShow()');
-        };
-
-        var docViewerOnClose = function() {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.docViewerOnClose()');
-        };
-
-        var docViewerOnMissing = function() {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.docViewerOnMissing()');
-        }
-        var docViewerOnError = function() {
-          if (DEBUG_MODE) console.log('ResumeUploaderPage.docViewerOnError()');
-        }
-
-        this.resume.viewDocument(
-          this.url,
-          'application/pdf',
-          this.documentViewerOptions,
-          docViewerOnShow,
-          docViewerOnClose,
-          docViewerOnMissing,
-          docViewerOnError
-        )
     });
   }
 

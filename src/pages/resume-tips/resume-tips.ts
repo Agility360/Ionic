@@ -17,11 +17,11 @@ import { WordpressProvider } from '../../providers/wordpress';
 
 @IonicPage()
 @Component({
-  selector: 'page-resume',
-  templateUrl: 'resume.html',
+  selector: 'page-resume-tips',
+  templateUrl: 'resume-tips.html',
 })
 
-export class ResumePage {
+export class ResumeTipsPage {
 
   posts: WPPost[];
   errMess: string;
