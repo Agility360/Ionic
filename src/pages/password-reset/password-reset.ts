@@ -36,7 +36,6 @@ export class PasswordResetPage {
     this.username = navParams.get('username');
     this.cognitoUser = this.cognito.makeUser(this.username);
 
-
     /* Cognito -- start forgotten password work flow */
     this.cognitoUser.forgotPassword({
       onSuccess: function(result) {
@@ -44,10 +43,26 @@ export class PasswordResetPage {
       },
       onFailure: function(err) {
         if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognitoUser.forgotPassword - Error:', err);
+
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          message: err,
+          buttons: ['OK']
+        });
+
+        alert.present();
+
       },
       inputVerificationCode: function() {
         if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognitoUser.forgotPassword - inputVerificationCode:');
 
+        /*
+        BEWARE:
+        =======
+        I'm pretty sure that there shouldn't be any code here. we're in the constructor.
+        even though this is a call-back, we still need to gather and validate inputs from the user,
+        and i believe that implementing the verification code here could create a race situation.
+        */
       }
     });
 
@@ -71,25 +86,16 @@ export class PasswordResetPage {
   }
 
   passwordReset() {
+    /*
+    Note: the following has good insights on how this works on the AWS side, plus working code samples written by folks who do not work at AWS.
+    https://stackoverflow.com/questions/38110615/how-to-allow-my-user-to-reset-their-password-on-cognito-user-pools
+    */
     if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset()', this.verificationCode, this.newPassword, this.cognitoUser);
 
-    if (this.formValidate()) this.cognitoUser.confirmPassword(this.verificationCode, this.newPassword, this.cognitoUser)
-      .onSuccess(result => {
-        if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() cognitoUser.confirmPassword - Success:', result);
-/*
-        this.navCtrl.setRoot(LoginPage);
-*/
-        let alert = this.alertCtrl.create({
-          title: 'Success',
-          message: result,
-          buttons: ['OK']
-        });
-
-        alert.present(alert);
-
-      })
-      .onFailure(err => {
-        if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() cognitoUser.confirmPassword - Error:', err);
+    if (this.formValidate())
+    this.cognitoUser.confirmPassword(this.verificationCode, this.newPassword, {
+      onFailure(err) {
+        if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() cognitoUser.confirmPassword() - Error:', err);
 
         let alert = this.alertCtrl.create({
           title: 'Error',
@@ -97,9 +103,20 @@ export class PasswordResetPage {
           buttons: ['OK']
         });
 
-        alert.present(alert);
+        alert.present();
+      },
+      onSuccess(result) {
+        if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() cognitoUser.confirmPassword() - Success:', result);
+        let alert = this.alertCtrl.create({
+          title: 'Password Updated',
+          message: result,
+          buttons: ['OK']
+        });
 
-      });
+        alert.present();
+        this.navCtrl.setRoot(LoginPage);
+      },
+    });
 
   }
 

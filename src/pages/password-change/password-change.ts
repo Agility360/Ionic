@@ -19,6 +19,9 @@ export class PasswordChangePage {
   public newPassword: string;
   public ReenterNewPassword: string;
 
+  public errMsg: any;
+  public successMsg: any;
+
   private cognitoUser: any;
 
   constructor(
@@ -31,7 +34,19 @@ export class PasswordChangePage {
 
     if (DEBUG_MODE) console.log('PasswordChangePage.constructor()');
 
-    this.cognitoUser = this.cognito.makeUser(this.user.getUsername());
+    this.cognitoUser = this.cognito.getCurrentUser();
+    /*
+    next line:
+    look for comment from mreddyg jun 29, 2016
+    https://github.com/aws/amazon-cognito-identity-js/issues/71
+    */
+    this.cognitoUser.getSession(function(err, session) {
+        if (err) {
+          console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - error: ', err);
+            return;
+        }
+        console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - Session: ', session);
+    });
 
     /* setup form validators */
     this.formGroup = formBuilder.group({
@@ -53,21 +68,22 @@ export class PasswordChangePage {
   }
 
   changePassword() {
-    if (DEBUG_MODE) console.log('PasswordChangePage.changePassword()');
+    if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - cognitoUser: ', this.cognitoUser);
 
-    if (!this.formValidate()) return;
+    if (!this.formValidate()) {
+      let alert = this.alertCtrl.create({
+        title: 'Form is not valid',
+        message: 'you are a knob.',
+        buttons: ['OK']
+      });
+
+      alert.present();
+      return;
+    }
 
     this.cognitoUser.changePassword(this.currentPassword, this.newPassword, function(err, result) {
       if (err) {
         if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error', err);
-        let alert = this.alertCtrl.create({
-          title: 'Error',
-          message: err,
-          buttons: ['OK']
-        });
-
-        alert.present(alert);
-        return;
       }
       else {
         if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - success', result);

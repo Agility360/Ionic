@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic
 import { User } from '../../providers/providers';
 import { DEBUG_MODE } from '../../shared/constants';
 import { LoginPage } from '../login/login';
+import { Cognito } from '../../providers/aws.cognito';
 
 
 /**
@@ -19,15 +20,24 @@ import { LoginPage } from '../login/login';
 })
 export class DeleteAccountPage {
 
+  private username: string;
+  private cognitoUser: any;
+
   constructor(public navCtrl: NavController,
     public user: User,
     public app: App,
+    public cognito: Cognito,
     private alertCtrl: AlertController,
     public navParams: NavParams) {
+
+      if (DEBUG_MODE) console.log('DeleteAccountPage.constructor()');
+
+      this.username = navParams.get('username');
+      this.cognitoUser = this.cognito.makeUser(this.username);
   }
 
   ionViewDidLoad() {
-    console.log('DeleteAccountPage.ionViewDidLoad()');
+    if (DEBUG_MODE) console.log('DeleteAccountPage.ionViewDidLoad()');
   }
 
   deleteAccount() {
@@ -46,6 +56,29 @@ export class DeleteAccountPage {
         {
           text: 'Delete',
           handler: () => {
+
+
+            this.cognitoUser.deleteUser(function(err, result) {
+                if (err) {
+                    let alert = this.alertCtrl.create({
+                      title: 'Error',
+                      message: err,
+                      buttons: ['OK']
+                    });
+
+                    alert.present(alert);
+                    return;
+                }
+                let alert = this.alertCtrl.create({
+                  title: 'Account Deleted',
+                  message: result,
+                  buttons: ['OK']
+                });
+
+                alert.present(alert);
+                return;
+            });
+
             this.user.logout();
             this.app.getRootNav().setRoot(LoginPage);
           }
