@@ -22,7 +22,6 @@ export class PasswordResetPage {
   public ReenterNewPassword: string;
 
   private username: string;
-  private cognitoUser: any;
 
   constructor(
       public navCtrl: NavController,
@@ -34,37 +33,41 @@ export class PasswordResetPage {
     if (DEBUG_MODE) console.log('PasswordResetPage.constructor()');
 
     this.username = navParams.get('username');
-    this.cognitoUser = this.cognito.makeUser(this.username);
+    this.cognito.resetPassword(this.username)
+    .then(result => {
+      if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognito.resetPassword - Success:');
+      let alert = this.alertCtrl.create({
+        title: 'Password Reset',
+        message: 'A 5-digit password reset code has been emailed to you.',
+        buttons: ['OK']
+      });
 
+      alert.present();
+
+    })
+    .catch(err => {
+      if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognito.resetPassword - Error:', err);
+
+      let alert = this.alertCtrl.create({
+        title: 'Password Reset',
+        message: err,
+        buttons: ['OK']
+      });
+
+      alert.present();
+    });
     /* Cognito -- start forgotten password work flow */
+    /*
     this.cognitoUser.forgotPassword({
       onSuccess: function(result) {
-        if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognitoUser.forgotPassword - Success:', result);
       },
       onFailure: function(err) {
-        if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognitoUser.forgotPassword - Error:', err);
-
-        let alert = this.alertCtrl.create({
-          title: 'Error',
-          message: err,
-          buttons: ['OK']
-        });
-
-        alert.present();
-
       },
       inputVerificationCode: function() {
         if (DEBUG_MODE) console.log('PasswordResetPage.constructor() cognitoUser.forgotPassword - inputVerificationCode:');
-
-        /*
-        BEWARE:
-        =======
-        I'm pretty sure that there shouldn't be any code here. we're in the constructor.
-        even though this is a call-back, we still need to gather and validate inputs from the user,
-        and i believe that implementing the verification code here could create a race situation.
-        */
       }
     });
+    */
 
     /* setup form validators */
       this.formGroup = formBuilder.group({
@@ -90,9 +93,36 @@ export class PasswordResetPage {
     Note: the following has good insights on how this works on the AWS side, plus working code samples written by folks who do not work at AWS.
     https://stackoverflow.com/questions/38110615/how-to-allow-my-user-to-reset-their-password-on-cognito-user-pools
     */
-    if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset()', this.verificationCode, this.newPassword, this.cognitoUser);
+    if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset()', this.verificationCode, this.newPassword, this.username);
 
     if (this.formValidate())
+    this.cognito.confirmPassword(this.username, this.verificationCode, this.newPassword)
+    .then(result => {
+      if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() this.cognito.confirmPassword() - Success:', result);
+      let alert = this.alertCtrl.create({
+        title: 'Success',
+        message: 'Your password has been updated.',
+        buttons: ['OK']
+      });
+
+      alert.present();
+      this.navCtrl.setRoot(LoginPage);
+
+    })
+    .catch(err => {
+      if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() this.cognito.confirmPassword() - Error:', err);
+
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        message: err,
+        buttons: ['OK']
+      });
+
+      alert.present();
+
+    });
+
+    /*
     this.cognitoUser.confirmPassword(this.verificationCode, this.newPassword, {
       onFailure(err) {
         if (DEBUG_MODE) console.log('PasswordResetPage.passwordReset() cognitoUser.confirmPassword() - Error:', err);
@@ -117,7 +147,8 @@ export class PasswordResetPage {
         this.navCtrl.setRoot(LoginPage);
       },
     });
-
+    */
+    return;
   }
 
   login() {

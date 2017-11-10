@@ -28,31 +28,72 @@ export class Cognito {
   }
 
   changePassword(currentPassword, newPassword) {
+    if (DEBUG_MODE) console.log('Cognito.changePassword()');
 
     let cognitoUser = this.getCurrentUser();
     if (cognitoUser != null) {
       cognitoUser.getSession(function(err, session) {
           if (err) {
-            if (DEBUG_MODE) console.log('Cognito.constructor() - cognitoUser.getSession() - error: ', err);
+            if (DEBUG_MODE) console.log('Cognito.changePassword() - cognitoUser.getSession() - error: ', err);
               return;
           }
-          if (DEBUG_MODE) console.log('Cognito.constructor() - cognitoUser.getSession() - Session: ', session);
+          if (DEBUG_MODE) console.log('Cognito.changePassword() - cognitoUser.getSession() - Session: ', session);
       });
     }
 
     return new Promise((resolve, reject) => {
       cognitoUser.changePassword(currentPassword, newPassword, function(err, result) {
         if (err) {
-          if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error: ', err);
+          if (DEBUG_MODE) console.log('Cognito.changePassword() - cognitoUser.changePassword error: ', err);
           reject(err);
         }
         else {
-          if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - result: ', result);
+          if (DEBUG_MODE) console.log('Cognito.changePassword() - cognitoUser.changePassword result: ', result);
           resolve(result);
+        }
+      });
+     });
+
+  }
+
+  confirmPassword(username: string, verificationCode: string, newPassword: string) {
+    if (DEBUG_MODE) console.log('Cognito.confirmPassword()', verificationCode, newPassword);
+
+    let cognitoUser = this.makeUser(username);
+
+    return new Promise((resolve, reject) => {
+      cognitoUser.confirmPassword(verificationCode, newPassword, {
+        onFailure(err) {
+          if (DEBUG_MODE) console.log('Cognito.confirmPassword() cognitoUser.confirmPassword() - Error:', err);
+          reject(err);
+        },
+        onSuccess(result) {
+          if (DEBUG_MODE) console.log('Cognito.confirmPassword() cognitoUser.confirmPassword() - Success:', result);
+          resolve(result);
+        },
+      });
+     });
+
+  }
+
+  resetPassword(username: string) {
+    let cognitoUser = this.makeUser(username);
+
+    return new Promise((resolve, reject) => {
+      cognitoUser.forgotPassword({
+        onSuccess: function(result) {
+          if (DEBUG_MODE) console.log('Cognito.resetPassword() cognitoUser.forgotPassword - Success:');
+          resolve(result);
+        },
+        onFailure: function(err) {
+          if (DEBUG_MODE) console.log('Cognito.resetPassword() cognitoUser.forgotPassword - Error:', err);
+          reject(err);
         }
       });
 
      });
+
+
   }
 
   getUserPool() {
