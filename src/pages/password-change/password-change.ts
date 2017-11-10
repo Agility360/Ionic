@@ -89,11 +89,27 @@ export class PasswordChangePage {
     this.cognito.changePassword(this.currentPassword, this.newPassword)
     .then(result => {
       if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - result: ', result);
-      this.errMsg = result.toString();
+
+      let alert = this.alertCtrl.create({
+        title: 'Change Password',
+        message: 'Your password has been changed',
+        buttons: ['OK']
+      });
+
+      alert.present();
+      return;
     })
     .catch(err => {
       if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error: ', err);
-      this.errMsg = err;
+
+      let alert = this.alertCtrl.create({
+        title: 'Change Password',
+        message: err,
+        buttons: ['OK']
+      });
+
+      alert.present();
+      return;
     });
 
   }
