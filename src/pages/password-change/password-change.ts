@@ -19,8 +19,8 @@ export class PasswordChangePage {
   public newPassword: string;
   public ReenterNewPassword: string;
 
-  public errMsg: any;
-  public successMsg: any;
+  public errMsg: string;
+  public successMsg: string;
 
   private cognitoUser: any;
 
@@ -36,17 +36,22 @@ export class PasswordChangePage {
 
     this.cognitoUser = this.cognito.getCurrentUser();
     /*
-    next line:
-    look for comment from mreddyg jun 29, 2016
-    https://github.com/aws/amazon-cognito-identity-js/issues/71
+    regarding the next line:
+    -----------------------
+       1.) look for comment from mreddyg jun 29, 2016: https://github.com/aws/amazon-cognito-identity-js/issues/71
+
+       2.) even that example sucks.
+           better explanation of how to get user's session data is here: http://docs.aws.amazon.com/cognito/latest/developerguide/using-amazon-cognito-user-identity-pools-javascript-examples.html
     */
-    this.cognitoUser.getSession(function(err, session) {
-        if (err) {
-          console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - error: ', err);
-            return;
-        }
-        console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - Session: ', session);
-    });
+    if (this.cognitoUser != null) {
+      this.cognitoUser.getSession(function(err, session) {
+          if (err) {
+            if (DEBUG_MODE) console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - error: ', err);
+              return;
+          }
+          if (DEBUG_MODE) console.log('PasswordChangePage.constructor() - this.cognitoUser.getSession() - Session: ', session);
+      });
+    }
 
     /* setup form validators */
     this.formGroup = formBuilder.group({
@@ -72,8 +77,8 @@ export class PasswordChangePage {
 
     if (!this.formValidate()) {
       let alert = this.alertCtrl.create({
-        title: 'Form is not valid',
-        message: 'you are a knob.',
+        title: 'Error',
+        message: 'Form contains invalid data.',
         buttons: ['OK']
       });
 
@@ -81,13 +86,14 @@ export class PasswordChangePage {
       return;
     }
 
-    this.cognitoUser.changePassword(this.currentPassword, this.newPassword, function(err, result) {
-      if (err) {
-        if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error', err);
-      }
-      else {
-        if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - success', result);
-      }
+    this.cognito.changePassword(this.currentPassword, this.newPassword)
+    .then(result => {
+      if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - result: ', result);
+      this.errMsg = result.toString();
+    })
+    .catch(err => {
+      if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error: ', err);
+      this.errMsg = err;
     });
 
   }

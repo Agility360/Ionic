@@ -27,6 +27,34 @@ export class Cognito {
     AWSCognito.config.update({ customUserAgent: AWS.config.customUserAgent });
   }
 
+  changePassword(currentPassword, newPassword) {
+
+    let cognitoUser = this.getCurrentUser();
+    if (cognitoUser != null) {
+      cognitoUser.getSession(function(err, session) {
+          if (err) {
+            if (DEBUG_MODE) console.log('Cognito.constructor() - cognitoUser.getSession() - error: ', err);
+              return;
+          }
+          if (DEBUG_MODE) console.log('Cognito.constructor() - cognitoUser.getSession() - Session: ', session);
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      cognitoUser.changePassword(currentPassword, newPassword, function(err, result) {
+        if (err) {
+          if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - error: ', err);
+          reject(err);
+        }
+        else {
+          if (DEBUG_MODE) console.log('PasswordChangePage.changePassword() - result: ', result);
+          resolve(result);
+        }
+      });
+
+     });
+  }
+
   getUserPool() {
     if (DEBUG_MODE) console.log('Cognito.getUserPool()');
     return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
