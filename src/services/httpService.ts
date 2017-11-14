@@ -12,7 +12,9 @@ import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { App, LoadingController } from 'ionic-angular';
+/*
 import { LoginPage } from '../pages/login/login';
+*/
 import { HttpErrorPage } from '../pages/http-error/http-error';
 import 'rxjs/Rx';
 import { DEBUG_MODE } from '../shared/constants';
@@ -310,13 +312,13 @@ export class HttpService extends Http {
 
   /**
    * moveToLogin
+   private moveToLogin(): void {
+     if (DEBUG_MODE) console.log('HttpService.moveToLogin()');
+     let view = this.app.getRootNav().getActive();
+     if (view.instance instanceof LoginPage) { }
+     else { this.app.getRootNav().setRoot(LoginPage); }
+   }
    */
-  private moveToLogin(): void {
-    if (DEBUG_MODE) console.log('HttpService.moveToLogin()');
-    let view = this.app.getRootNav().getActive();
-    if (view.instance instanceof LoginPage) { }
-    else { this.app.getRootNav().setRoot(LoginPage); }
-  }
 
   private moveToHttpError(): void {
     if (DEBUG_MODE) console.log('HttpService.moveToHttpError()');

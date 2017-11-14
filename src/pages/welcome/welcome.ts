@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 
-import { DEBUG_MODE, appLogo } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 
 
 @IonicPage()

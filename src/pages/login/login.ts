@@ -14,7 +14,7 @@ export class LoginDetails {
 /*-----------------------------------------------------------------------
  * added by mcdaniel
  *-----------------------------------------------------------------------*/
-import { DEBUG_MODE, appLogo } from '../../shared/constants';
+import { DEBUG_MODE } from '../../shared/constants';
 import { Candidate } from '../../shared/candidate';
 import { CandidateProvider } from '../../providers/candidate';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
