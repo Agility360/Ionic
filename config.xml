@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="net.agility360app.cea" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Agility 360</name>
+    <name>Agility360</name>
     <description>Client Engagement App</description>
     <author email="app@agility360app.net" href="http://ionicframework.com/">Agility 360 App Team</author>
     <content src="index.html" />
