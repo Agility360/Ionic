@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+export AWS_PROFILE=agility360
 
 
 echo "Building web app."
