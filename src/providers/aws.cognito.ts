@@ -97,7 +97,7 @@ export class Cognito {
   }
 
   getUserPool() {
-    if (DEBUG_MODE) console.log('Cognito.getUserPool()');
+    if (DEBUG_MODE) console.log('Cognito.getUserPool()', aws_user_pools_id, aws_user_pools_web_client_id);
     return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
       "UserPoolId": aws_user_pools_id,
       "ClientId": aws_user_pools_web_client_id
